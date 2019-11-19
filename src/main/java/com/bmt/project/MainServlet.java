@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pedago
+ * @author pedago-
  */
 public class MainServlet extends HttpServlet {
 
