@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bmt.project.model;
 
 /**
@@ -15,7 +10,7 @@ import org.apache.derby.jdbc.ClientDataSource;
 
 public class DataSourceFactory {
     
-    protected static final String   DB_NAME = "sample";
+    protected static final String   DB_NAME = "JavaEEProject";
     protected static final String   DB_USER = "app";
     protected static final String   DB_PSWD = "app";
     protected static final String   SV_NAME = "localhost";
