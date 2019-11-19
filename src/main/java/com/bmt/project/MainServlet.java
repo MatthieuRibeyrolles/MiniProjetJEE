@@ -22,12 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pedago-
  */
-@WebServlet(name="MainServlet", urlPatterns = {"/welcome"})
 public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("WEB-INF/main").forward(request, response);
+        this.getServletContext().getRequestDispatcher("WEB-INF/main_jsp.jsp").forward(request, response);
             
         
         try (PrintWriter out = response.getWriter()) {
