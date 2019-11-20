@@ -5,16 +5,17 @@
  */
 package com.bmt.project;
 
-import com.bmt.project.model.DAO;
-import com.bmt.project.model.DataSourceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,10 +28,10 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("WEB-INF/main_jsp.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/main_jsp.jsp").forward(request, response);
             
         
-        try (PrintWriter out = response.getWriter()) {
+        try  {
             
             //DAO MyDao = new DAO(DataSourceFactory.getDataSource());
             
@@ -44,7 +45,7 @@ public class MainServlet extends HttpServlet {
                     throw new Exception("le login ou le password sont null");
                 }
                 
-                //MyDa0.Login(log,pass);
+                //MyDa0.login(log,pass);
 
                 
 
@@ -87,7 +88,9 @@ public class MainServlet extends HttpServlet {
                 if (flag == false ){
                     throw new Exception("une des informations est null");
                 }
-                //MyDao.updateProfile(infoPerso);
+                
+                
+                //MyDao.updateClient(old,new);
                 
             }catch (Exception e) {
                 out.printf("Erreur pendant la modif de données perso");
@@ -97,10 +100,33 @@ public class MainServlet extends HttpServlet {
 //ajouter des commandes// 
 
             try {
-                //String = MyDao.currentUser();
-                Date ajd = new Date();
+                ArrayList<String>newcommande = new ArrayList<String>();
                 
-                //MyDao.addCommande();
+                //String usr= MyDao.currentUser();
+                //newcomannde.add(usr);
+                
+                Date ajd = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dat = dateFormat.format(ajd);
+                newcommande.add(dat);
+//////                
+//////                faut rajouter la date de livraison et je sais pas comment la 
+//////                faire (combien de jours si on peut choisir la date ou si 
+//////                la date est attribué automatiquement)
+//////                
+                
+                Random rng = new Random();
+                int temp = rng.nextInt(1_0000_00); 
+
+                
+                
+                
+                
+                
+                
+                
+                
+                //MyDao.addCommande(newcommande);
                 
             }catch (Exception e) {
                 out.printf("erreur pendant l'ajout d'une commande");
@@ -112,23 +138,24 @@ public class MainServlet extends HttpServlet {
 
 
             
-///////////////////////////////////
-
-
-//editer des commandes
+/////////////////////////////////////
 
 
 
 
-///////////////////////////////////
-
-
-//supprimer des commandes 
+////editer des commandes
 
 
 
 
-///////////////////////////////////
+/////////////////////////////////////
+
+////supprimer des commandes 
+
+
+
+
+/////////////////////////////////////
 
 
 
