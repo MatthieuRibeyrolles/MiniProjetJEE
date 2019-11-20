@@ -10,6 +10,7 @@ import com.bmt.project.model.DataSourceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -93,7 +94,19 @@ public class MainServlet extends HttpServlet {
             }
 
 
-//ajouter des commandes//            
+//ajouter des commandes// 
+
+            try {
+                //String = MyDao.currentUser();
+                Date ajd = new Date();
+                
+                //MyDao.addCommande();
+                
+            }catch (Exception e) {
+                out.printf("erreur pendant l'ajout d'une commande");
+            }
+    
+
             
 
 
