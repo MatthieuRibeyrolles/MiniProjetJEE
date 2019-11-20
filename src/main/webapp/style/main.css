@@ -8,12 +8,20 @@ body {
 }
 
 #blocPage {
-    align-items: center;
-    margin: 30px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
 }
 
-#connectDiv {
+#pageTitle { margin-bottom: 50px; }
+#loginButton { 
+    margin-top: 10px; 
+    cursor: pointer;
+}
+
+#connectDiv form {
     display: flex;
-    
+    flex-direction: column;
+    align-items: flex-end;
 }
 
