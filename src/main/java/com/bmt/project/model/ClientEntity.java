@@ -20,6 +20,9 @@ public class ClientEntity {
     private String phone;
     private String fax;
 
+    public ClientEntity() {
+    }
+    
     public ClientEntity(String code, String company, String contact, String role, String address, String city, String region, String zipCode, String country, String phone, String fax) {
         this.code = code;
         this.company = company;
@@ -34,6 +37,94 @@ public class ClientEntity {
         this.fax = fax;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+    
     @Override
     public String toString() {
         return "ClientEntity{" + "code=" + code + ", company=" + company + ", contact=" + contact + ", role=" + role + ", address=" + address + ", city=" + city + ", region=" + region + ", zipCode=" + zipCode + ", country=" + country + ", phone=" + phone + ", fax=" + fax + '}';
