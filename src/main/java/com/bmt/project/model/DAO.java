@@ -3,6 +3,7 @@ package com.bmt.project.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -28,34 +29,41 @@ public class DAO {
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
-            System.out.println("getClientList");
-            int size = 0;
-            ClientEntity c = null;
-                while (rs.next()) {
-                    this.lClients.add(
-                            new ClientEntity(
-                                    rs.getString("code"),
-                                    rs.getString("societe"),
-                                    rs.getString("contact"),
-                                    rs.getString("fonction"),
-                                    rs.getString("adresse"),
-                                    rs.getString("ville"),
-                                    rs.getString("region"),
-                                    rs.getString("code_postal"),
-                                    rs.getString("pays"),
-                                    rs.getString("telephone"),
-                                    rs.getString("fax")
-                            )
-                    );
-                }
+            while (rs.next())
+                this.lClients.add(new ClientEntity(
+                        rs.getString("code"),
+                        rs.getString("societe"),
+                        rs.getString("contact"),
+                        rs.getString("fonction"),
+                        rs.getString("adresse"),
+                        rs.getString("ville"),
+                        rs.getString("region"),
+                        rs.getString("code_postal"),
+                        rs.getString("pays"),
+                        rs.getString("telephone"),
+                        rs.getString("fax"))
+                );
         } catch (Exception e) {
         }
-        System.out.println(String.format("Il y a %d clients", lClients.size()));
-        for (ClientEntity client : lClients) {
-            System.out.println(String.format("\tClient: %s", client));
-        }
-
         return this.lClients;
+    }
+
+    public boolean login(String log, String pass) {
+
+        String sql = "SELECT * FROM Client WHERE contact=? AND code=?";
+
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, log);
+            stmt.setString(2, pass);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next())
+                    return true;
+            }
+        } catch (SQLException e) {
+
+        }
+        return false;
     }
 
 }
