@@ -9,11 +9,11 @@ import java.util.Objects;
  */
 public class OrderEntity {
     
-    private int num;
+//    private int num;
     private ClientEntity client;
-    private Date dateEnter;
+//    private Date dateEnter;
     private Date dateSent;
-    private float port;
+    private float shipping;
     private String receiver;
     private String address;
     private String city;
@@ -21,16 +21,13 @@ public class OrderEntity {
     private String zipcode;
     private String country;
     private float discount;
-
-    public OrderEntity() {
-    }
-
-    public OrderEntity(int num, ClientEntity client, Date dateEnter, Date dateSent, float port, String receiver, String address, String city, String region, String zipcode, String country, float discount) {
-        this.num = num;
+    
+    public OrderEntity(/*int num,*/ ClientEntity client, Date dateEnter, /*Date dateSent,*/ float shipping, String receiver, String address, String city, String region, String zipcode, String country, float discount) {
+//        this.num = num;
         this.client = client;
-        this.dateEnter = dateEnter;
+//        this.dateEnter = dateEnter;
         this.dateSent = dateSent;
-        this.port = port;
+        this.shipping = shipping;
         this.receiver = receiver;
         this.address = address;
         this.city = city;
@@ -40,13 +37,13 @@ public class OrderEntity {
         this.discount = discount;
     }
 
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
+//    public int getNum() {
+//        return num;
+//    }
+//
+//    public void setNum(int num) {
+//        this.num = num;
+//    }
 
     public ClientEntity getClient() {
         return client;
@@ -56,13 +53,13 @@ public class OrderEntity {
         this.client = client;
     }
 
-    public Date getDateEnter() {
-        return dateEnter;
-    }
-
-    public void setDateEnter(Date dateEnter) {
-        this.dateEnter = dateEnter;
-    }
+//    public Date getDateEnter() {
+//        return dateEnter;
+//    }
+//
+//    public void setDateEnter(Date dateEnter) {
+//        this.dateEnter = dateEnter;
+//    }
 
     public Date getDateSent() {
         return dateSent;
@@ -73,11 +70,11 @@ public class OrderEntity {
     }
 
     public float getPort() {
-        return port;
+        return shipping;
     }
 
     public void setPort(float port) {
-        this.port = port;
+        this.shipping = port;
     }
 
     public String getReceiver() {
@@ -139,11 +136,11 @@ public class OrderEntity {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + this.num;
+//        hash = 97 * hash + this.num;
         hash = 97 * hash + Objects.hashCode(this.client);
-        hash = 97 * hash + Objects.hashCode(this.dateEnter);
+//        hash = 97 * hash + Objects.hashCode(this.dateEnter);
         hash = 97 * hash + Objects.hashCode(this.dateSent);
-        hash = 97 * hash + Float.floatToIntBits(this.port);
+        hash = 97 * hash + Float.floatToIntBits(this.shipping);
         hash = 97 * hash + Objects.hashCode(this.receiver);
         hash = 97 * hash + Objects.hashCode(this.address);
         hash = 97 * hash + Objects.hashCode(this.city);
@@ -166,10 +163,10 @@ public class OrderEntity {
             return false;
         }
         final OrderEntity other = (OrderEntity) obj;
-        if (this.num != other.num) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.port) != Float.floatToIntBits(other.port)) {
+//        if (this.num != other.num) {
+//            return false;
+//        }
+        if (Float.floatToIntBits(this.shipping) != Float.floatToIntBits(other.shipping)) {
             return false;
         }
         if (Float.floatToIntBits(this.discount) != Float.floatToIntBits(other.discount)) {
@@ -196,9 +193,9 @@ public class OrderEntity {
         if (!Objects.equals(this.client, other.client)) {
             return false;
         }
-        if (!Objects.equals(this.dateEnter, other.dateEnter)) {
-            return false;
-        }
+//        if (!Objects.equals(this.dateEnter, other.dateEnter)) {
+//            return false;
+//        }
         if (!Objects.equals(this.dateSent, other.dateSent)) {
             return false;
         }
@@ -207,7 +204,7 @@ public class OrderEntity {
 
     @Override
     public String toString() {
-        return "OrderEntity{" + "num=" + num + ", client=" + client + ", dateEnter=" + dateEnter + ", dateSent=" + dateSent + ", port=" + port + ", receiver=" + receiver + ", address=" + address + ", city=" + city + ", region=" + region + ", zipcode=" + zipcode + ", country=" + country + ", discount=" + discount + '}';
+        return "OrderEntity{" + /*"num=" + num +*/ ", client=" + client + /*", dateEnter=" + dateEnter +*/ ", dateSent=" + dateSent + ", port=" + shipping + ", receiver=" + receiver + ", address=" + address + ", city=" + city + ", region=" + region + ", zipcode=" + zipcode + ", country=" + country + ", discount=" + discount + '}';
     }
     
     
