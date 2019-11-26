@@ -43,12 +43,13 @@ public class DAO {
                         rs.getString("telephone"),
                         rs.getString("fax"))
                 );
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return this.lClients;
     }
 
-    public boolean login(String log, String pass) {
+    public ClientEntity login(String log, String pass) {
 
         String sql = "SELECT * FROM Client WHERE contact=? AND code=?";
 
@@ -58,11 +59,65 @@ public class DAO {
             stmt.setString(2, pass);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next())
-                    return true;
+                    return new ClientEntity(
+                            rs.getString(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getString(8),
+                            rs.getString(9),
+                            rs.getString(10),
+                            rs.getString(11)
+                    );
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
+        return null; // Renvoyer directement clientEntity
+    }
+
+    public boolean updateClient(ClientEntity oldC, ClientEntity newC) {
+        
+        int res = 0;
+
+        String sql = "UPDATE Client"
+                + "SET societe=?,"
+                + "contact=?,"
+                + "fonction=?,"
+                + "adresse=?,"
+                + "ville=?,"
+                + "region=?,"
+                + "code_postal=?,"
+                + "pays=?,"
+                + "telephone=?,"
+                + "fax=?"
+                + "WHERE code=?";
+
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, newC.getCompany());
+            stmt.setString(2, newC.getContact());
+            stmt.setString(3, newC.getRole());
+            stmt.setString(4, newC.getAddress());
+            stmt.setString(5, newC.getCity());
+            stmt.setString(6, newC.getRegion());
+            stmt.setString(7, newC.getZipCode());
+            stmt.setString(8, newC.getCountry());
+            stmt.setString(9, newC.getPhone());
+            stmt.setString(10, newC.getFax());
+            stmt.setString(11, oldC.getCode());
+
+            int i = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        if (res > 0)
+            return true;
         return false;
     }
 
