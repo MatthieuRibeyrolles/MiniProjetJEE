@@ -12,9 +12,6 @@ public class CategoryEntity {
     private String wording;
     private String desc;
 
-    public CategoryEntity() {
-    }
-
     public CategoryEntity(int code, String wording, String desc) {
         this.code = code;
         this.wording = wording;

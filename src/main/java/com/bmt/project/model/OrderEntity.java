@@ -1,6 +1,6 @@
 package com.bmt.project.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -22,7 +22,7 @@ public class OrderEntity {
     private String country;
     private float discount;
     
-    public OrderEntity(/*int num,*/ ClientEntity client, Date dateEnter, /*Date dateSent,*/ float shipping, String receiver, String address, String city, String region, String zipcode, String country, float discount) {
+    public OrderEntity(/*int num,*/ ClientEntity client, /*Date dateEnter,*/ Date dateSent, float shipping, String receiver, String address, String city, String region, String zipcode, String country, float discount) {
 //        this.num = num;
         this.client = client;
 //        this.dateEnter = dateEnter;

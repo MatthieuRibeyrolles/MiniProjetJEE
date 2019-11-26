@@ -19,9 +19,6 @@ public class ClientEntity {
     private String country;
     private String phone;
     private String fax;
-
-    public ClientEntity() {
-    }
     
     public ClientEntity(String code, String company, String contact, String role, String address, String city, String region, String zipCode, String country, String phone, String fax) {
         this.code = code;
