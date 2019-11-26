@@ -5,6 +5,7 @@
  */
 package com.bmt.project;
 
+import com.bmt.project.model.OrderEntity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -40,12 +41,14 @@ public class MainServlet extends HttpServlet {
             try {
                 String log = request.getParameter("login");
                 String pass = request.getParameter("password");
-               
+                
+                
+                
                 if (log == null | pass == null) {
                     throw new Exception("le login ou le password sont null");
                 }
                 
-                //MyDa0.login(log,pass);
+                //ClientEntity clientlogged  = new MyDa0.login(log,pass);
 
                 
 
@@ -59,38 +62,30 @@ public class MainServlet extends HttpServlet {
 
 // modifier les informations personnelles//
             try {
-                ArrayList<String> infoPerso = new ArrayList<String>();
                 
+                //String code = clientlogged.getCode();
+                //String societe = clientlogged.getCompany();
                 String contact = request.getParameter("contact");
-                infoPerso.add(contact);
+               
                 String fonction = request.getParameter("fonction");
-                infoPerso.add(fonction);
+               
                 String adresse = request.getParameter("adresse");
-                infoPerso.add(adresse);
+                
                 String ville = request.getParameter("ville");
-                infoPerso.add(ville);
+             
                 String region = request.getParameter("region");
-                infoPerso.add(region);
+               
                 String code_postal = request.getParameter("code_postal");
-                infoPerso.add(code_postal);
+               
                 String pays = request.getParameter("pays");
-                infoPerso.add(pays);
+                
                 String telephone = request.getParameter("telephone");
-                infoPerso.add(telephone);
+                
                 String fax = request.getParameter("fax");
-                infoPerso.add(fax);
                 
-                Boolean flag = true;
-                for (int i = 0 ; i < infoPerso.size() ; i++){
-                    if (infoPerso.get(i)==null)
-                        flag=false;                    
-                }
-                if (flag == false ){
-                    throw new Exception("une des informations est null");
-                }
+                //new ClientEntity newclient = new ClientEntity(code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax);
                 
-                
-                //MyDao.updateClient(old,new);
+                //MyDao.updateClient(old,newclient);
                 
             }catch (Exception e) {
                 out.printf("Erreur pendant la modif de données perso");
@@ -100,15 +95,13 @@ public class MainServlet extends HttpServlet {
 //ajouter des commandes// 
 
             try {
-                ArrayList<String>newcommande = new ArrayList<String>();
-                
-                //String usr= MyDao.currentUser();
-                //newcomannde.add(usr);
+
+
                 
                 Date ajd = new Date();
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String dat = dateFormat.format(ajd);
-                newcommande.add(dat);
+                
 //////                
 //////                faut rajouter la date de livraison et je sais pas comment la 
 //////                faire (combien de jours si on peut choisir la date ou si 
@@ -119,14 +112,14 @@ public class MainServlet extends HttpServlet {
                 int temp = rng.nextInt(1_0000_00); 
 
                 
+                OrderEntity neworder = new OrderEntity();   
                 
                 
                 
                 
                 
                 
-                
-                //MyDao.addCommande(newcommande);
+                //MyDao.addCommande(neworder);
                 
             }catch (Exception e) {
                 out.printf("erreur pendant l'ajout d'une commande");
