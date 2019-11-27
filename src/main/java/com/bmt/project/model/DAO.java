@@ -24,14 +24,17 @@ public class DAO {
         this.myDAO = myDAO;
         this.lClients = new ArrayList<>();
         this.lOrders = new ArrayList<>();
+        this.lCategories = new ArrayList<>();
+
     }
 
     public List<ClientEntity> getClientsList() {
-        String sql = "SELECT code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax FROM CLIENT";
+        String sql = "SELECT code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax FROM CLIENT";
 
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
+            this.lClients = new ArrayList<>();
             while (rs.next())
                 this.lClients.add(new ClientEntity(
                         rs.getString("code"),
@@ -47,16 +50,18 @@ public class DAO {
                         rs.getString("fax"))
                 );
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return this.lClients;
     }
 
     public List<OrderEntity> getOrdersList() {
-        String sql = "SELECT client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livraison,pays_livraison,remise FROM Commande";
+        String sql = "SELECT client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise FROM Commande";
 
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
+            this.lOrders = new ArrayList<>();
             while (rs.next())
                 this.lOrders.add(new OrderEntity(
                         getClientBycode(rs.getString("client")),
@@ -66,28 +71,31 @@ public class DAO {
                         rs.getString("adresse_livraison"),
                         rs.getString("ville_livraison"),
                         rs.getString("region_livraison"),
-                        rs.getString("code_postal_livraison"),
+                        rs.getString("code_postal_livrais"),
                         rs.getString("pays_livraison"),
                         rs.getFloat("remise")
                 ));
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return this.lOrders;
     }
-    
-    public List<CategoryEntity> getCategoriesList(){
+
+    public List<CategoryEntity> getCategoriesList() {
         String sql = "SELECT code,libelle,description FROM Categorie";
 
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
+            this.lCategories = new ArrayList<>();
             while (rs.next())
                 this.lCategories.add(new CategoryEntity(rs.getInt("code"), rs.getString("libelle"), rs.getString("description")));
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return this.lCategories;
     }
-    
+
     public List<ClientEntity> getClientsListWithoutDBQuery() {
         return this.lClients;
     }
@@ -121,13 +129,14 @@ public class DAO {
                     );
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return null; // Renvoyer directement clientEntity
     }
 
     public ClientEntity getClientBycode(String codeC) {
         for (ClientEntity client : this.lClients)
-            if (client.getCode() == codeC)
+            if (client.getCode() == null ? codeC == null : client.getCode().equals(codeC))
                 return client;
         return null;
     }
@@ -172,6 +181,7 @@ public class DAO {
                     client = oldC;
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return res > 0;
@@ -200,18 +210,22 @@ public class DAO {
             this.lClients.add(newC);
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return res > 0;
     }
 
     public boolean addOrder(OrderEntity newO) {
+        System.out.println("Bonjour toi");
         int res = 0;
         String sql = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livraison,pays_livraison,remise)"
+                + "OUTPUT Inserted.Numero"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        System.out.println("... !");
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
+            System.out.println("A que coucou");
             stmt.setString(1, newO.getClient().getCode());
             stmt.setDate(2, newO.getDateSent());
             stmt.setFloat(3, newO.getPort());
@@ -223,21 +237,29 @@ public class DAO {
             stmt.setString(9, newO.getCountry());
             stmt.setFloat(10, newO.getDiscount());
 
-            res = stmt.executeUpdate();
-            this.lOrders.add(newO);
+//            res = stmt.executeUpdate();
+            System.out.println("yolo");
+            ResultSet rs = stmt.executeQuery();
+            System.out.println("Oui");
+            if (rs.next()) {
+                System.out.println("Excellent !");
+                System.out.println(rs.getString(1));
+                this.lOrders.add(newO);
+                System.out.println("Combo");
+                res++;
+            }
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return res > 0;
     }
 
 //    public boolean deleteOrder(OrderEntity newO) {
-//
+//        String sql = "DELETE FROM Commande WHERE client=? AND envoyee_le=? AND port=? AND";
 //    }
-
 //    public boolean updateOrder(OrderEntity newO) {
 //
 //    }
-
 }
