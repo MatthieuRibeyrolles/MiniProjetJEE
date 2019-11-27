@@ -21,17 +21,17 @@ public class ClientEntity {
     private String fax;
     
     public ClientEntity(String code, String company, String contact, String role, String address, String city, String region, String zipCode, String country, String phone, String fax) {
-        this.code = code;
-        this.company = company;
-        this.contact = contact;
-        this.role = role;
-        this.address = address;
-        this.city = city;
-        this.region = region;
-        this.zipCode = zipCode;
-        this.country = country;
-        this.phone = phone;
-        this.fax = fax;
+        this.code       = (code != null)    ? code.trim()       : null;
+        this.company    = (company != null) ? company.trim()    : null;
+        this.contact    = (contact != null) ? contact.trim()    : null;
+        this.role       = (role != null)    ? role.trim()       : null;
+        this.address    = (address != null) ? address.trim()    : null;
+        this.city       = (city != null)    ? city.trim()       : null;
+        this.region     = (region != null)  ? region.trim()     : null;
+        this.zipCode    = (zipCode != null) ? zipCode.trim()    : null;
+        this.country    = (country != null) ? country.trim()    : null;
+        this.phone      = (phone != null)   ? phone.trim()      : null;
+        this.fax        = (fax != null)     ? fax.trim()        : null;
     }
 
     public String getCode() {
