@@ -1,10 +1,11 @@
 <%-- 
     Document   : main_jsp
     Created on : 19 nov. 2019, 13:55:51
-    Author     : pedago
+    Author     : Matthieu
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,14 +27,9 @@
             </div>
             
             <div id="menuBar">
-                <a href="products"> Boissons </a>
-                <a href="products"> Condiments</a>
-                <a href="products"> Desserts </a>
-                <a href="products"> Produits laitiers </a>
-                <a href="products"> Pâtes/Céréales </a>
-                <a href="products"> Viandes </a>
-                <a href="products"> Produits secs </a>
-                <a href="products"> Poissons et fruits de mer </a>
+                <c:forEach items = "${categories_list}" var = "cat">
+                    <a href="products"> "${cat}" </a>
+                </c:forEach>
             </div>
                 
 
