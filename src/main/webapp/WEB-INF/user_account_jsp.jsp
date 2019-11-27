@@ -1,7 +1,7 @@
 <%-- 
     Document   : user_account_jsp
     Created on : 26 nov. 2019, 14:40:53
-    Author     : pedago
+    Author     : Matthieu
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

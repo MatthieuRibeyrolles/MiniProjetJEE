@@ -1,7 +1,7 @@
 <%-- 
     Document   : products_presentation_jsp
     Created on : 26 nov. 2019, 14:34:19
-    Author     : pedago
+    Author     : Matthieu
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
