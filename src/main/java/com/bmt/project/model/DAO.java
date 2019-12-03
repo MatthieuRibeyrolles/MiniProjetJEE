@@ -173,7 +173,7 @@ public class DAO {
 
     public boolean updateClient(ClientEntity oldC, ClientEntity newC) {
         int res = 0;
-        String sql = "UPDATE Client"
+        String sql = "UPDATE Client "
                 + "SET code=?,"
                 + "societe=?,"
                 + "contact=?,"
@@ -249,15 +249,11 @@ public class DAO {
     public OrderEntity addOrder(OrderEntity newO) {
         int res = 0;
 
-        System.out.println("Order: " + newO);
-
         String sqlU = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        String sqlQ = "SELECT LAST_INSERT_ID() FROM Commande";
 
         try (Connection con = this.myDAO.getConnection();
-                PreparedStatement stmtU = con.prepareStatement(sqlU, Statement.RETURN_GENERATED_KEYS); //                PreparedStatement stmtQ = con.prepareStatement(sqlQ)
-                ) {
+                PreparedStatement stmtU = con.prepareStatement(sqlU, Statement.RETURN_GENERATED_KEYS);) {
 
             stmtU.setString(1, newO.getClient().getCode());
             stmtU.setDate(2, newO.getDateSent());
@@ -271,17 +267,12 @@ public class DAO {
             stmtU.setFloat(10, newO.getDiscount());
 
             res = stmtU.executeUpdate();
-            System.err.println("Generated_keys: " + res);
-            if (res != 0) {
-                System.out.println("Generated_keys: " + res);
+            if (res != 0)
                 return new OrderEntity(res, newO.getClient(), newO.getDateSent(), newO.getPort(), newO.getReceiver(), newO.getAddress(), newO.getCity(), newO.getRegion(), newO.getZipcode(), newO.getCountry(), newO.getDiscount());
-            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        System.out.println("TAMER");
         return null;
     }
 
@@ -292,13 +283,9 @@ public class DAO {
 //
 //    }
     public CategoryEntity getCategoryByCode(int code) {
-        for (CategoryEntity category : this.lCategories) {
-            System.out.println("1 - " + category.getCode());
-            System.out.println("2 - " + code);
-            System.out.println("Are they equals ? " + (code == category.getCode()));
+        for (CategoryEntity category : this.lCategories)
             if (category.getCode() == code)
                 return category;
-        }
         return null;
     }
 

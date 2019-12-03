@@ -69,14 +69,10 @@ public class DAOTest {
 
     @Before
     public void setUp() throws SQLException, IOException, SqlToolError {
-//        this.myDataSource = DataSourceFactory.getDataSource();
-
         this.myDataSource = getDataSource();
         this.myConnection = this.myDataSource.getConnection();
-        
         executeSQLScript(this.myConnection, CREATE_DB);
         executeSQLScript(this.myConnection, FILL_DB);
-        
         this.myDAO = new DAO(this.myDataSource);
         this.testClient = new ClientEntity("ALFKI", "Alfreds Futterkiste", "Maria Anders", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");
     }
@@ -180,11 +176,12 @@ public class DAOTest {
      */
     @Test
     public void testUpdateClient() {
+        // TODO: ici
         System.out.println("updateClient");
-        ClientEntity oldC = null;
-        ClientEntity newC = null;
+        ClientEntity oldC = this.testClient;
+        ClientEntity newC = new ClientEntity("ALFKI", "Alfreds Futterkiste", "chuck Norris", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");;
         DAO instance = this.myDAO;
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.updateClient(oldC, newC);
         assertEquals(expResult, result);
     }
@@ -194,6 +191,7 @@ public class DAOTest {
      */
     @Test
     public void testAddClient() {
+        // TODO: ici
         System.out.println("addClient");
         ClientEntity newC = null;
         DAO instance = this.myDAO;
@@ -208,17 +206,12 @@ public class DAOTest {
     @Test
     public void testAddOrder() {
         System.out.println("addOrder");
-        
         DAO instance = this.myDAO;
-        
         instance.getClientsList();
-        ClientEntity c = instance.getClientBycode("ALFKI");
-        OrderEntity newO = new OrderEntity(c, Date.valueOf(LocalDate.now()), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
-
-        int expResult = 11078;
+        OrderEntity newO = new OrderEntity(instance.getClientBycode("ALFKI"), Date.valueOf(LocalDate.now()), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
+        int expResult = 1;
         int result = instance.addOrder(newO).getNum();
         assertEquals(expResult, result);
-        fail("Vous ne passerez pas !");
     }
 
     /**
@@ -241,6 +234,7 @@ public class DAOTest {
         System.out.println("getCategoryByCode");
         int code = 1;
         DAO instance = this.myDAO;
+        instance.getCategoriesList();
         CategoryEntity expResult = new CategoryEntity(1, "Boissons", "Boissons, cafés, thés, bières");
         CategoryEntity result = instance.getCategoryByCode(code);
         assertEquals(expResult, result);
