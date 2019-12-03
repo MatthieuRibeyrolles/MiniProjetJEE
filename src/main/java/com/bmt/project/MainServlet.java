@@ -9,6 +9,7 @@ import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
 import com.bmt.project.model.OrderEntity;
+import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -16,7 +17,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,17 +36,49 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DAO MyDao = new DAO(DataSourceFactory.getDataSource());
         
+        DAO MyDao = new DAO(DataSourceFactory.getDataSource());
+       
+        
+        
+        
+        
+        //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
+//        List<ProductEntity> prod = MyDao.getProductList();
         
         List<String> nomcat = new ArrayList<String>();
+       
+        Map<String, ArrayList<String>> mapProduct = new HashMap<>();
+//        List<ProductEntity> listProduct = MyDao.getProductlist();
+
+        
+        
         for(CategoryEntity c : cat ){
             nomcat.add(c.getWording());
+            mapProduct.put(c.getWording(),new ArrayList<String>());
         }
+        System.out.println(nomcat.get(0));
+       
         
+//        for(ProductEntity p : prod){
+//            ArrayList<ProductEntity> tmp = mapProduct.get(p.getCategory());
+//            tmp.add(p.getName());
+//            mapProduct.put(p.getCategory(),tmp);
+//        }
+//        
+//     
+//        request.setAttribute("product_map",mapProduct);
         request.setAttribute("categories_list",nomcat);
+        //fin de la liste des catégories et de la map des produits
+        
+        
 
+
+
+
+        
+        
         this.getServletContext().getRequestDispatcher("/WEB-INF/main_jsp.jsp").forward(request, response);
             
         
