@@ -22,7 +22,7 @@
             <c:forEach var = "i" begin="0" end="15">
                 <tr>
                     <c:forEach var = "j" begin="0" end="5">
-                        <td>Produit ${i} ${j}</td>
+                        <td> <a href="#"> Produit ${i} ${j} </a></td>
                     </c:forEach>
                 </tr>
             </c:forEach>
