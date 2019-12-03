@@ -10,23 +10,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>BMT website</title>
         <link href="style/table_css.css" rel="stylesheet">
     </head>
     
     <body>
-        <div id="blocPage">
             <table cellspacing="0">
-            <caption>products for category XXXX</caption>
-            
-            <c:forEach var = "i" begin="0" end="15">
-                <tr>
-                    <c:forEach var = "j" begin="0" end="5">
-                        <td>Produit ${i} ${j}</td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
+                <caption><h1>products for category ${param.cat}</h1></caption>
+
+                <c:forEach var = "i" begin="0" end="15">
+                    <tr>
+                        <c:forEach var = "j" begin="0" end="5">
+                            <td> <a href="#"> Produit ${i} ${j} </a></td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
         </table>
-        </div>
+
+        <c:out value="${sessionScope.coucou}"></c:out>
     </body>
 </html>

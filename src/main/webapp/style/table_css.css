@@ -8,22 +8,26 @@ and open the template in the editor.
     Author     : Matthieu
 */
 
-#blocPage {
-    display: flex;
-    width: 80%;
-    justify-content: center;
-}
+table {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+} caption { margin-bottom: 30px;}
 
 th, td { 
     border-right: 1px solid black;
     border-collapse: collapse;
-}:last-child {border: none;}
+} :last-child {border: none;}
 
-
-table {
-    text-align: center;
-    border: 1px solid black;
-} caption { margin-bottom: 30px;}
-th, td{
-    padding:15px;
+td {
+    background-color: #828282;
+} a { 
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    }
+    
+td:hover {
+    background-color: #545454;
 }
