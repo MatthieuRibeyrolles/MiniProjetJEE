@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProductsPresentation</servlet-name>
-        <jsp-file>/WEB-INF/products_presentation_jsp.jsp</jsp-file>
+        <jsp-file>/WEB-INF/products_presentation.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>UserAccount</servlet-name>

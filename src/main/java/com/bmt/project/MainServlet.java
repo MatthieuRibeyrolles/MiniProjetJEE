@@ -53,7 +53,6 @@ public class MainServlet extends HttpServlet {
 //        List<ProductEntity> listProduct = MyDao.getProductlist();
 
         
-        
         for(CategoryEntity c : cat ){
             nomcat.add(c.getWording());
             mapProduct.put(c.getWording(),new ArrayList<String>());

@@ -26,12 +26,14 @@
                 </form>
             </div>
             
-            <p>${categories_list}</p>
+            <!--<p>${categories_list}</p>
             
             <div id="menuBar">
                 <c:forEach items = "${categories_list}" var = "cat">
                     <p> "${cat}" </p>
                 </c:forEach>
+            
+            -->
             </div>
             </div>
         </div>

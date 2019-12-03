@@ -8,11 +8,6 @@ and open the template in the editor.
     Author     : Matthieu
 */
 
-#blocPage {
-    width: 80%;
-    margin: auto;
-}
-
 table {
     text-align: center;
     margin-left: auto;
@@ -22,7 +17,6 @@ table {
 th, td { 
     border-right: 1px solid black;
     border-collapse: collapse;
-    padding:15px;
 } :last-child {border: none;}
 
 td {
@@ -31,6 +25,7 @@ td {
     display: block;
     text-decoration: none;
     color: black;
+    padding: 15px;
     }
     
 td:hover {
