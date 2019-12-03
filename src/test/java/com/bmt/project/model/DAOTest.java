@@ -170,9 +170,6 @@ public class DAOTest {
         instance.getClientsList();
         ClientEntity expResult = this.testClient;
         ClientEntity result = instance.getClientBycode(codeC);
-        System.out.println("Client de test:       " + this.testClient);
-        System.out.println("Client de la requete: " + result);
-        System.out.println("Are they equals ? " + this.testClient.equals(result));
         assertEquals(expResult, result);
     }
 
@@ -206,14 +203,43 @@ public class DAOTest {
     /**
      * Test of addOrder method, of class DAO.
      */
-    @Test
+//    @Test
     public void testAddOrder() {
         System.out.println("addOrder");
-        OrderEntity newO = null;
+        OrderEntity newO = new OrderEntity(myDAO.getClientBycode("RATTC"), Date.valueOf(LocalDate.MAX), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
         DAO instance = this.myDAO;
-        boolean expResult = false;
-        boolean result = instance.addOrder(newO);
+        int expResult = 11078;
+        int result = instance.addOrder(newO).getNum();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getProductsList method, of class DAO.
+     */
+    @Test
+    public void testGetProductsList() {
+        System.out.println("getProductsList");
+        DAO instance = this.myDAO;
+        List<ProductEntity> expResult = null;
+        List<ProductEntity> result = instance.getProductsList();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCategoryByCode method, of class DAO.
+     */
+    @Test
+    public void testGetCategoryByCode() {
+        System.out.println("getCategoryByCode");
+        int code = 0;
+        DAO instance = null;
+        CategoryEntity expResult = null;
+        CategoryEntity result = instance.getCategoryByCode(code);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
