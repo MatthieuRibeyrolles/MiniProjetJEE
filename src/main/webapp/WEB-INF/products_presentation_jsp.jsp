@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1> Products Presentation </h1>
+        <%@include file="jsp_parts/productsPresentation.jsp" %>
     </body>
 </html>

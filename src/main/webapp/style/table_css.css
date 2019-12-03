@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 nov. 2019, 14:40:29
+    Author     : Matthieu
+*/
+
+#blocPage {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+}
+
+th, td { 
+    border-right: 1px solid black;
+    border-collapse: collapse;
+}:last-child {border: none;}
+
+
+table {
+    text-align: center;
+    border: 1px solid black;
+} caption { margin-bottom: 30px;}
+th, td{
+    padding:15px;
+}
