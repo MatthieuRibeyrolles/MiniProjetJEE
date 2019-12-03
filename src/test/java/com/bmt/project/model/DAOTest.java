@@ -213,4 +213,33 @@ public class DAOTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of getProductsList method, of class DAO.
+     */
+    @Test
+    public void testGetProductsList() {
+        System.out.println("getProductsList");
+        DAO instance = this.myDAO;
+        List<ProductEntity> expResult = null;
+        List<ProductEntity> result = instance.getProductsList();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCategoryByCode method, of class DAO.
+     */
+    @Test
+    public void testGetCategoryByCode() {
+        System.out.println("getCategoryByCode");
+        int code = 0;
+        DAO instance = null;
+        CategoryEntity expResult = null;
+        CategoryEntity result = instance.getCategoryByCode(code);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
 }
