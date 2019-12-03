@@ -70,13 +70,15 @@ public class DAOTest {
     @Before
     public void setUp() throws SQLException, IOException, SqlToolError {
 //        this.myDataSource = DataSourceFactory.getDataSource();
+
+        this.myDataSource = getDataSource();
         this.myConnection = this.myDataSource.getConnection();
-        this.myConnection = DataSourceFactory.getDataSource().getConnection();
+        
         executeSQLScript(this.myConnection, CREATE_DB);
         executeSQLScript(this.myConnection, FILL_DB);
+        
         this.myDAO = new DAO(this.myDataSource);
         this.testClient = new ClientEntity("ALFKI", "Alfreds Futterkiste", "Maria Anders", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");
-        
     }
 
     @After
