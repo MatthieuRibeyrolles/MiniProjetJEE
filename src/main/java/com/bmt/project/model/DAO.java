@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.sql.DataSource;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class DAO {
     }
 
     public List<ProductEntity> getProductsList() {
-        String sql = "SELECT reference,nom,fournisseur,categorie,quantite_par_unite,prix_unitaire,unites_en_stock,unites_commandees,niveau_de_reappro,indisponible FROM Product";
+        String sql = "SELECT reference,nom,fournisseur,categorie,quantite_par_unite,prix_unitaire,unites_en_stock,unites_commandees,niveau_de_reappro,indisponible FROM Produit";
 
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -164,9 +165,12 @@ public class DAO {
     }
 
     public ClientEntity getClientBycode(String codeC) {
-        for (ClientEntity client : this.lClients)
+        for (ClientEntity client : this.lClients) {
+            System.out.println(codeC + " ? " + client.getCode());
             if (client.getCode() == null ? codeC == null : client.getCode().equals(codeC))
                 return client;
+        }
+        System.out.println("Oups !");
         return null;
     }
 
@@ -247,14 +251,17 @@ public class DAO {
 
     public OrderEntity addOrder(OrderEntity newO) {
         int res = 0;
-
+        
+        System.out.println("Order: " + newO);
+        
         String sqlU = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String sqlQ = "SELECT LAST_INSERT_ID() FROM Commande";
+//        String sqlQ = "SELECT LAST_INSERT_ID() FROM Commande";
 
         try (Connection con = this.myDAO.getConnection();
-                PreparedStatement stmtU = con.prepareStatement(sqlU);
-                PreparedStatement stmtQ = con.prepareStatement(sqlQ)) {
+                PreparedStatement stmtU = con.prepareStatement(sqlU, Statement.RETURN_GENERATED_KEYS);
+//                PreparedStatement stmtQ = con.prepareStatement(sqlQ)
+                ) {
 
             stmtU.setString(1, newO.getClient().getCode());
             stmtU.setDate(2, newO.getDateSent());
@@ -268,15 +275,17 @@ public class DAO {
             stmtU.setFloat(10, newO.getDiscount());
 
             res = stmtU.executeUpdate();
+                System.err.println("Generated_keys: " + res);
             if (res != 0) {
-                ResultSet rs = stmtQ.executeQuery();
-                return new OrderEntity(rs.getInt(1), newO.getClient(), newO.getDateSent(), newO.getPort(), newO.getReceiver(), newO.getAddress(), newO.getCity(), newO.getRegion(), newO.getZipcode(), newO.getCountry(), newO.getDiscount());
+                System.out.println("Generated_keys: " + res);
+                return new OrderEntity(res, newO.getClient(), newO.getDateSent(), newO.getPort(), newO.getReceiver(), newO.getAddress(), newO.getCity(), newO.getRegion(), newO.getZipcode(), newO.getCountry(), newO.getDiscount());
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
+        
+        System.out.println("TAMER");
         return null;
     }
 
@@ -288,9 +297,13 @@ public class DAO {
 //    }
     
     public CategoryEntity getCategoryByCode(int code) {
-        for (CategoryEntity category : this.lCategories)
+        for (CategoryEntity category : this.lCategories) {
+            System.out.println("1 - " + category.getCode());
+            System.out.println("2 - " + code);
+            System.out.println("Are they equals ? " + (code == category.getCode()));
             if (category.getCode() == code)
                 return category;
+        }
         return null;
     }
     
