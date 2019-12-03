@@ -19,6 +19,7 @@ public class DAO {
     private List<ClientEntity> lClients;
     private List<OrderEntity> lOrders;
     private List<CategoryEntity> lCategories;
+    private List<ProductEntity> lProducts;
 
     public DAO(DataSource myDAO) {
         this.myDAO = myDAO;
@@ -96,6 +97,34 @@ public class DAO {
         return this.lCategories;
     }
 
+    public List<ProductEntity> getProductsList() {
+        String sql = "SELECT reference,nom,fournisseur,categorie,quantite_par_unite,prix_unitaire,unites_en_stock,unites_commandees,niveau_de_reappro,indisponible FROM Product";
+
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+            this.lProducts = new ArrayList<>();
+            while (rs.next())
+                this.lProducts.add(
+                        new ProductEntity(
+                                rs.getInt("reference"),
+                                rs.getString("nom"),
+                                rs.getInt("fournisseur"),
+                                getCategoryByCode(rs.getInt("categorie")),
+                                rs.getString("quantite_par_unite"),
+                                rs.getFloat("prix_unitaire"),
+                                rs.getInt("unites_en_stock"),
+                                rs.getInt("unites_commandees"),
+                                rs.getInt("niveau_de_reappro"),
+                                rs.getBoolean("indisponible")
+                        )
+                );
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return this.lProducts;
+    }
+
     public List<ClientEntity> getClientsListWithoutDBQuery() {
         return this.lClients;
     }
@@ -144,7 +173,7 @@ public class DAO {
     public boolean updateClient(ClientEntity oldC, ClientEntity newC) {
         int res = 0;
         String sql = "UPDATE Client"
-                + "SET code = ?,"
+                + "SET code=?,"
                 + "societe=?,"
                 + "contact=?,"
                 + "fonction=?,"
@@ -216,44 +245,39 @@ public class DAO {
         return res > 0;
     }
 
-    public boolean addOrder(OrderEntity newO) {
-        System.out.println("Bonjour toi");
+    public OrderEntity addOrder(OrderEntity newO) {
         int res = 0;
-        String sql = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livraison,pays_livraison,remise)"
-                + "OUTPUT Inserted.Numero"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println("... !");
-        try (Connection con = this.myDAO.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)) {
-            System.out.println("A que coucou");
-            stmt.setString(1, newO.getClient().getCode());
-            stmt.setDate(2, newO.getDateSent());
-            stmt.setFloat(3, newO.getPort());
-            stmt.setString(4, newO.getReceiver());
-            stmt.setString(5, newO.getAddress());
-            stmt.setString(6, newO.getCity());
-            stmt.setString(7, newO.getRegion());
-            stmt.setString(8, newO.getZipcode());
-            stmt.setString(9, newO.getCountry());
-            stmt.setFloat(10, newO.getDiscount());
 
-//            res = stmt.executeUpdate();
-            System.out.println("yolo");
-            ResultSet rs = stmt.executeQuery();
-            System.out.println("Oui");
-            if (rs.next()) {
-                System.out.println("Excellent !");
-                System.out.println(rs.getString(1));
-                this.lOrders.add(newO);
-                System.out.println("Combo");
-                res++;
+        String sqlU = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlQ = "SELECT LAST_INSERT_ID() FROM Commande";
+
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmtU = con.prepareStatement(sqlU);
+                PreparedStatement stmtQ = con.prepareStatement(sqlQ)) {
+
+            stmtU.setString(1, newO.getClient().getCode());
+            stmtU.setDate(2, newO.getDateSent());
+            stmtU.setFloat(3, newO.getPort());
+            stmtU.setString(4, newO.getReceiver());
+            stmtU.setString(5, newO.getAddress());
+            stmtU.setString(6, newO.getCity());
+            stmtU.setString(7, newO.getRegion());
+            stmtU.setString(8, newO.getZipcode());
+            stmtU.setString(9, newO.getCountry());
+            stmtU.setFloat(10, newO.getDiscount());
+
+            res = stmtU.executeUpdate();
+            if (res != 0) {
+                ResultSet rs = stmtQ.executeQuery();
+                return new OrderEntity(rs.getInt(1), newO.getClient(), newO.getDateSent(), newO.getPort(), newO.getReceiver(), newO.getAddress(), newO.getCity(), newO.getRegion(), newO.getZipcode(), newO.getCountry(), newO.getDiscount());
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return res > 0;
+        return null;
     }
 
 //    public boolean deleteOrder(OrderEntity newO) {
@@ -262,4 +286,12 @@ public class DAO {
 //    public boolean updateOrder(OrderEntity newO) {
 //
 //    }
+    
+    public CategoryEntity getCategoryByCode(int code) {
+        for (CategoryEntity category : this.lCategories)
+            if (category.getCode() == code)
+                return category;
+        return null;
+    }
+    
 }
