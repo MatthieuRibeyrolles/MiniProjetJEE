@@ -69,11 +69,11 @@ public class DAOTest {
 
     @Before
     public void setUp() throws SQLException, IOException, SqlToolError {
-        this.myDataSource = DataSourceFactory.getDataSource();
-//        this.myConnection = this.myDataSource.getConnection();
-//        this.myConnection = DataSourceFactory.getDataSource().getConnection();
-//        executeSQLScript(this.myConnection, CREATE_DB);
-//        executeSQLScript(this.myConnection, FILL_DB);
+//        this.myDataSource = DataSourceFactory.getDataSource();
+        this.myConnection = this.myDataSource.getConnection();
+        this.myConnection = DataSourceFactory.getDataSource().getConnection();
+        executeSQLScript(this.myConnection, CREATE_DB);
+        executeSQLScript(this.myConnection, FILL_DB);
         this.myDAO = new DAO(this.myDataSource);
         this.testClient = new ClientEntity("ALFKI", "Alfreds Futterkiste", "Maria Anders", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");
         
@@ -203,14 +203,20 @@ public class DAOTest {
     /**
      * Test of addOrder method, of class DAO.
      */
-//    @Test
+    @Test
     public void testAddOrder() {
         System.out.println("addOrder");
-        OrderEntity newO = new OrderEntity(myDAO.getClientBycode("RATTC"), Date.valueOf(LocalDate.MAX), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
+        
         DAO instance = this.myDAO;
+        
+        instance.getClientsList();
+        ClientEntity c = instance.getClientBycode("ALFKI");
+        OrderEntity newO = new OrderEntity(c, Date.valueOf(LocalDate.now()), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
+
         int expResult = 11078;
         int result = instance.addOrder(newO).getNum();
         assertEquals(expResult, result);
+        fail("Vous ne passerez pas !");
     }
 
     /**
@@ -220,11 +226,9 @@ public class DAOTest {
     public void testGetProductsList() {
         System.out.println("getProductsList");
         DAO instance = this.myDAO;
-        List<ProductEntity> expResult = null;
-        List<ProductEntity> result = instance.getProductsList();
+        int expResult = 77;
+        int  result = instance.getProductsList().size();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -233,13 +237,11 @@ public class DAOTest {
     @Test
     public void testGetCategoryByCode() {
         System.out.println("getCategoryByCode");
-        int code = 0;
-        DAO instance = null;
-        CategoryEntity expResult = null;
+        int code = 1;
+        DAO instance = this.myDAO;
+        CategoryEntity expResult = new CategoryEntity(1, "Boissons", "Boissons, cafés, thés, bières");
         CategoryEntity result = instance.getCategoryByCode(code);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }
