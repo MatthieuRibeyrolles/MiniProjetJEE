@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author Thibault
  */
 public class ProductEntity {
-    
+
     private int reference;
     private String name;
     private int provider;
@@ -133,46 +133,33 @@ public class ProductEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final ProductEntity other = (ProductEntity) obj;
-        if (this.reference != other.reference) {
+        if (this.reference != other.reference)
             return false;
-        }
-        if (this.provider != other.provider) {
+        if (this.provider != other.provider)
             return false;
-        }
-        if (Float.floatToIntBits(this.price) != Float.floatToIntBits(other.price)) {
+        if (Float.floatToIntBits(this.price) != Float.floatToIntBits(other.price))
             return false;
-        }
-        if (this.stock != other.stock) {
+        if (this.stock != other.stock)
             return false;
-        }
-        if (this.ordered != other.ordered) {
+        if (this.ordered != other.ordered)
             return false;
-        }
-        if (this.refill != other.refill) {
+        if (this.refill != other.refill)
             return false;
-        }
-        if (this.available != other.available) {
+        if (this.available != other.available)
             return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.name, other.name))
             return false;
-        }
-        if (!Objects.equals(this.qtyPerPackage, other.qtyPerPackage)) {
+        if (!Objects.equals(this.qtyPerPackage, other.qtyPerPackage))
             return false;
-        }
-        if (!Objects.equals(this.category, other.category)) {
+        if (!Objects.equals(this.category, other.category))
             return false;
-        }
         return true;
     }
 
@@ -180,5 +167,5 @@ public class ProductEntity {
     public String toString() {
         return "ProductEntity{" + "reference=" + reference + ", name=" + name + ", provider=" + provider + ", category=" + category + ", qtyPerPackage=" + qtyPerPackage + ", price=" + price + ", stock=" + stock + ", ordered=" + ordered + ", refill=" + refill + ", available=" + available + '}';
     }
-    
+
 }

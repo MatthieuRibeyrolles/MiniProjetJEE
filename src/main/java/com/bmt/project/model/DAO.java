@@ -5,10 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.sql.DataSource;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 
 /**
  *
@@ -23,14 +22,18 @@ public class DAO {
     private List<ProductEntity> lProducts;
 
     public DAO(DataSource myDAO) {
-        this.myDAO = myDAO;
-        this.lClients = new ArrayList<>();
-        this.lOrders = new ArrayList<>();
-        this.lCategories = new ArrayList<>();
-
+        this.myDAO          = myDAO;
+        this.lClients       = new ArrayList<>();
+        this.lOrders        = new ArrayList<>();
+        this.lCategories    = new ArrayList<>();
+        this.lProducts      = new ArrayList<>();
     }
 
     public List<ClientEntity> getClientsList() {
+
+        if (!this.lClients.isEmpty())
+            return this.lClients;
+
         String sql = "SELECT code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax FROM CLIENT";
 
         try (Connection con = this.myDAO.getConnection();
@@ -58,6 +61,10 @@ public class DAO {
     }
 
     public List<OrderEntity> getOrdersList() {
+
+        if (!this.lOrders.isEmpty())
+            return this.lOrders;
+
         String sql = "SELECT client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise FROM Commande";
 
         try (Connection con = this.myDAO.getConnection();
@@ -84,6 +91,10 @@ public class DAO {
     }
 
     public List<CategoryEntity> getCategoriesList() {
+
+        if (!this.lCategories.isEmpty())
+            return this.lCategories;
+
         String sql = "SELECT code,libelle,description FROM Categorie";
 
         try (Connection con = this.myDAO.getConnection();
@@ -105,6 +116,10 @@ public class DAO {
     }
 
     public List<ProductEntity> getProductsList() {
+        
+        if (!this.lProducts.isEmpty())
+            return this.lProducts;
+        
         String sql = "SELECT reference,nom,fournisseur,categorie,quantite_par_unite,prix_unitaire,unites_en_stock,unites_commandees,niveau_de_reappro,indisponible FROM Produit";
 
         try (Connection con = this.myDAO.getConnection();
@@ -130,14 +145,6 @@ public class DAO {
             System.out.println(e.getMessage());
         }
         return this.lProducts;
-    }
-
-    public List<ClientEntity> getClientsListWithoutDBQuery() {
-        return this.lClients;
-    }
-
-    public List<OrderEntity> getOrdersListWithoutDBQuery() {
-        return this.lOrders;
     }
 
     public ClientEntity login(String log, String pass) {
@@ -223,8 +230,7 @@ public class DAO {
         return res > 0;
     }
 
-    public boolean addClient(ClientEntity newC) {
-        int res = 0;
+    public ClientEntity addClient(ClientEntity newC) {
         String sql = "INSERT INTO Client (code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -242,14 +248,17 @@ public class DAO {
             stmt.setString(10, newC.getPhone());
             stmt.setString(11, newC.getFax());
 
-            res = stmt.executeUpdate();
-            this.lClients.add(newC);
+            int res = stmt.executeUpdate();
+            if (res > 0) {
+                this.lClients.add(newC);
+                return newC;
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return res > 0;
+        return null;
     }
 
     public OrderEntity addOrder(OrderEntity newO) {
@@ -270,7 +279,7 @@ public class DAO {
             stmtU.setString(8, newO.getZipcode());
             stmtU.setString(9, newO.getCountry());
             stmtU.setFloat(10, newO.getDiscount());
-            
+
             res = stmtU.executeUpdate();
             if (res != 0)
                 return new OrderEntity(
@@ -293,12 +302,6 @@ public class DAO {
         return null;
     }
 
-//    public boolean deleteOrder(OrderEntity newO) {
-//        String sql = "DELETE FROM Commande WHERE client=? AND envoyee_le=? AND port=? AND";
-//    }
-//    public boolean updateOrder(OrderEntity newO) {
-//
-//    }
     public CategoryEntity getCategoryByCode(int code) {
         for (CategoryEntity category : this.lCategories)
             if (category.getCode() == code)
