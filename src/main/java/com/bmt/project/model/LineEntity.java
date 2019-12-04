@@ -6,13 +6,13 @@ import java.util.Objects;
  *
  * @author Thibault
  */
-public class Line {
-    
+public class LineEntity {
+
     private OrderEntity order;
     private ProductEntity product;
     private int qty;
 
-    public Line(OrderEntity order, ProductEntity product, int qty) {
+    public LineEntity(OrderEntity order, ProductEntity product, int qty) {
         this.order = order;
         this.product = product;
         this.qty = qty;
@@ -53,25 +53,19 @@ public class Line {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Line other = (Line) obj;
-        if (this.qty != other.qty) {
+        final LineEntity other = (LineEntity) obj;
+        if (this.qty != other.qty)
             return false;
-        }
-        if (!Objects.equals(this.order, other.order)) {
+        if (!Objects.equals(this.order, other.order))
             return false;
-        }
-        if (!Objects.equals(this.product, other.product)) {
+        if (!Objects.equals(this.product, other.product))
             return false;
-        }
         return true;
     }
 
@@ -79,5 +73,5 @@ public class Line {
     public String toString() {
         return "Line{" + "order=" + order + ", product=" + product + ", qty=" + qty + '}';
     }
-    
+
 }

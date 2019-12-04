@@ -7,22 +7,21 @@ package com.bmt.project.model;
 
 import java.io.File;
 import java.io.IOException;
-import org.hsqldb.cmdline.SqlFile;
 import java.sql.Connection;
 import java.sql.Date;
-import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.sql.DataSource;
+import org.hsqldb.cmdline.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
 import org.hsqldb.jdbc.JDBCDataSource;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -118,32 +117,6 @@ public class DAOTest {
     }
 
     /**
-     * Test of getClientsListWithoutDBQuery method, of class DAO.
-     */
-    @Test
-    public void testGetClientsListWithoutDBQuery() {
-        System.out.println("getClientsListWithoutDBQuery");
-        DAO instance = this.myDAO;
-        instance.getClientsList();
-        int expResult = 91;
-        int result = instance.getClientsListWithoutDBQuery().size();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getOrdersListWithoutDBQuery method, of class DAO.
-     */
-    @Test
-    public void testGetOrdersListWithoutDBQuery() {
-        System.out.println("getOrdersListWithoutDBQuery");
-        DAO instance = this.myDAO;
-        instance.getOrdersList();
-        int expResult = 830;
-        int result = instance.getOrdersListWithoutDBQuery().size();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of login method, of class DAO.
      */
     @Test
@@ -193,8 +166,8 @@ public class DAOTest {
         System.out.println("addClient");
         ClientEntity newC = new ClientEntity("ZZZZZ", "dhtoetozeqgyu", "chuck Norris", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");;;
         DAO instance = this.myDAO;
-        boolean expResult = true;
-        boolean result = instance.addClient(newC);
+        ClientEntity expResult = newC;
+        ClientEntity result = instance.addClient(newC);
         assertEquals(expResult, result);
     }
 

@@ -8,19 +8,13 @@ package com.bmt.project;
 import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
-import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
-import java.io.PrintWriter;
 import static java.lang.System.out;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -68,27 +62,11 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/main_jsp.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
         try {
 
             //DAO MyDao = new DAO(DataSourceFactory.getDataSource());
-//connection a la base de donnée depuis un client//   
-            try {
-                String log = request.getParameter("login");
-                String pass = request.getParameter("password");
-
-                if (log == null | pass == null) {
-                    throw new Exception("le login ou le password sont null");
-                }
-
-                //ClientEntity clientlogged  = new MyDa0.login(log,pass);
-                //List<OrderEntity> listOrder = myDao.getOrdersList();
-            } catch (Exception e) {
-                out.printf("Erreur : %s", e.getMessage());
-            }
-///////////////////////////////////
-
 // modifier les informations personnelles//
             try {
 
