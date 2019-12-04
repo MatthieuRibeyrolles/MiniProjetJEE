@@ -116,32 +116,6 @@ public class DAOTest {
         assertEquals(expResult, result);
     }
 
-//    /**
-//     * Test of getClientsListWithoutDBQuery method, of class DAO.
-//     */
-//    @Test
-//    public void testGetClientsListWithoutDBQuery() {
-//        System.out.println("getClientsListWithoutDBQuery");
-//        DAO instance = this.myDAO;
-//        instance.getClientsList();
-//        int expResult = 91;
-//        int result = instance.getClientsListWithoutDBQuery().size();
-//        assertEquals(expResult, result);
-//    }
-
-//    /**
-//     * Test of getOrdersListWithoutDBQuery method, of class DAO.
-//     */
-//    @Test
-//    public void testGetOrdersListWithoutDBQuery() {
-//        System.out.println("getOrdersListWithoutDBQuery");
-//        DAO instance = this.myDAO;
-//        instance.getOrdersList();
-//        int expResult = 830;
-//        int result = instance.getOrdersListWithoutDBQuery().size();
-//        assertEquals(expResult, result);
-//    }
-
     /**
      * Test of login method, of class DAO.
      */
