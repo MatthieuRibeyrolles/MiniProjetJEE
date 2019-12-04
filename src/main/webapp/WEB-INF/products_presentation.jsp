@@ -17,8 +17,8 @@
     <body>
         <div id="blocPage">
             <div id="menuBar">
-                <c:forEach var = "j" begin="0" end="5">
-                    <a href="?cat=${j}"> Category ${j} </a>
+                <c:forEach items="${categories_list}" var="category">
+                    <a href="?cat=${category}"> ${category} </a>
                 </c:forEach>
             </div>
             
@@ -28,6 +28,7 @@
                 </c:import>
             </c:if>
             <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
+            
         </div>
     </body>
 </html>
