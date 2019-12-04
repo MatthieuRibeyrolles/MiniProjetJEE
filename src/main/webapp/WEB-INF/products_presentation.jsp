@@ -21,7 +21,13 @@
                     <a href="?cat=${j}"> Category ${j} </a>
                 </c:forEach>
             </div>
-            <%@include file="jsp_parts/products_table.jsp" %>
+            
+            <c:if test="${empty param.cat}" >
+                <c:import url="/WEB-INF/jsp_parts/products_table.jsp" >
+                    <c:param name="cat" value="7" ></c:param>
+                </c:import>
+            </c:if>
+            <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
         </div>
     </body>
 </html>
