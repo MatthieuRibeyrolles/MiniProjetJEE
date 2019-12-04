@@ -16,13 +16,11 @@
     <body>
             <table cellspacing="0">
                 <caption><h1>products for category ${param.cat}</h1></caption>
-
-                <c:forEach var = "i" begin="0" end="15">
-                    <tr>
-                        <c:forEach var = "j" begin="0" end="5">
-                            <td> <a href="#"> Produit ${i} ${j} </a></td>
-                        </c:forEach>
-                    </tr>
+                    
+                <c:forEach items="${product_map}" var="category">
+                    <c:forEach items="${category.value}" var="product">
+                        <td><a href="?cat=${category}"> ${product} </a></td>
+                    </c:forEach>
                 </c:forEach>
         </table>
 

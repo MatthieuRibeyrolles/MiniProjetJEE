@@ -16,6 +16,7 @@
     
     <body>
         <div id="blocPage">
+            <%@include file="main_jsp.jsp" %>
             <div id="menuBar">
                 <c:forEach items="${categories_list}" var="category">
                     <a href="?cat=${category}"> ${category} </a>
@@ -23,12 +24,20 @@
             </div>
             
             <c:if test="${empty param.cat}" >
-                <c:import url="/WEB-INF/jsp_parts/products_table.jsp" >
-                    <c:param name="cat" value="7" ></c:param>
-                </c:import>
+                
             </c:if>
-            <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
             
+            <c:choose>
+                <c:when test="${empty param.cat}">
+                    <c:import url="/WEB-INF/jsp_parts/products_table.jsp" >
+                        <c:param name="cat" value="7" ></c:param>
+                    </c:import>
+                </c:when>
+                
+                <c:otherwise>
+                    <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
+                </c:otherwise>
+            </c:choose>
         </div>
     </body>
 </html>

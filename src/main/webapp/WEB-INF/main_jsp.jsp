@@ -10,7 +10,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>BMT website</title>
         <link href="style/main.css" rel="stylesheet">
     </head>
     <body>        
@@ -26,14 +25,7 @@
                 </form>
             </div>
             
-            <!--<p>${categories_list}</p>
             
-            <div id="menuBar">
-                <c:forEach items = "${categories_list}" var = "cat">
-                    <p> "${cat}" </p>
-                </c:forEach>
-            
-            -->
             </div>
             </div>
         </div>
