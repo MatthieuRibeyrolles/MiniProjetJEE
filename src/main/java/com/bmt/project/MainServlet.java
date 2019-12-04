@@ -8,19 +8,13 @@ package com.bmt.project;
 import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
-import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
-import java.io.PrintWriter;
 import static java.lang.System.out;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -73,8 +67,6 @@ public class MainServlet extends HttpServlet {
         try {
 
             //DAO MyDao = new DAO(DataSourceFactory.getDataSource());
-
-
 // modifier les informations personnelles//
             try {
 
