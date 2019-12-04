@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author Thibault
  */
 public class ClientEntity {
-    
+
     private String code;
     private String company;
     private String contact;
@@ -19,19 +19,19 @@ public class ClientEntity {
     private String country;
     private String phone;
     private String fax;
-    
+
     public ClientEntity(String code, String company, String contact, String role, String address, String city, String region, String zipCode, String country, String phone, String fax) {
-        this.code       = (code != null)    ? code.trim()       : null;
-        this.company    = (company != null) ? company.trim()    : null;
-        this.contact    = (contact != null) ? contact.trim()    : null;
-        this.role       = (role != null)    ? role.trim()       : null;
-        this.address    = (address != null) ? address.trim()    : null;
-        this.city       = (city != null)    ? city.trim()       : null;
-        this.region     = (region != null)  ? region.trim()     : null;
-        this.zipCode    = (zipCode != null) ? zipCode.trim()    : null;
-        this.country    = (country != null) ? country.trim()    : null;
-        this.phone      = (phone != null)   ? phone.trim()      : null;
-        this.fax        = (fax != null)     ? fax.trim()        : null;
+        this.code = (code != null) ? code.trim() : null;
+        this.company = (company != null) ? company.trim() : null;
+        this.contact = (contact != null) ? contact.trim() : null;
+        this.role = (role != null) ? role.trim() : null;
+        this.address = (address != null) ? address.trim() : null;
+        this.city = (city != null) ? city.trim() : null;
+        this.region = (region != null) ? region.trim() : null;
+        this.zipCode = (zipCode != null) ? zipCode.trim() : null;
+        this.country = (country != null) ? country.trim() : null;
+        this.phone = (phone != null) ? phone.trim() : null;
+        this.fax = (fax != null) ? fax.trim() : null;
     }
 
     public String getCode() {
@@ -121,7 +121,7 @@ public class ClientEntity {
     public void setFax(String fax) {
         this.fax = fax;
     }
-    
+
     @Override
     public String toString() {
         return "ClientEntity{" + "code=" + code + ", company=" + company + ", contact=" + contact + ", role=" + role + ", address=" + address + ", city=" + city + ", region=" + region + ", zipCode=" + zipCode + ", country=" + country + ", phone=" + phone + ", fax=" + fax + '}';
@@ -146,50 +146,36 @@ public class ClientEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final ClientEntity other = (ClientEntity) obj;
-        if (!Objects.equals(this.code, other.code)) {
+        if (!Objects.equals(this.code, other.code))
             return false;
-        }
-        if (!Objects.equals(this.company, other.company)) {
+        if (!Objects.equals(this.company, other.company))
             return false;
-        }
-        if (!Objects.equals(this.contact, other.contact)) {
+        if (!Objects.equals(this.contact, other.contact))
             return false;
-        }
-        if (!Objects.equals(this.role, other.role)) {
+        if (!Objects.equals(this.role, other.role))
             return false;
-        }
-        if (!Objects.equals(this.address, other.address)) {
+        if (!Objects.equals(this.address, other.address))
             return false;
-        }
-        if (!Objects.equals(this.city, other.city)) {
+        if (!Objects.equals(this.city, other.city))
             return false;
-        }
-        if (!Objects.equals(this.region, other.region)) {
+        if (!Objects.equals(this.region, other.region))
             return false;
-        }
-        if (!Objects.equals(this.zipCode, other.zipCode)) {
+        if (!Objects.equals(this.zipCode, other.zipCode))
             return false;
-        }
-        if (!Objects.equals(this.country, other.country)) {
+        if (!Objects.equals(this.country, other.country))
             return false;
-        }
-        if (!Objects.equals(this.phone, other.phone)) {
+        if (!Objects.equals(this.phone, other.phone))
             return false;
-        }
-        if (!Objects.equals(this.fax, other.fax)) {
+        if (!Objects.equals(this.fax, other.fax))
             return false;
-        }
         return true;
     }
-    
+
 }

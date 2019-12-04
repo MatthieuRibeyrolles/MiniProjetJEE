@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author Thibault
  */
 public class CategoryEntity {
-    
+
     private int code;
     private String wording;
     private String desc;
@@ -53,25 +53,19 @@ public class CategoryEntity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final CategoryEntity other = (CategoryEntity) obj;
-        if (this.code != other.code) {
+        if (this.code != other.code)
             return false;
-        }
-        if (!Objects.equals(this.wording, other.wording)) {
+        if (!Objects.equals(this.wording, other.wording))
             return false;
-        }
-        if (!Objects.equals(this.desc, other.desc)) {
+        if (!Objects.equals(this.desc, other.desc))
             return false;
-        }
         return true;
     }
 
@@ -79,5 +73,5 @@ public class CategoryEntity {
     public String toString() {
         return "CategoryEntity{" + "code=" + code + ", wording=" + wording + ", desc=" + desc + '}';
     }
-    
+
 }

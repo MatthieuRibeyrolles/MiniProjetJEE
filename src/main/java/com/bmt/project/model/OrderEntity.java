@@ -174,9 +174,8 @@ public class OrderEntity {
         if (getClass() != obj.getClass())
             return false;
         final OrderEntity other = (OrderEntity) obj;
-        if (this.num != other.num) {
+        if (this.num != other.num)
             return false;
-        }
         if (Float.floatToIntBits(this.shipping) != Float.floatToIntBits(other.shipping))
             return false;
         if (Float.floatToIntBits(this.discount) != Float.floatToIntBits(other.discount))
