@@ -220,7 +220,7 @@ public class DAO {
     public boolean addClient(ClientEntity newC) {
         int res = 0;
         String sql = "INSERT INTO Client (code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
