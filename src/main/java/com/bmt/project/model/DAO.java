@@ -91,7 +91,13 @@ public class DAO {
                 ResultSet rs = stmt.executeQuery()) {
             this.lCategories = new ArrayList<>();
             while (rs.next())
-                this.lCategories.add(new CategoryEntity(rs.getInt("code"), rs.getString("libelle"), rs.getString("description")));
+                this.lCategories.add(
+                        new CategoryEntity(
+                                rs.getInt("code"),
+                                rs.getString("libelle"),
+                                rs.getString("description")
+                        )
+                );
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -247,8 +253,7 @@ public class DAO {
     }
 
     public OrderEntity addOrder(OrderEntity newO) {
-        int res = 0;
-
+        int res;
         String sqlU = "INSERT INTO Commande (client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -265,10 +270,22 @@ public class DAO {
             stmtU.setString(8, newO.getZipcode());
             stmtU.setString(9, newO.getCountry());
             stmtU.setFloat(10, newO.getDiscount());
-
+            
             res = stmtU.executeUpdate();
             if (res != 0)
-                return new OrderEntity(res, newO.getClient(), newO.getDateSent(), newO.getPort(), newO.getReceiver(), newO.getAddress(), newO.getCity(), newO.getRegion(), newO.getZipcode(), newO.getCountry(), newO.getDiscount());
+                return new OrderEntity(
+                        res,
+                        newO.getClient(),
+                        newO.getDateSent(),
+                        newO.getPort(),
+                        newO.getReceiver(),
+                        newO.getAddress(),
+                        newO.getCity(),
+                        newO.getRegion(),
+                        newO.getZipcode(),
+                        newO.getCountry(),
+                        newO.getDiscount()
+                );
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
