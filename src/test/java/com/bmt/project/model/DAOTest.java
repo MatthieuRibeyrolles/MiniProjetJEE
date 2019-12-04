@@ -176,7 +176,6 @@ public class DAOTest {
      */
     @Test
     public void testUpdateClient() {
-        // TODO: ici
         System.out.println("updateClient");
         ClientEntity oldC = this.testClient;
         ClientEntity newC = new ClientEntity("ALFKI", "Alfreds Futterkiste", "chuck Norris", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");;
@@ -191,11 +190,10 @@ public class DAOTest {
      */
     @Test
     public void testAddClient() {
-        // TODO: ici
         System.out.println("addClient");
-        ClientEntity newC = null;
+        ClientEntity newC = new ClientEntity("ZZZZZ", "dhtoetozeqgyu", "chuck Norris", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");;;
         DAO instance = this.myDAO;
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.addClient(newC);
         assertEquals(expResult, result);
     }
