@@ -68,26 +68,12 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/main_jsp.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
         try {
 
             //DAO MyDao = new DAO(DataSourceFactory.getDataSource());
-//connection a la base de donnée depuis un client//   
-            try {
-                String log = request.getParameter("login");
-                String pass = request.getParameter("password");
 
-                if (log == null | pass == null) {
-                    throw new Exception("le login ou le password sont null");
-                }
-
-                //ClientEntity clientlogged  = new MyDa0.login(log,pass);
-                //List<OrderEntity> listOrder = myDao.getOrdersList();
-            } catch (Exception e) {
-                out.printf("Erreur : %s", e.getMessage());
-            }
-///////////////////////////////////
 
 // modifier les informations personnelles//
             try {
