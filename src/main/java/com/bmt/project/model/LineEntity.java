@@ -6,13 +6,13 @@ import java.util.Objects;
  *
  * @author Thibault
  */
-public class Line {
+public class LineEntity {
     
     private OrderEntity order;
     private ProductEntity product;
     private int qty;
 
-    public Line(OrderEntity order, ProductEntity product, int qty) {
+    public LineEntity(OrderEntity order, ProductEntity product, int qty) {
         this.order = order;
         this.product = product;
         this.qty = qty;
@@ -62,7 +62,7 @@ public class Line {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Line other = (Line) obj;
+        final LineEntity other = (LineEntity) obj;
         if (this.qty != other.qty) {
             return false;
         }
