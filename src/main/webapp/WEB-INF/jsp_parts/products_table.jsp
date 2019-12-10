@@ -20,7 +20,7 @@
                 <c:forEach items="${product_map}" var="category">
                     <tr></tr>
                     <c:forEach items="${category.value}" var="product">
-                        <td><a href="?cat=${category}"> ${product} </a></td>
+                        <td><a href=""> ${product} </a></td>
                     </c:forEach>
                 </c:forEach>
         </table>
