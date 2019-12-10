@@ -19,6 +19,7 @@
                     
                 <c:forEach items="${product_map}" var="category">
                     <tr></tr>
+                    <c:out value="${category}"/>
                     <c:forEach items="${category.value}" var="product">
                         <td><a href="#"> ${product} </a></td>
                     </c:forEach>
