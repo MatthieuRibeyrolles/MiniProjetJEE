@@ -3,11 +3,12 @@
     Author     : Matthieu
 */
 
-/*
+
 body {
     background-color: #424242;
+    color: #fff;
 }
-*/
+
 #blocPage {
     width: 80%;
     margin: auto;

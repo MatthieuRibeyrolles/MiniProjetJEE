@@ -16,14 +16,17 @@
     <body>
             <table cellspacing="0">
                 <caption><h1>products for category ${param.cat}</h1></caption>
-                    
+
                 <c:forEach items="${product_map}" var="category">
-                    <c:forEach items="${category.value}" var="product">
-                        <td><a href="?cat=${category}"> ${product} </a></td>
-                    </c:forEach>
-                </c:forEach>
+                    <tr></tr>
+                    
+                    <c:if test="${category == params.cat}">
+                        <c:forEach items="${category.value}" var="product">
+                            <td><a href="#"> ${product} </a></td>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach> 
         </table>
 
-        <c:out value="${sessionScope.coucou}"></c:out>
     </body>
 </html>

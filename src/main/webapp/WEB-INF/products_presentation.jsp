@@ -17,15 +17,13 @@
     <body>
         <div id="blocPage">
             <%@include file="main_jsp.jsp" %>
+            
             <div id="menuBar">
-                <c:forEach items="${categories_list}" var="category">
-                    <a href="?cat=${category}"> ${category} </a>
+                <c:forEach items="${product_map}" var="category">
+                    <a href="?cat=${category.key}"> ${category.key} </a>
                 </c:forEach>
             </div>
-            
-            <c:if test="${empty param.cat}" >
-                
-            </c:if>
+
             
             <c:choose>
                 <c:when test="${empty param.cat}">

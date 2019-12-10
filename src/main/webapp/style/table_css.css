@@ -17,6 +17,7 @@ table {
 th, td { 
     border-right: 1px solid black;
     border-collapse: collapse;
+    padding: none;
 } :last-child {border: none;}
 
 td {
