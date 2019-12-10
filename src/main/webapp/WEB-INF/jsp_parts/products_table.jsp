@@ -18,6 +18,7 @@
                 <caption><h1>products for category ${param.cat}</h1></caption>
                     
                 <c:forEach items="${product_map}" var="category">
+                    <tr></tr>
                     <c:forEach items="${category.value}" var="product">
                         <td><a href="?cat=${category}"> ${product} </a></td>
                     </c:forEach>
