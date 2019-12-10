@@ -27,6 +27,5 @@
                 </c:forEach>
         </table>
 
-        <c:out value="${sessionScope.coucou}"></c:out>
     </body>
 </html>
