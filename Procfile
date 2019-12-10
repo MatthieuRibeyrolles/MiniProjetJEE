@@ -1,0 +1,1 @@
+war:deploy .\target\MiniProjetJEE-1.0-SNAPSHOT.war
