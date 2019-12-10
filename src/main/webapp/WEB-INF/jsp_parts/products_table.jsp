@@ -16,12 +16,16 @@
     <body>
             <table cellspacing="0">
                 <caption><h1>products for category ${param.cat}</h1></caption>
+
+                <c:forEach items="${product_map}" var="category">
+                    <tr></tr>
                     
-                
-                        
-                <c:forEach items="${product_map}.key" var="product">
-                    <c:out value="${producut}" />
-                </c:forEach>
+                    <c:if test="${category == params.cat}">
+                        <c:forEach items="${category.value}" var="product">
+                            <td><a href="#"> ${product} </a></td>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach> 
         </table>
 
     </body>
