@@ -17,13 +17,10 @@
             <table cellspacing="0">
                 <caption><h1>products for category ${param.cat}</h1></caption>
                     
-                <c:forEach items="${product_map}" var="category">
-                    <tr></tr>
-<!--                    <c:out value="${category.key}"/> <br>
-                    <c:out value="${param.cat}"/> <br>-->
-                    <c:forEach items="${category.value}" var="product">
-                        <td><a href="#"> ${product} </a></td>
-                    </c:forEach>
+                
+                        
+                <c:forEach items="${product_map}.key" var="product">
+                    <c:out value="${producut}" />
                 </c:forEach>
         </table>
 
