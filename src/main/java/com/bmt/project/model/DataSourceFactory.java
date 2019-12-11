@@ -23,29 +23,35 @@ public class DataSourceFactory {
     public static DataSource getDataSource() {
 
         try {
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+            String sEnv = System.getenv("DATABASE_URL");
+            if (sEnv != null) {
+                URI dbUri = new URI(sEnv);
 
-            DB_USER = dbUri.getUserInfo().split(":")[0];
-            DB_PSWD = dbUri.getUserInfo().split(":")[1];
-            DB_HOST = dbUri.getHost();
-            DB_PORT = dbUri.getPort();
-            DB_NAME = dbUri.getPath();
+                DB_USER = dbUri.getUserInfo().split(":")[0];
+                DB_PSWD = dbUri.getUserInfo().split(":")[1];
+                DB_HOST = dbUri.getHost();
+                DB_PORT = dbUri.getPort();
+                DB_NAME = dbUri.getPath();
 
-            PGSimpleDataSource ds = new PGSimpleDataSource();
+                PGSimpleDataSource ds = new PGSimpleDataSource();
 
-            ds.setDatabaseName(DB_NAME);
-            ds.setUser(DB_USER);
-            ds.setPassword(DB_PSWD);
-            ds.setServerName(DB_HOST);
-            ds.setPortNumber(DB_PORT);
-            ds.setSsl(true);
+                ds.setDatabaseName(DB_NAME);
+                ds.setUser(DB_USER);
+                ds.setPassword(DB_PSWD);
+                ds.setServerName(DB_HOST);
+                ds.setPortNumber(DB_PORT);
+                ds.setSsl(true);
 
-            return ds;
+                return ds;
+            }
 
         } catch (URISyntaxException ex) {
             Logger.getLogger(DataSourceFactory.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, "Connecting to localhost");
+        } catch (Exception e) {
+            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, e);
         }
+
+        Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, "Connecting to localhost");
 
         ClientDataSource ds = new ClientDataSource();
         ds.setDatabaseName(DB_NAME);
