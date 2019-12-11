@@ -12,9 +12,24 @@
         <servlet-name>UserAccount</servlet-name>
         <jsp-file>/WEB-INF/user_account_jsp.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.bmt.project.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productServlet</servlet-name>
+        <servlet-class>com.bmt.project.productServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/welcome</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/OrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productServlet</servlet-name>
+        <url-pattern>/productServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
-

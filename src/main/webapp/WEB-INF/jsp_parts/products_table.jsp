@@ -14,19 +14,29 @@
     </head>
     
     <body>
-            <table cellspacing="0">
-                <caption><h1>products for category ${param.cat}</h1></caption>
+        <h2>${param.cat}</h2>
 
-                <c:forEach items="${product_map}" var="category">
-                    <tr></tr>
-                    
-                    <c:if test="${category == params.cat}">
-                        <c:forEach items="${category.value}" var="product">
-                            <td><a href="#"> ${product} </a></td>
-                        </c:forEach>
-                    </c:if>
-                </c:forEach> 
-        </table>
+        <div id="infoPage" >    
+            <nav>
+                <table cellspacing="0">
+                    <c:forEach items="${product_map}" var="category">
+                        <c:if test="${category.key == param.cat}">  
+                            <c:set var="i" value="0" />
 
+                            <c:forEach items="${category.value}" var="product">
+                                <!--<td><a href="#"> ${product} </a></td>-->
+                                <td><button type="button">${product}</button></td>
+                                <tr></tr>
+
+                            </c:forEach>
+                        </c:if>
+                    </c:forEach> 
+                </table>
+            </nav>
+                
+            <div id="infos" >
+                je suis une ympho
+            </div>
+        </div>
     </body>
 </html>

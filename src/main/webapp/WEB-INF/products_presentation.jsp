@@ -36,6 +36,7 @@
                     <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
                 </c:otherwise>
             </c:choose>
+            
         </div>
     </body>
 </html>
