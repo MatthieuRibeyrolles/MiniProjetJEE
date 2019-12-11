@@ -14,8 +14,6 @@
     </head>
     <body>        
         <div id="blocPage">
-            <h1>Welcome on our website</h1>
-            
             <div id="connectDiv">
                 <form action="login" method="GET">
                     

@@ -36,6 +36,7 @@ public class MainServlet extends HttpServlet {
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
         List<ProductEntity> prod = MyDao.getProductsList();
+        
 
         List<String> nomcat = new ArrayList<String>();
 
@@ -61,6 +62,11 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("product_map", mapProduct);
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
+        
+        
+        
+        
+        
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
