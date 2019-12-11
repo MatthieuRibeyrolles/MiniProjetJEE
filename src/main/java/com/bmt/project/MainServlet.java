@@ -37,11 +37,16 @@ public class MainServlet extends HttpServlet {
         List<CategoryEntity> cat = MyDao.getCategoriesList();
         List<ProductEntity> prod = MyDao.getProductsList();
         
+        
+        
 
         List<String> nomcat = new ArrayList<String>();
 
         Map<String, ArrayList<String>> mapProduct = new HashMap<>();
-//        List<ProductEntity> listProduct = MyDao.getProductlist();
+
+        
+        Map<String, ArrayList<String>> mapInfoProduct = new HashMap<>();
+
 
         for (CategoryEntity c : cat) {
 
@@ -57,11 +62,27 @@ public class MainServlet extends HttpServlet {
 
             tmp.add(p.getName());
             mapProduct.put(p.getCategory().getWording(), tmp);
+            
+            
+            ArrayList<String> prodTemp = new ArrayList<>();
+            prodTemp.add(String.valueOf(p.getReference()));
+            prodTemp.add(String.valueOf(p.getName()));
+            prodTemp.add(String.valueOf(p.getProvider()));
+            prodTemp.add(String.valueOf(p.getCategory()));
+            prodTemp.add(String.valueOf(p.getQtyPerPackage()));
+            prodTemp.add(String.valueOf(p.getPrice()));
+            prodTemp.add(String.valueOf(p.getStock()));
+            prodTemp.add(String.valueOf(p.getOrdered()));
+            prodTemp.add(String.valueOf(p.getRefill()));
+            prodTemp.add(String.valueOf(p.isAvailable()));
+            
+            mapInfoProduct.put(p.getName(), prodTemp);
         }
 
         request.setAttribute("product_map", mapProduct);
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
+        request.setAttribute("product_information", mapInfoProduct);
         
         
         
