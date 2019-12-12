@@ -15,16 +15,11 @@
     <body>        
         <div id="blocPage">
             <div id="connectDiv">
-                <form action="login" method="GET">
-                    
+                <form action="" method="POST">
                     Login: <input type="text" name="login"><br/>
                     Password: <input type="password" name="password">
                     <input id="loginButton" type="submit" value="Log in">
                 </form>
-            </div>
-            
-            
-            </div>
             </div>
         </div>
     </body>

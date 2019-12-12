@@ -57,5 +57,13 @@ td:hover {
     width: 80%;
     /*margin: auto;*/
     padding: 10px;
+    padding-left: 50px;
     background-color: #626262;
+    font-size: 30px;
+    
+    text-align: left;
+    border-radius: 70px;
+    border-top-left-radius: 0;
 }
+
+#infos h3 {font-size: 50px; color: #52251b;}

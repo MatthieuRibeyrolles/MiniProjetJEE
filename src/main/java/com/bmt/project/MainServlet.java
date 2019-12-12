@@ -60,39 +60,45 @@ public class MainServlet extends HttpServlet {
         for (ProductEntity p : prod) {
 
             products.put(p.getName(), p);
-//            ArrayList<String> tmp = new ArrayList<String>();
-//            tmp = mapProduct.get(p.getCategory().getWording());
-//
-//            tmp.add(p.getName());
-//            mapProduct.put(p.getCategory().getWording(), tmp);
-//            
-//            
-//            ArrayList<String> prodTemp = new ArrayList<>();
-//            prodTemp.add(String.valueOf(p.getReference()));
-//            prodTemp.add(String.valueOf(p.getName()));
-//            prodTemp.add(String.valueOf(p.getProvider()));
-//            prodTemp.add(String.valueOf(p.getCategory()));
-//            prodTemp.add(String.valueOf(p.getQtyPerPackage()));
-//            prodTemp.add(String.valueOf(p.getPrice()));
-//            prodTemp.add(String.valueOf(p.getStock()));
-//            prodTemp.add(String.valueOf(p.getOrdered()));
-//            prodTemp.add(String.valueOf(p.getRefill()));
-//            prodTemp.add(String.valueOf(p.isAvailable()));
-//            
-//            mapInfoProduct.put(p.getName(), prodTemp);
+            ArrayList<String> tmp = new ArrayList<String>();
+            tmp = mapProduct.get(p.getCategory().getWording());
+
+            tmp.add(p.getName());
+            mapProduct.put(p.getCategory().getWording(), tmp);
+            
+            
+            ArrayList<String> prodTemp = new ArrayList<>();
+            prodTemp.add(String.valueOf(p.getReference()));
+            prodTemp.add(String.valueOf(p.getName()));
+            prodTemp.add(String.valueOf(p.getProvider()));
+            prodTemp.add(String.valueOf(p.getCategory()));
+            prodTemp.add(String.valueOf(p.getQtyPerPackage()));
+            prodTemp.add(String.valueOf(p.getPrice()));
+            prodTemp.add(String.valueOf(p.getStock()));
+            prodTemp.add(String.valueOf(p.getOrdered()));
+            prodTemp.add(String.valueOf(p.getRefill()));
+            prodTemp.add(String.valueOf(p.isAvailable()));
+            
+            mapInfoProduct.put(p.getName(), prodTemp);
 
 
         }
-
+        request.setCharacterEncoding("UTF-8");
         request.setAttribute("product_map", mapProduct);
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
         request.setAttribute("product_information", mapInfoProduct);
         
         
-        Product productBean = new Product(products);
-        //
-        request.setAttribute("productBean", productBean);
+//        String nomprod = request.getParameter("nomprod");
+//        if (nomprod != null){
+//            
+//            request.setAttribute("rienafoutre",);
+//        }
+        
+//        Product productBean = new Product(products);
+//        //
+//        request.setAttribute("productBean", productBean);
         
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);

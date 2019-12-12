@@ -6,6 +6,6 @@ $(document).ready(function() {
         let name = $(this).attr('id');
         
         info_name.text("Vous consultez actuellement le produit " + name);
-        info_ref.style.visibility = 'visible';
+//        info_ref.style.visibility = 'visible';
     });
 });
