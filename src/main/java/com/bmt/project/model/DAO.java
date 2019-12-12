@@ -54,7 +54,7 @@ public class DAO {
                         rs.getString("telephone"),
                         rs.getString("fax"))
                 );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return this.lClients;
@@ -84,7 +84,7 @@ public class DAO {
                         rs.getString("pays_livraison"),
                         rs.getFloat("remise")
                 ));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return this.lOrders;
@@ -109,7 +109,7 @@ public class DAO {
                                 rs.getString("description")
                         )
                 );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return this.lCategories;
@@ -141,7 +141,7 @@ public class DAO {
                                 rs.getBoolean("indisponible")
                         )
                 );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return this.lProducts;
@@ -171,7 +171,7 @@ public class DAO {
                             rs.getString(11)
                     );
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null; // Renvoyer directement clientEntity
@@ -223,7 +223,7 @@ public class DAO {
                 if (client.getCode() == null ? oldC.getCode() == null : client.getCode().equals(oldC.getCode()))
                     client = oldC;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -254,7 +254,7 @@ public class DAO {
                 return newC;
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -296,7 +296,7 @@ public class DAO {
                         newO.getDiscount()
                 );
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;

@@ -6,6 +6,7 @@ package com.bmt.project.model;
  */
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -35,7 +36,6 @@ public class DataSourceFactory {
                 DB_NAME = dbUri.getPath();
                 
                 PGSimpleDataSource ds = new PGSimpleDataSource();
-//                JDBCDataSource ds = new JDBCDataSource();
 
                 ds.setDatabaseName(DB_NAME);
                 ds.setUser(DB_USER);
@@ -43,8 +43,6 @@ public class DataSourceFactory {
                 ds.setServerName(DB_HOST);
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
-
-//                ds.setDatabase("jdbc:postgres:" + "" + ";shutdown=true");
 
                 return ds;
             }
@@ -57,7 +55,7 @@ public class DataSourceFactory {
             System.out.println(ex.getMessage());
         }
 
-        Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, "Connecting to localhost");
+        Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to localhost");
 
         ClientDataSource ds = new ClientDataSource();
         ds.setDatabaseName(DB_NAME);
@@ -65,7 +63,7 @@ public class DataSourceFactory {
         ds.setPassword(DB_PSWD);
         ds.setServerName(DB_HOST);
         ds.setPortNumber(DB_PORT);
-
+        
         return ds;
     }
 
