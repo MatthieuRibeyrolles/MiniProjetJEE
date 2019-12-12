@@ -43,6 +43,10 @@ public class DataSourceFactory {
                 ds.setServerName(DB_HOST);
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
+                
+                System.out.println(DB_USER);
+                System.out.println(DB_PSWD);
+
 
                 return ds;
             }
