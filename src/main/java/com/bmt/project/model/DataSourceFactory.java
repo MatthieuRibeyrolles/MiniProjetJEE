@@ -6,12 +6,10 @@ package com.bmt.project.model;
  */
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.apache.derby.jdbc.ClientDataSource;
-import org.hsqldb.jdbc.JDBCDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DataSourceFactory {
@@ -46,12 +44,16 @@ public class DataSourceFactory {
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
 
-                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO,
+                        "Connecting to : {0} | login : {1} | p : {2} | svName : {3} | port : {4}",
+                        new Object[]{DB_NAME, DB_USER, DB_PSWD, DB_HOST, DB_PORT}
+                );
+
+//                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
 
                 return ds;
-            } else {
+            } else
                 Logger.getLogger("DataSourceFactory.class.getName()").log(Level.WARNING, "La variable d'environnement \"DATABASE_URL\" n'existe pas !");
-            }
 
         } catch (URISyntaxException ex) {
             Logger.getLogger(DataSourceFactory.class.getName()).log(Level.SEVERE, null, ex);
