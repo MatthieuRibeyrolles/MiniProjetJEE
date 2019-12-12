@@ -26,7 +26,10 @@ public class DataSourceFactory {
 
         try {
             String sEnv = System.getenv("DATABASE_URL");
+            System.out.println("com.bmt.project.model.DataSourceFactory.getDataSource()");
+            System.out.println("\tsEnv = " + sEnv);
             if (sEnv != null) {
+
                 URI dbUri = new URI(sEnv);
 
                 DB_USER = dbUri.getUserInfo().split(":")[0];
@@ -34,7 +37,7 @@ public class DataSourceFactory {
                 DB_HOST = dbUri.getHost();
                 DB_PORT = dbUri.getPort();
                 DB_NAME = dbUri.getPath();
-                
+
                 PGSimpleDataSource ds = new PGSimpleDataSource();
 
                 ds.setDatabaseName(DB_NAME);
@@ -43,9 +46,9 @@ public class DataSourceFactory {
                 ds.setServerName(DB_HOST);
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
-                
+
                 Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
-                
+
                 return ds;
             }
 
@@ -65,7 +68,7 @@ public class DataSourceFactory {
         ds.setPassword(DB_PSWD);
         ds.setServerName(DB_HOST);
         ds.setPortNumber(DB_PORT);
-        
+
         return ds;
     }
 
