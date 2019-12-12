@@ -26,8 +26,7 @@ public class DataSourceFactory {
 
         try {
             String sEnv = System.getenv("DATABASE_URL");
-            System.out.println("com.bmt.project.model.DataSourceFactory.getDataSource()");
-            System.out.println("\tsEnv = " + sEnv);
+            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "sEnv: " + sEnv);
             if (sEnv != null) {
 
                 URI dbUri = new URI(sEnv);
@@ -50,6 +49,8 @@ public class DataSourceFactory {
                 Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
 
                 return ds;
+            } else {
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.WARNING, "La variable d'environnement \"DATABASE_URL\" n'existe pas !");
             }
 
         } catch (URISyntaxException ex) {
