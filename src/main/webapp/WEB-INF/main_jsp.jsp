@@ -15,7 +15,7 @@
     <body>        
         <div id="blocPage">
             <div id="connectDiv">
-                <form action="" method="POST">
+                <form action="home" method="POST">
                     Login: <input type="text" name="login"><br/>
                     Password: <input type="password" name="password">
                     <input id="loginButton" type="submit" value="Log in">

@@ -7,6 +7,7 @@ package com.bmt.project;
 
 
 import com.bmt.project.model.CategoryEntity;
+import com.bmt.project.model.ClientEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
 import com.bmt.project.model.ProductEntity;
@@ -29,10 +30,49 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainServlet extends HttpServlet {
 
+    
+    
+    private DAO MyDao;
+    
+    
+    @Override
+    public void init() throws ServletException {
+        super.init(); 
+        this.MyDao= new DAO(DataSourceFactory.getDataSource());
+        
+    }
+
+  
+    
+    
+    
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doPost(request, response); //To change body of generated methods, choose Tools | Templates.
+        
+        String log =request.getParameter("login");
+        String pass=request.getParameter("password");
+        if (log != null && pass != null){
+        System.out.println(log);
+        System.out.println(pass);
+        ClientEntity user = MyDao.login(log,pass);
+        return ;
+        }
+        
+                
+        
+        request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response); 
+    }
+
+    
+    
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        DAO MyDao = new DAO(DataSourceFactory.getDataSource());
+
 
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
@@ -107,7 +147,6 @@ public class MainServlet extends HttpServlet {
 
         try {
 
-            //DAO MyDao = new DAO(DataSourceFactory.getDataSource());
 // modifier les informations personnelles//
             try {
 
