@@ -91,6 +91,7 @@ public class MainServlet extends HttpServlet {
         
         
         Product productBean = new Product(products);
+        //
         request.setAttribute("productBean", productBean);
         
 

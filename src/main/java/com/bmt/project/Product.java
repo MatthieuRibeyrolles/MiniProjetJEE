@@ -23,6 +23,7 @@ public class Product {
     public String getRef(final String name) {
         if (mapProd.containsKey(name)) {
             return String.valueOf(mapProd.get(name).getReference());
+            //
         } else {
             throw new IllegalArgumentException("Given name doens't match any saved product.");
         }
