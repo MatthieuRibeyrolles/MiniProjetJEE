@@ -44,10 +44,8 @@ public class DataSourceFactory {
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
                 
-                System.out.println(DB_USER);
-                System.out.println(DB_PSWD);
-
-
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
+                
                 return ds;
             }
 
