@@ -24,7 +24,9 @@ public class DataSourceFactory {
 
         try {
             String sEnv = System.getenv("DATABASE_URL");
+            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "sEnv: " + sEnv);
             if (sEnv != null) {
+
                 URI dbUri = new URI(sEnv);
 
                 DB_USER = dbUri.getUserInfo().split(":")[0];
@@ -42,16 +44,26 @@ public class DataSourceFactory {
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
 
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO,
+                        "Connecting to : {0} | login : {1} | p : {2} | svName : {3} | port : {4}",
+                        new Object[]{DB_NAME, DB_USER, DB_PSWD, DB_HOST, DB_PORT}
+                );
+
+//                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
+
                 return ds;
-            }
+            } else
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.WARNING, "La variable d'environnement \"DATABASE_URL\" n'existe pas !");
 
         } catch (URISyntaxException ex) {
             Logger.getLogger(DataSourceFactory.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception e) {
-            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, e);
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
-        Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, "Connecting to localhost");
+        Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to localhost");
 
         ClientDataSource ds = new ClientDataSource();
         ds.setDatabaseName(DB_NAME);
