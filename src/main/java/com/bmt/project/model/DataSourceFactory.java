@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.apache.derby.jdbc.ClientDataSource;
+import org.hsqldb.jdbc.JDBCDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DataSourceFactory {
@@ -32,8 +33,9 @@ public class DataSourceFactory {
                 DB_HOST = dbUri.getHost();
                 DB_PORT = dbUri.getPort();
                 DB_NAME = dbUri.getPath();
-
+                
                 PGSimpleDataSource ds = new PGSimpleDataSource();
+//                JDBCDataSource ds = new JDBCDataSource();
 
                 ds.setDatabaseName(DB_NAME);
                 ds.setUser(DB_USER);
@@ -42,13 +44,17 @@ public class DataSourceFactory {
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
 
+//                ds.setDatabase("jdbc:postgres:" + "" + ";shutdown=true");
+
                 return ds;
             }
 
         } catch (URISyntaxException ex) {
             Logger.getLogger(DataSourceFactory.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception e) {
-            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, e);
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
         Logger.getLogger("DataSourceFactory.class.getName()").log(Level.SEVERE, null, "Connecting to localhost");
