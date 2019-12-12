@@ -5,6 +5,7 @@
  */
 package com.bmt.project;
 
+
 import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
@@ -54,29 +55,33 @@ public class MainServlet extends HttpServlet {
             mapProduct.put(c.getWording(), new ArrayList<String>());
 
         }
-
+        Map<String , ProductEntity> products = new HashMap<>();
+        
         for (ProductEntity p : prod) {
 
-            ArrayList<String> tmp = new ArrayList<String>();
-            tmp = mapProduct.get(p.getCategory().getWording());
+            products.put(p.getName(), p);
+//            ArrayList<String> tmp = new ArrayList<String>();
+//            tmp = mapProduct.get(p.getCategory().getWording());
+//
+//            tmp.add(p.getName());
+//            mapProduct.put(p.getCategory().getWording(), tmp);
+//            
+//            
+//            ArrayList<String> prodTemp = new ArrayList<>();
+//            prodTemp.add(String.valueOf(p.getReference()));
+//            prodTemp.add(String.valueOf(p.getName()));
+//            prodTemp.add(String.valueOf(p.getProvider()));
+//            prodTemp.add(String.valueOf(p.getCategory()));
+//            prodTemp.add(String.valueOf(p.getQtyPerPackage()));
+//            prodTemp.add(String.valueOf(p.getPrice()));
+//            prodTemp.add(String.valueOf(p.getStock()));
+//            prodTemp.add(String.valueOf(p.getOrdered()));
+//            prodTemp.add(String.valueOf(p.getRefill()));
+//            prodTemp.add(String.valueOf(p.isAvailable()));
+//            
+//            mapInfoProduct.put(p.getName(), prodTemp);
 
-            tmp.add(p.getName());
-            mapProduct.put(p.getCategory().getWording(), tmp);
-            
-            
-            ArrayList<String> prodTemp = new ArrayList<>();
-            prodTemp.add(String.valueOf(p.getReference()));
-            prodTemp.add(String.valueOf(p.getName()));
-            prodTemp.add(String.valueOf(p.getProvider()));
-            prodTemp.add(String.valueOf(p.getCategory()));
-            prodTemp.add(String.valueOf(p.getQtyPerPackage()));
-            prodTemp.add(String.valueOf(p.getPrice()));
-            prodTemp.add(String.valueOf(p.getStock()));
-            prodTemp.add(String.valueOf(p.getOrdered()));
-            prodTemp.add(String.valueOf(p.getRefill()));
-            prodTemp.add(String.valueOf(p.isAvailable()));
-            
-            mapInfoProduct.put(p.getName(), prodTemp);
+
         }
 
         request.setAttribute("product_map", mapProduct);
@@ -85,8 +90,8 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("product_information", mapInfoProduct);
         
         
-        
-        
+        Product productBean = new Product(products);
+        request.setAttribute("productBean", productBean);
         
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);

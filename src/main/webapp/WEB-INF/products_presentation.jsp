@@ -23,20 +23,9 @@
                     <a href="?cat=${category.key}"> ${category.key} </a>
                 </c:forEach>
             </div>
+            
+            <%@include file="/WEB-INF/jsp_parts/products_table.jsp" %>
 
-            
-            <c:choose>
-                <c:when test="${empty param.cat}">
-                    <c:import url="/WEB-INF/jsp_parts/products_table.jsp" >
-                        <c:param name="cat" value="7" ></c:param>
-                    </c:import>
-                </c:when>
-                
-                <c:otherwise>
-                    <c:import url="/WEB-INF/jsp_parts/products_table.jsp" ></c:import>
-                </c:otherwise>
-            </c:choose>
-            
         </div>
     </body>
 </html>

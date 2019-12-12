@@ -50,11 +50,12 @@ td:hover {
 
 #infoPage {
     display: flex;
+    justify-content: space-between;
 }
 
 #infos {
     width: 80%;
-    margin: auto;
+    /*margin: auto;*/
     padding: 10px;
     background-color: #626262;
 }

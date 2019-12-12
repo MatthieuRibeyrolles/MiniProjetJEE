@@ -14,7 +14,7 @@
     </head>
     
     <body>
-        <h2>${param.cat}</h2>
+        <h2><c:if test="${not empty param.cat}" > ${param.cat} </c:if> </h2>
 
         <div id="infoPage" >    
             <nav>
@@ -24,8 +24,7 @@
                             <c:set var="i" value="0" />
 
                             <c:forEach items="${category.value}" var="product">
-                                <!--<td><a href="#"> ${product} </a></td>-->
-                                <td><button type="button">${product}</button></td>
+                                <td><button class="product" type="button" id="${product}">${product}</button></td>
                                 <tr></tr>
 
                             </c:forEach>
@@ -33,10 +32,31 @@
                     </c:forEach> 
                 </table>
             </nav>
-                
-            <div id="infos" >
-                je suis une ympho
-            </div>
+            
+            <c:if test="${not empty param.cat}" >
+                <c:out value="${productBean}" />
+                <div id="infos" >
+                    
+                    
+                    <label id="info_name" />
+                    <label id="info_ref" /> 
+<!--                        
+                        vendu par $(qt package), au prix de $(price)
+                        vendu par $(provider)
+                        en stock: $(qt stock) (disponible à la vente: $(available)
+
+                        si (admin)
+                            alors 
+                        quantité commandée: qt ordered-->
+
+
+                </div>
+            </c:if>
+
         </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="productsInformations.js"></script>
+        
     </body>
 </html>
