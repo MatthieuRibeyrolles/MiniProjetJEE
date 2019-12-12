@@ -90,6 +90,8 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("product_information", mapInfoProduct);
         
         
+        
+        
 //        String nomprod = request.getParameter("nomprod");
 //        if (nomprod != null){
 //            
