@@ -33,7 +33,7 @@ public class DataSourceFactory {
                 DB_PSWD = dbUri.getUserInfo().split(":")[1];
                 DB_HOST = dbUri.getHost();
                 DB_PORT = dbUri.getPort();
-                DB_NAME = dbUri.getPath();
+                DB_NAME = dbUri.getPath().split("/")[1];
 
                 PGSimpleDataSource ds = new PGSimpleDataSource();
 
@@ -44,12 +44,12 @@ public class DataSourceFactory {
                 ds.setPortNumber(DB_PORT);
                 ds.setSsl(true);
 
+                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
+
                 Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO,
                         "Connecting to : {0} | login : {1} | p : {2} | svName : {3} | port : {4}",
                         new Object[]{DB_NAME, DB_USER, DB_PSWD, DB_HOST, DB_PORT}
                 );
-
-//                Logger.getLogger("DataSourceFactory.class.getName()").log(Level.INFO, "Connecting to provided database");
 
                 return ds;
             } else
