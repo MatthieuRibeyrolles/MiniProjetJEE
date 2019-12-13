@@ -35,8 +35,6 @@ public class DataSourceFactory {
 
                 PGSimpleDataSource ds = new PGSimpleDataSource();
 
-                String dbUrl = System.getenv("DATABASE_URL");
-
                 ds.setDatabaseName(DB_NAME);
                 ds.setUser(DB_USER);
                 ds.setPassword(DB_PSWD);
