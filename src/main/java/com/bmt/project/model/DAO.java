@@ -3,7 +3,6 @@ package com.bmt.project.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +15,19 @@ import javax.sql.DataSource;
 public class DAO {
 
     private final DataSource myDAO;
+
     private List<ClientEntity> lClients;
     private List<OrderEntity> lOrders;
     private List<CategoryEntity> lCategories;
     private List<ProductEntity> lProducts;
 
     public DAO(DataSource myDAO) {
-        this.myDAO          = myDAO;
-        this.lClients       = new ArrayList<>();
-        this.lOrders        = new ArrayList<>();
-        this.lCategories    = new ArrayList<>();
-        this.lProducts      = new ArrayList<>();
+                this.myDAO          = myDAO;
+
+        this.lClients = new ArrayList<>();
+        this.lOrders = new ArrayList<>();
+        this.lCategories = new ArrayList<>();
+        this.lProducts = new ArrayList<>();
     }
 
     public List<ClientEntity> getClientsList() {
@@ -116,10 +117,10 @@ public class DAO {
     }
 
     public List<ProductEntity> getProductsList() {
-        
+
         if (!this.lProducts.isEmpty())
             return this.lProducts;
-        
+
         String sql = "SELECT reference,nom,fournisseur,categorie,quantite_par_unite,prix_unitaire,unites_en_stock,unites_commandees,niveau_de_reappro,indisponible FROM Produit";
 
         try (Connection con = this.myDAO.getConnection();
