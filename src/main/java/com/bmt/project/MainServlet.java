@@ -10,6 +10,7 @@ import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.ClientEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
+import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
 import static java.lang.System.out;
@@ -23,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,7 +35,8 @@ public class MainServlet extends HttpServlet {
     
     
     private DAO MyDao;
-    
+    private ClientEntity user;
+    public HttpSession session;
     
     @Override
     public void init() throws ServletException {
@@ -49,18 +52,9 @@ public class MainServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response); //To change body of generated methods, choose Tools | Templates.
+        super.doPost(request, response); //To change body of generated methods, choose Tools | Template
         
-        String log =request.getParameter("login");
-        String pass=request.getParameter("password");
-        if (log != null && pass != null){
-        System.out.println(log);
-        System.out.println(pass);
-        ClientEntity user = MyDao.login(log,pass);
-        return ;
-        }
         
-                
         
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response); 
     }
@@ -131,7 +125,99 @@ public class MainServlet extends HttpServlet {
         
         
         
+        String log =request.getParameter("login");
+        String pass=request.getParameter("password");
+
+
+//      connexion
+        if (log != null && pass != null){
+            user = MyDao.login(log,pass);
         
+//          verification si la connection est possible
+            if (user!=null){   
+                
+                //admin LOG = Maria Anders, PASS = ALFKI 
+                
+                boolean admin=false;
+                boolean client=false;
+                
+                if (log=="Maria Anders" && pass=="ALFKI"){
+                    admin=true;
+                }else{
+                    client=true;
+                }
+
+                HttpSession session = request.getSession(true);
+                session.setAttribute("usrname", log);
+                session.setAttribute("pass",pass);
+
+
+                session.setAttribute("client", client);
+                session.setAttribute("admin",admin);
+                
+               
+
+//              si c'est un client
+                if (client==true){
+                    List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
+                    ArrayList<ArrayList<String>> clientOrderString = new ArrayList<ArrayList<String>>();
+                    
+                    for ( OrderEntity ord : clientOrder){
+                        ArrayList<String> tmpord = new ArrayList<String>();
+                        tmpord.add(String.valueOf(ord.getDateSent()));
+                        tmpord.add(String.valueOf(ord.getPort()));
+                        tmpord.add(String.valueOf(ord.getReceiver()));
+                        tmpord.add(String.valueOf(ord.getAddress()));
+                        tmpord.add(String.valueOf(ord.getCity()));
+                        tmpord.add(String.valueOf(ord.getRegion()));
+                        tmpord.add(String.valueOf(ord.getZipcode()));
+                        tmpord.add(String.valueOf(ord.getCountry()));
+                        tmpord.add(String.valueOf(ord.getDiscount()));
+                        
+                        clientOrderString.add(tmpord);
+                        
+                    }
+                    
+                    session.setAttribute("order",clientOrderString);
+
+                }
+//              si c'est l'admin 
+                else{
+                               
+//                  ajout de toute les commandes 
+                    List<OrderEntity> allOrder = MyDao.getOrdersList();
+                    ArrayList<ArrayList<String>> allOrderString = new ArrayList<ArrayList<String>>();
+                    
+                    for (OrderEntity ord : allOrder){
+                        ArrayList<String> tmpord = new ArrayList<String>();
+                        tmpord.add(String.valueOf(ord.getNum()));
+                        tmpord.add(String.valueOf(ord.getClient()));
+                        tmpord.add(String.valueOf(ord.getDateSent()));
+                        tmpord.add(String.valueOf(ord.getPort()));
+                        tmpord.add(String.valueOf(ord.getReceiver()));
+                        tmpord.add(String.valueOf(ord.getAddress()));
+                        tmpord.add(String.valueOf(ord.getCity()));
+                        tmpord.add(String.valueOf(ord.getRegion()));
+                        tmpord.add(String.valueOf(ord.getZipcode()));
+                        tmpord.add(String.valueOf(ord.getCountry()));
+                        tmpord.add(String.valueOf(ord.getDiscount()));
+                        
+                        allOrderString.add(tmpord);
+                    }
+                    
+                    session.setAttribute("order",allOrderString);
+                    
+//                  ajout de tous les produits
+                    
+                    
+                    
+                    
+                }
+                
+            }
+        }
+        
+
 //        String nomprod = request.getParameter("nomprod");
 //        if (nomprod != null){
 //            
