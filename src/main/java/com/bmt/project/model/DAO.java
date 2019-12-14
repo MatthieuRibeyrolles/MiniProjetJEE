@@ -22,8 +22,7 @@ public class DAO {
     private List<ProductEntity> lProducts;
 
     public DAO(DataSource myDAO) {
-                this.myDAO          = myDAO;
-
+        this.myDAO = myDAO;
         this.lClients = new ArrayList<>();
         this.lOrders = new ArrayList<>();
         this.lCategories = new ArrayList<>();
@@ -308,6 +307,42 @@ public class DAO {
             if (category.getCode() == code)
                 return category;
         return null;
+    }
+
+    public List<OrderEntity> getOrderListByClient(String codeC) {
+        List<OrderEntity> tmp = new ArrayList();
+        
+        if (!this.lOrders.isEmpty()) {
+            for (OrderEntity order : this.lOrders)
+                if (order.getClient().getCode().equals(codeC))
+                    tmp.add(order);
+        } else {
+            String sql = "SELECT client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise FROM Commande WHERE client=?";
+
+            try (Connection con = this.myDAO.getConnection();
+                    PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setString(1, codeC);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    this.lOrders = new ArrayList<>();
+                    while (rs.next())
+                        tmp.add(new OrderEntity(
+                                getClientBycode(rs.getString("client")),
+                                rs.getDate("envoyee_le"),
+                                rs.getFloat("port"),
+                                rs.getString("destinataire"),
+                                rs.getString("adresse_livraison"),
+                                rs.getString("ville_livraison"),
+                                rs.getString("region_livraison"),
+                                rs.getString("code_postal_livrais"),
+                                rs.getString("pays_livraison"),
+                                rs.getFloat("remise")
+                        ));
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return tmp;
     }
 
 }

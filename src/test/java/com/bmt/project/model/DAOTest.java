@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bmt.project.model;
 
 import java.io.File;
@@ -208,6 +203,19 @@ public class DAOTest {
         instance.getCategoriesList();
         CategoryEntity expResult = new CategoryEntity(1, "Boissons", "Boissons, cafés, thés, bières");
         CategoryEntity result = instance.getCategoryByCode(code);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getOrderListByClient method, of class DAO.
+     */
+    @Test
+    public void testGetOrderListByClient() {
+        System.out.println("getOrderListByClient");
+        String codeC = "ALFKI";
+        DAO instance = this.myDAO;
+        int expResult = 4;
+        int result = instance.getOrderListByClient(codeC).size();
         assertEquals(expResult, result);
     }
 
