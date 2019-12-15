@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import org.apache.derby.jdbc.ClientDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class DataSourceFactory {
@@ -55,7 +56,7 @@ public class DataSourceFactory {
             System.out.println(ex.getMessage());
         }
 
-        PGSimpleDataSource ds = new PGSimpleDataSource();
+        ClientDataSource ds = new ClientDataSource();
 
         ds.setDatabaseName(DB_NAME);
         ds.setUser(DB_USER);
