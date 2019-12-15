@@ -499,5 +499,22 @@ public class DAO {
         return res > 0;
     }
 
-//    deleteLine
+    public boolean deleteLine(LineEntity line) {
+        int res = 0;
+        String sql = "DELETE FROM Ligne WHERE commande=? AND produit=?";
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, line.getOrder().getNum());
+            stmt.setInt(2, line.getProduct().getReference());
+            res = stmt.executeUpdate();
+            if (res > 0)
+                for (LineEntity lineE : this.lLines)
+                    if (lineE.getOrder().equals(line.getOrder()) && lineE.getProduct().equals(line.getProduct()))
+                        this.lLines.remove(lineE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return res > 0;
+    }
+    
 }
