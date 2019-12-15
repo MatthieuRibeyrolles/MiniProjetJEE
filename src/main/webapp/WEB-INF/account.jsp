@@ -35,15 +35,18 @@
                         <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                         <if test="${sessionScope.client == 'true'}" >
-                            <button id="ordersButton"> Mes commandes passées </button> 
+                            <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
+                            <button id="ordersButton"> Mon panier </button> 
                         </if>
 
-                        <button id="logoutButton">Me deconnecter</button>
                     </div>
                             
+                            
+                    <h2>Modifer mes informations</h2>
+                    
                     <div id="changeInfos">
                         <form action="account" method="GET">
-                            Société <input type="text" name="societe"><br/>
+                            Société <input type="text" name="societe" value=""><br/>
                             Contact: <input type="text" name="contact">
                             Fonction: <input type="text" name="contact">
                             Adresse: <input type="text" name="contact">
@@ -56,6 +59,9 @@
                             <input id="Enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
+                            
+                    <button id="logoutButton">Me deconnecter</button>
+
                 </c:otherwise>
             </c:choose>
         </div>
