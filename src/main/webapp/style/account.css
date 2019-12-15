@@ -42,6 +42,9 @@ form {
     padding: 5px;
     border-radius: 15px;
     cursor: pointer;
+    
+    margin-bottom: 100px;
+    bottom: 0;
 }
 
 #errorMessage {
