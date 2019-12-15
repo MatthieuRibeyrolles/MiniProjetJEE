@@ -28,14 +28,13 @@
                 <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
 
-                <c:forEach items="${sessionScope.order}" var="order">
-                    <c:set var="tmp" value="order"/>
-                    
-                    <c:forEach items="${tmp}" var="ligne">
-                        <p> ${ligne} </p>
-                        
+                <c:forEach items="${sessionScope.order}" var="order">                   
+                    <p>
+                    <c:forEach items="${order}" var="ligne">
+                         ${ligne} 
                     </c:forEach>
-                        <br>
+                    </p>
+                    <br>
                 </c:forEach>
 
 
