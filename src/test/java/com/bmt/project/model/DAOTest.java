@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.hsqldb.cmdline.SqlFile;
 import org.hsqldb.cmdline.SqlToolError;
@@ -30,8 +33,10 @@ public class DAOTest {
     private DataSource myDataSource;
     private Connection myConnection;
     private DAO myDAO;
-    private List<ClientEntity> clientsList;
     private ClientEntity testClient;
+    private OrderEntity testOrder;
+    private CategoryEntity testCategory;
+    private ProductEntity testProduct;
 
     public DAOTest() {
     }
@@ -62,13 +67,17 @@ public class DAOTest {
     }
 
     @Before
-    public void setUp() throws SQLException, IOException, SqlToolError {
+    public void setUp() throws SQLException, IOException, SqlToolError, ParseException {
         this.myDataSource = getDataSource();
         this.myConnection = this.myDataSource.getConnection();
         executeSQLScript(this.myConnection, CREATE_DB);
         executeSQLScript(this.myConnection, FILL_DB);
         this.myDAO = new DAO(this.myDataSource);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         this.testClient = new ClientEntity("ALFKI", "Alfreds Futterkiste", "Maria Anders", "Représentant(e)", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", "030-0074321", "030-0076545");
+        this.testOrder = new OrderEntity(10702, testClient, new java.sql.Date(sdf1.parse("1995-11-21").getTime()), 119.00f, "Alfred's Futterkiste", "Obere Str. 57", "Berlin", null, "12209", "Allemagne", 0.00f);
+        this.testCategory = new CategoryEntity(1, "Boissons", "Boissons, cafés, thés, bières");
+        this.testProduct = new ProductEntity( 1, "Chai", 1, this.testCategory, "10 boîtes x 20 sacs", 90.00f, 39, 0, 10, 0 == 1);
     }
 
     @After
@@ -129,13 +138,12 @@ public class DAOTest {
      * Test of getClientBycode method, of class DAO.
      */
     @Test
-    public void testGetClientBycode() {
+    public void testGetClientByCode() {
         System.out.println("getClientBycode");
         String codeC = "ALFKI";
         DAO instance = this.myDAO;
-        instance.getClientsList();
         ClientEntity expResult = this.testClient;
-        ClientEntity result = instance.getClientBycode(codeC);
+        ClientEntity result = instance.getClientByCode(codeC);
         assertEquals(expResult, result);
     }
 
@@ -173,8 +181,7 @@ public class DAOTest {
     public void testAddOrder() {
         System.out.println("addOrder");
         DAO instance = this.myDAO;
-        instance.getClientsList();
-        OrderEntity newO = new OrderEntity(instance.getClientBycode("ALFKI"), Date.valueOf(LocalDate.now()), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
+        OrderEntity newO = new OrderEntity(instance.getClientByCode("ALFKI"), Date.valueOf(LocalDate.now()), 69.0f, "Rattlesnake Canyon Grocery", "2817 Milton Dr.", "Albuquerque", "NM", "87110", "Etats-Unis", 0.00f);
         int expResult = 1;
         int result = instance.addOrder(newO).getNum();
         assertEquals(expResult, result);
@@ -200,7 +207,6 @@ public class DAOTest {
         System.out.println("getCategoryByCode");
         int code = 1;
         DAO instance = this.myDAO;
-        instance.getCategoriesList();
         CategoryEntity expResult = new CategoryEntity(1, "Boissons", "Boissons, cafés, thés, bières");
         CategoryEntity result = instance.getCategoryByCode(code);
         assertEquals(expResult, result);
@@ -217,6 +223,128 @@ public class DAOTest {
         int expResult = 4;
         int result = instance.getOrderListByClient(codeC).size();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLinesList method, of class DAO.
+     */
+    @Test
+    public void testGetLinesList() {
+        System.out.println("getLinesList");
+        DAO instance = this.myDAO;
+        int expResult = 2154;
+        int result = instance.getLinesList().size();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getOrderByCode method, of class DAO.
+     */
+    @Test
+    public void testGetOrderByCode() {
+        System.out.println("getOrderByCode");
+        int code = 10702;
+        DAO instance = this.myDAO;
+        OrderEntity expResult = testOrder;
+        OrderEntity result = instance.getOrderByCode(code);
+        assertEquals(expResult, result);
+    }
+    
+    // TODO
+
+    /**
+     * Test of getProductByCode method, of class DAO.
+     */
+    @Test
+    public void testGetProductByCode() {
+        System.out.println("getProductByCode");
+        int code = 0;
+        DAO instance = this.myDAO;
+        ProductEntity expResult = null;
+        ProductEntity result = instance.getProductByCode(code);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of updateOrder method, of class DAO.
+     */
+    @Test
+    public void testUpdateOrder() {
+        System.out.println("updateOrder");
+        OrderEntity oldO = null;
+        OrderEntity newO = null;
+        DAO instance = this.myDAO;
+        boolean expResult = false;
+        boolean result = instance.updateOrder(oldO, newO);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addLineToCommand method, of class DAO.
+     */
+    @Test
+    public void testAddLineToCommand() {
+        System.out.println("addLineToCommand");
+        LineEntity newL = null;
+        OrderEntity order = null;
+        DAO instance = this.myDAO;
+        LineEntity expResult = null;
+        LineEntity result = instance.addLineToCommand(newL);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRevenuesByCountryBetweenDates method, of class DAO.
+     */
+    @Test
+    public void testGetRevenuesByCountryBetweenDates() {
+        System.out.println("getRevenuesByCountryBetweenDates");
+        Date d1 = null;
+        Date d2 = null;
+        DAO instance = this.myDAO;
+        Map<String, Float> expResult = null;
+        Map<String, Float> result = instance.getRevenuesByCountryBetweenDates(d1, d2);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRevenuesByCategoryBetweenDates method, of class DAO.
+     */
+    @Test
+    public void testGetRevenuesByCategoryBetweenDates() {
+        System.out.println("getRevenuesByCategoryBetweenDates");
+        Date d1 = null;
+        Date d2 = null;
+        DAO instance = this.myDAO;
+        Map<String, Float> expResult = null;
+        Map<String, Float> result = instance.getRevenuesByCategoryBetweenDates(d1, d2);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getRevenuesByClientBetweenDates method, of class DAO.
+     */
+    @Test
+    public void testGetRevenuesByClientBetweenDates() {
+        System.out.println("getRevenuesByClientBetweenDates");
+        Date d1 = null;
+        Date d2 = null;
+        DAO instance = this.myDAO;
+        Map<String, Float> expResult = null;
+        Map<String, Float> result = instance.getRevenuesByClientBetweenDates(d1, d2);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
 }
