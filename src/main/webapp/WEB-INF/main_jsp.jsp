@@ -12,15 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="style/main.css" rel="stylesheet">
     </head>
-    <body>        
-        <div id="blocPage">
-            <div id="connectDiv">
-                <form action="home" method="POST">
-                    Login: <input type="text" name="login"><br/>
-                    Password: <input type="password" name="password">
-                    <input id="loginButton" type="submit" value="Log in">
-                </form>
-            </div>
-        </div>
-    </body>
+    
+    <!-- a modifier -->
+    
+
+        
+        <button id="account" type="button" onclick="location.href = window.location + '/account'">Mon compte</button>
+        
+        
 </html>

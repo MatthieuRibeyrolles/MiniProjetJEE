@@ -42,6 +42,7 @@ public class MainServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init(); 
         this.MyDao= new DAO(DataSourceFactory.getDataSource());
+        HttpSession session;
         
     }
 
@@ -66,8 +67,10 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
+        session = request.getSession(true);
+        
+        session.setAttribute("log", false);
+        
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
         List<ProductEntity> prod = MyDao.getProductsList();
@@ -131,6 +134,7 @@ public class MainServlet extends HttpServlet {
 
 //      connexion
         if (log != null && pass != null){
+            log("bonjour");
             user = MyDao.login(log,pass);
         
 //          verification si la connection est possible
@@ -147,11 +151,10 @@ public class MainServlet extends HttpServlet {
                     client=true;
                 }
 
-                HttpSession session = request.getSession(true);
                 session.setAttribute("usrname", log);
                 session.setAttribute("pass",pass);
 
-
+                session.setAttribute("log", true);
                 session.setAttribute("client", client);
                 session.setAttribute("admin",admin);
                 
@@ -216,7 +219,9 @@ public class MainServlet extends HttpServlet {
                 
             }
         }
-        
+//      fin de la connexion
+
+
 
 //        String nomprod = request.getParameter("nomprod");
 //        if (nomprod != null){

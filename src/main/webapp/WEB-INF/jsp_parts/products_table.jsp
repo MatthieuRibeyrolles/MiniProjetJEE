@@ -51,13 +51,13 @@
                             
                             <p>
                                 Référence du produit: ${reference} <br>
-                                Référence fournisseur: ${fournisseur} <br>
+                                <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if> 
                                 Catégorie: ${param.cat} <br>
                                 Ce produit est vendu par ${quantityBySell} <br>
                                 Prix unitaire: ${prix} euros <br>
-                                Unités restantes en stock: ${stock} <br>
-                                Unités commandées: ${ordered} <br>
-                                Niveau de réaprovisionnement: ${refill} <br>
+                                <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
+                                <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
+                                <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
                                ${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente<br>
                             </p>
                     </c:if>

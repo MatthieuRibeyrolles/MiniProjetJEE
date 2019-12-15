@@ -9,10 +9,10 @@ body {
     color: #fff;
 }
 
-#blocPage {
-    width: 80%;
-    margin: auto;
-    text-align: center;
+#account {
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 5px;
 }
 
 #pageTitle { margin-bottom: 50px; }
@@ -21,11 +21,6 @@ body {
     cursor: pointer;
 }
 
-#connectDiv form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
 
 #menuBar  {
         
