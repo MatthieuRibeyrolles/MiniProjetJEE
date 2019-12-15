@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -193,8 +195,7 @@ public class DAO {
     public boolean updateClient(ClientEntity oldC, ClientEntity newC) {
         int res = 0;
         String sql = "UPDATE Client "
-                + "SET code=?,"
-                + "societe=?,"
+                + "SET societe=?,"
                 + "contact=?,"
                 + "fonction=?,"
                 + "adresse=?,"
@@ -208,19 +209,18 @@ public class DAO {
                 + "AND contact=?";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, newC.getCode());
-            stmt.setString(2, newC.getCompany());
-            stmt.setString(3, newC.getContact());
-            stmt.setString(4, newC.getRole());
-            stmt.setString(5, newC.getAddress());
-            stmt.setString(6, newC.getCity());
-            stmt.setString(7, newC.getRegion());
-            stmt.setString(8, newC.getZipCode());
-            stmt.setString(9, newC.getCountry());
-            stmt.setString(10, newC.getPhone());
-            stmt.setString(11, newC.getFax());
-            stmt.setString(12, oldC.getCode());
-            stmt.setString(13, oldC.getContact());
+            stmt.setString(1, newC.getCompany());
+            stmt.setString(2, newC.getContact());
+            stmt.setString(3, newC.getRole());
+            stmt.setString(4, newC.getAddress());
+            stmt.setString(5, newC.getCity());
+            stmt.setString(6, newC.getRegion());
+            stmt.setString(7, newC.getZipCode());
+            stmt.setString(8, newC.getCountry());
+            stmt.setString(9, newC.getPhone());
+            stmt.setString(10, newC.getFax());
+            stmt.setString(11, oldC.getCode());
+            stmt.setString(12, oldC.getContact());
             res = stmt.executeUpdate();
             if (res > 0)
                 for (ClientEntity client : this.lClients)
@@ -352,16 +352,16 @@ public class DAO {
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setDate(1, newO.getDateSent());
-            stmt.setFloat(2, newO.getPort());
+            setFloatOrNull(stmt, 2, newO.getPort());
             stmt.setString(3, newO.getReceiver());
             stmt.setString(4, newO.getAddress());
             stmt.setString(5, newO.getCity());
             stmt.setString(6, newO.getRegion());
             stmt.setString(7, newO.getZipcode());
             stmt.setString(8, newO.getCountry());
-            stmt.setFloat(9, newO.getDiscount());
+            setFloatOrNull(stmt, 9, newO.getDiscount());
             stmt.setString(10, oldO.getClient().getCode());
-            stmt.setInt(11, oldO.getNum());
+            setIntOrNull(stmt, 11, oldO.getNum());
             res = stmt.executeUpdate();
             if (res > 0)
                 for (OrderEntity order : this.lOrders)
@@ -377,9 +377,9 @@ public class DAO {
         String sql = "INSERT INTO Ligne(commande,produit,quantite) VALUES (?,?,?)";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, newL.getOrder().getNum());
-            stmt.setInt(2, newL.getProduct().getReference());
-            stmt.setInt(3, newL.getQty());
+            setIntOrNull(stmt, 1, newL.getOrder().getNum());
+            setIntOrNull(stmt, 2, newL.getProduct().getReference());
+            setIntOrNull(stmt, 3, newL.getQty());
             int res = stmt.executeUpdate();
             if (res != 0) {
                 this.lLines.add(newL);
@@ -485,9 +485,9 @@ public class DAO {
         String sql = "UPDATE Ligne SET quantite=? WHERE commande=? AND produit=?";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, newL.getQty());
-            stmt.setInt(2, oldL.getOrder().getNum());
-            stmt.setInt(3, oldL.getProduct().getReference());
+            setIntOrNull(stmt, 1, newL.getQty());
+            setIntOrNull(stmt, 2, oldL.getOrder().getNum());
+            setIntOrNull(stmt, 3, oldL.getProduct().getReference());
             res = stmt.executeUpdate();
             if (res > 0)
                 for (LineEntity line : this.lLines)
@@ -504,8 +504,8 @@ public class DAO {
         String sql = "DELETE FROM Ligne WHERE commande=? AND produit=?";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, line.getOrder().getNum());
-            stmt.setInt(2, line.getProduct().getReference());
+            setIntOrNull(stmt, 1, line.getOrder().getNum());
+            setIntOrNull(stmt, 2, line.getProduct().getReference());
             res = stmt.executeUpdate();
             if (res > 0)
                 for (LineEntity lineE : this.lLines)
@@ -516,5 +516,20 @@ public class DAO {
         }
         return res > 0;
     }
-    
+
+    // Methodes utilitaires
+    public static void setFloatOrNull(PreparedStatement ps, int index, Float value) throws SQLException {
+        if (value == null)
+            ps.setNull(index, Types.FLOAT);
+        else
+            ps.setFloat(index, value);
+    }
+
+    public static void setIntOrNull(PreparedStatement ps, int index, Integer value) throws SQLException {
+        if (value == null)
+            ps.setNull(index, Types.INTEGER);
+        else
+            ps.setFloat(index, value);
+    }
+
 }
