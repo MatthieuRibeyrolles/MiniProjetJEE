@@ -10,20 +10,17 @@ import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.ClientEntity;
 import com.bmt.project.model.DAO;
 import com.bmt.project.model.DataSourceFactory;
+import com.bmt.project.model.LineEntity;
 import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
 import static java.lang.System.out;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -146,7 +143,7 @@ public class MainServlet extends HttpServlet {
             if (( user!=null )|( log=="admin" && pass=="admin") ){   
                 
                 //admin LOG = Maria Anders, PASS = ALFKI 
-                
+                //random LOG = Ana Trujillo  , PASS = ANATR
                 boolean admin=false;
                 boolean client=false;
                 
@@ -170,7 +167,12 @@ public class MainServlet extends HttpServlet {
                     List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
                     ArrayList<ArrayList<String>> clientOrderString = new ArrayList<ArrayList<String>>();
                     
+                    Map<OrderEntity, List<LineEntity>> cientline = new HashMap<OrderEntity, List<LineEntity>>(); 
+                    
+                    
                     for ( OrderEntity ord : clientOrder){
+                        
+                        ord = MyDao.addOrder(ord);
                         ArrayList<String> tmpord = new ArrayList<String>();
                         tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
                         tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
@@ -181,10 +183,14 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("code zip :"+String.valueOf(ord.getZipcode()));
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
                         tmpord.add("réduction :"+String.valueOf(ord.getDiscount()));
-                        
+                        System.out.println("order"+ord);
+                                
+                        List<LineEntity> llc =MyDao.getLineListByOrder(ord);
+                        System.out.println(llc);
                         clientOrderString.add(tmpord);
                         
                     }
+                    
                     
                     session.setAttribute("order",clientOrderString);
 
@@ -251,24 +257,23 @@ public class MainServlet extends HttpServlet {
         
         //user
         //getTime()+43200000;// on rajoute 5 jours a la date d'aujourd'hui
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        java.util.Date d1 = new java.util.Date();
-        java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
-        float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
-        String receiverAddOrder = request.getParameter("receiverAddOrder");
-        String addressAddOrder = request.getParameter("addressAddOrder");
-        String cityAddOrder = request.getParameter("cityAddOrder");
-        String regionAddOrder = request.getParameter("regionAddOrder");
-        String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
-        String countryAddOrder = request.getParameter("countryAddOrder");
-        float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
-
-
-        if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
-            MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
-        }
-
-
+        
+//        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+//        java.util.Date d1 = new java.util.Date();
+//        java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
+//        float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
+//        String receiverAddOrder = request.getParameter("receiverAddOrder");
+//        String addressAddOrder = request.getParameter("addressAddOrder");
+//        String cityAddOrder = request.getParameter("cityAddOrder");
+//        String regionAddOrder = request.getParameter("regionAddOrder");
+//        String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
+//        String countryAddOrder = request.getParameter("countryAddOrder");
+//        float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
+//
+//
+//        if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
+//            MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
+//        }
 //      fin d'ajout d'une commande
 
 
@@ -283,8 +288,25 @@ public class MainServlet extends HttpServlet {
 
 //      debut ajout ligne
 
+//        int orderLine = -1;
+//        int productLine = -1;
+//        int quantityLine = -1;
+//        orderLine= Integer.parseInt(request.getParameter("orderLine"));
+//        productLine= Integer.parseInt(request.getParameter("productLine"));
+//        quantityLine= Integer.parseInt(request.getParameter("quantityLine"));
+//       
+//        if (orderLine>=0 && productLine>=0 && quantityLine>=0){
+//            LineEntity newline = new LineEntity(MyDao.getOrderByCode(orderLine),MyDao.getProductByCode(productLine),quantityLine);
+//            MyDao.addLineToCommand(newline);
+//        }
 
 //      fin ajout ligne 
+
+//      debut modifier line
+        
+
+
+//      fin modifier line 
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
