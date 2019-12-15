@@ -147,10 +147,24 @@ public class MainServlet extends HttpServlet {
                 boolean admin=false;
                 boolean client=false;
                 
+                ArrayList<String> infoclientString = new ArrayList<String>();
+                
                 if (log=="admin" && pass=="admin"){
                     admin=true;
                 }else{
                     client=true;
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+//                    infoclientString.add();
+                    
+                    
                 }
 
                 session.setAttribute("usrname", log);
@@ -160,10 +174,14 @@ public class MainServlet extends HttpServlet {
                 session.setAttribute("client", client);
                 session.setAttribute("admin",admin);
                 
-               
+
+                
+                
+                session.setAttribute("infoClient",infoclientString);
 
 //              si c'est un client
                 if (client){
+                    System.out.println("client");
                     List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
                     ArrayList<ArrayList<String>> clientOrderString = new ArrayList<ArrayList<String>>();
                     
@@ -171,7 +189,7 @@ public class MainServlet extends HttpServlet {
                     
                     
                     for ( OrderEntity ord : clientOrder){           
-                        System.out.println("order : "+ord);
+                        
                         ArrayList<String> tmpord = new ArrayList<String>();
                         tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
                         tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
@@ -192,8 +210,8 @@ public class MainServlet extends HttpServlet {
                     }
                     
                     
-                    session.setAttribute("order",clientOrderString);
-                    session.setAttribute("line", clientline);
+                    request.setAttribute("order",clientOrder);
+                    request.setAttribute("line", clientline);
                 }
 //              si c'est l'admin 
                 else{
@@ -219,7 +237,7 @@ public class MainServlet extends HttpServlet {
                         allOrderString.add(tmpord);
                     }
                     
-                    session.setAttribute("order",allOrderString);
+                    session.setAttribute("order",allOrder);
                     
 //                  ajout de tous les produits
                     
