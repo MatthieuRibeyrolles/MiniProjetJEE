@@ -20,7 +20,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Dalfrak
+ * @author Thibault
  */
 public class DAOTest {
 
