@@ -245,7 +245,7 @@ public class MainServlet extends HttpServlet {
         String fax = request.getParameter("fax");
 
   //      new ClientEntity qsd = new ClientEnitity();
-//        new ClientEntity client = new ClientEntity(code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax);
+        new ClientEntity(code, contact, contact, code, adresse, code, region, code, contact, code, fax);
 //        MyDao.updateClient(usr,client);
 
         out.printf("Erreur pendant la modif de données perso");
