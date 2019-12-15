@@ -1,9 +1,10 @@
 <%-- 
     Document   : client_view
     Created on : 15 déc. 2019, 16:06:01
-    Author     : Thibault
+    Author     : Thibault/Bruno 
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  
 
@@ -23,18 +24,21 @@
         </c:when>
 
         <c:otherwise>
-            <div id="topInfos" >
+            
                 <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
 
                 <c:forEach items="${sessionScope.order}" var="order">
-                    <p>${order}<br></p>
-
+                    <c:forEach item="${order}" var="ligne">
+                        <p> ${ligne} </p>
+                        
+                    </c:forEach>
+                        <br>
                 </c:forEach>
 
 
                 <button id="logoutButton">Log out</button>
-            </div>
+            
         </c:otherwise>
     </c:choose>
 </div>
