@@ -32,6 +32,7 @@ public class DAO {
         this.lOrders = new ArrayList<>();
         this.lCategories = new ArrayList<>();
         this.lProducts = new ArrayList<>();
+        this.lLines = new ArrayList<>();
     }
 
     public List<ClientEntity> getClientsList() {
