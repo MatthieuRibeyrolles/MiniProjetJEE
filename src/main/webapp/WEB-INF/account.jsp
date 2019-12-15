@@ -19,7 +19,7 @@
         <div id="blocPage">
             <c:choose>
                 <!--Non client et non admin-->
-                <c:when test="${sessionScope.client != 'true' || sessionScope.admin != 'true'}">
+                <c:when test="${sessionScope.log != 'true'}">
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
                     
                     <div id="connectDiv">
@@ -33,39 +33,31 @@
 
                 <c:otherwise>
                     <!--Client-->
-                    <c:when test="${sessionScope.client == 'true'}" >
                         <div id="topInfos" >
                             <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
-                            <button>
-                                Mes commandes passées
-                            </button>
+                            <if test="${sessionScope.client == 'true'}" >
+                                <button> Mes commandes passées </button> 
+                            </if>
 
                             <button id="logoutButton">Me deconnecter</button>
                         </div>
                             
-                        <div id="changeInfos">
-                            <form action="account" method="GET">
-                                Société <input type="text" name="societe"><br/>
-                                Contact: <input type="text" name="contact">
-                                Fonction: <input type="text" name="contact">
-                                Adresse: <input type="text" name="contact">
-                                Ville: <input type="text" name="contact">
-                                Region: <input type="text" name="contact">
-                                Code postal:<input type="text" name="contact">
-                                Pays: <input type="text" name="contact">
-                                Telephone: <input type="text" name="contact">
-                                Fax: <input type="text" name="contact">
-                                <input id="loginButton" type="submit" value="Log in">
-                            </form>
-                        </div>
-                    </c:when>
-                    
-                    <!--admin-->
-                    
-                    <c:otherwise>
-                        
-                    </c:otherwise>
+                    <div id="changeInfos">
+                        <form action="account" method="GET">
+                            Société <input type="text" name="societe"><br/>
+                            Contact: <input type="text" name="contact">
+                            Fonction: <input type="text" name="contact">
+                            Adresse: <input type="text" name="contact">
+                            Ville: <input type="text" name="contact">
+                            Region: <input type="text" name="contact">
+                            Code postal:<input type="text" name="contact">
+                            Pays: <input type="text" name="contact">
+                            Telephone: <input type="text" name="contact">
+                            Fax: <input type="text" name="contact">
+                            <input id="Enregistrer" type="submit" value="Enregistrer">
+                        </form>
+                    </div>
                 </c:otherwise>
             </c:choose>
         </div>
