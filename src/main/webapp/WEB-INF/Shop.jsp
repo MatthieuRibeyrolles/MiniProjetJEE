@@ -41,8 +41,9 @@
                 
                 <button id="payer">Payer</button>
             </c:otherwise>
+                
+            </c:choose>
         </div>
-        
-        </choose>
+
     </body>
 </html>
