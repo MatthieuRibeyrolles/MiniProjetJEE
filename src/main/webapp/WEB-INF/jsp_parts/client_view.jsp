@@ -29,7 +29,9 @@
 
 
                 <c:forEach items="${sessionScope.order}" var="order">
-                    <c:forEach item="${order}" var="ligne">
+                    <c:set var="tmp" value="order"/>
+                    
+                    <c:forEach items="${tmp}" var="ligne">
                         <p> ${ligne} </p>
                         
                     </c:forEach>
