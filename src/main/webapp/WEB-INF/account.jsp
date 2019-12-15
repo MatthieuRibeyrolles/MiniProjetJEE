@@ -18,7 +18,6 @@
     <body>
         <div id="blocPage">
             <c:choose>
-                <!--Non client et non admin-->
                 <c:when test="${sessionScope.log != 'true'}">
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
                     
@@ -32,12 +31,11 @@
                 </c:when>
 
                 <c:otherwise>
-                    <!--Client-->
                         <div id="topInfos" >
                             <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                             <if test="${sessionScope.client == 'true'}" >
-                                <button> Mes commandes passées </button> 
+                                <button id="ordersButton"> Mes commandes passées </button> 
                             </if>
 
                             <button id="logoutButton">Me deconnecter</button>
@@ -68,6 +66,12 @@
                 $("#logoutButton").click(function() {
                     sessionStorage.clear();
                 });
+            });
+            
+            $("#ordersButton").click(function() {
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                location.href = baseUrl + '/orders';
             });
 
         </script>
