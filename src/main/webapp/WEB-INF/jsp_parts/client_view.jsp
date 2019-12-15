@@ -28,17 +28,20 @@
 
         <c:otherwise>
             
-                <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
-
-
-                <c:forEach items="${sessionScope.order}" var="order">                   
-                    <p>
-                    <c:forEach items="${order}" var="ligne">
-                         ${ligne} 
+                <!--<h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>-->
+                
+                <div id="orders">
+                    
+                    <c:forEach items="${sessionScope.order}" var="order">                   
+                        <p>
+                        <c:forEach items="${order}" var="ligne">
+                             ${ligne} 
+                        </c:forEach>
+                        </p>
+                        <br>
                     </c:forEach>
-                    </p>
-                    <br>
-                </c:forEach>
+                    
+                </div>
 
 
                 <button id="logoutButton">Log out</button>

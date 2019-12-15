@@ -18,8 +18,8 @@
     <body>
         <div id="blocPage">
             <c:choose>
-                
-                <c:when test="${sessionScope.client != 'true'}">
+                <!--Non client et non admin-->
+                <c:when test="${sessionScope.client != 'true' || sessionScope.admin != 'true'}">
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
                     
                     <div id="connectDiv">
@@ -32,18 +32,40 @@
                 </c:when>
 
                 <c:otherwise>
-                    <div id="topInfos" >
-                        <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
-                        
-                        
-                        <c:forEach items="${sessionScope.order}" var="order">
-                            <p>${order}<br></p>
+                    <!--Client-->
+                    <c:when test="${sessionScope.client == 'true'}" >
+                        <div id="topInfos" >
+                            <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
+
+                            <button>
+                                Mes commandes passées
+                            </button>
+
+                            <button id="logoutButton">Me deconnecter</button>
+                        </div>
                             
-                        </c:forEach>
-        
-                                    
-                        <button id="logoutButton">Log out</button>
-                    </div>
+                        <div id="changeInfos">
+                            <form action="account" method="GET">
+                                Société <input type="text" name="societe"><br/>
+                                Contact: <input type="text" name="contact">
+                                Fonction: <input type="text" name="contact">
+                                Adresse: <input type="text" name="contact">
+                                Ville: <input type="text" name="contact">
+                                Region: <input type="text" name="contact">
+                                Code postal:<input type="text" name="contact">
+                                Pays: <input type="text" name="contact">
+                                Telephone: <input type="text" name="contact">
+                                Fax: <input type="text" name="contact">
+                                <input id="loginButton" type="submit" value="Log in">
+                            </form>
+                        </div>
+                    </c:when>
+                    
+                    <!--admin-->
+                    
+                    <c:otherwise>
+                        
+                    </c:otherwise>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -52,7 +74,7 @@
         <script>
             $(document).ready(function() {
                 $("#logoutButton").click(function() {
-                    // erase session or modfy values
+                    sessionStorage.clear();
                 });
             });
 
