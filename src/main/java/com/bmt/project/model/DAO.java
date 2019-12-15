@@ -346,15 +346,15 @@ public class DAO {
         int res = 0;
         String sql = "UPDATE Commande "
                 + "SET envoyee_le=?,"
-                + "port=?"
-                + "destinataire=?"
-                + "adresse_livraison=?"
-                + "ville_livraison=?"
-                + "region_livraison"
-                + "code_postal_livrais"
-                + "pays_livraison"
-                + "remise"
-                + "WHERE client=?,"
+                + "port=?,"
+                + "destinataire=?,"
+                + "adresse_livraison=?,"
+                + "ville_livraison=?,"
+                + "region_livraison=?,"
+                + "code_postal_livrais=?,"
+                + "pays_livraison=?,"
+                + "remise=?"
+                + "WHERE client=?"
                 + "AND Numero=?";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -408,18 +408,19 @@ public class DAO {
             getProductsList();
             getLinesList();
         }
-        for (LineEntity line : this.lLines) {
-            java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
-            if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
-                String country = line.getOrder().getCity();
-                float oldPrice = 0f;
-                float prodPrice = line.getProduct().getPrice();
-                int qty = line.getQty();
-                if (rev.get(country) != null)
-                    oldPrice = rev.get(country);
-                rev.put(country, oldPrice + (prodPrice * qty));
+        for (LineEntity line : this.lLines)
+            if (line.getOrder().getDateSent() != null) {
+                java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
+                if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
+                    String country = line.getOrder().getCity();
+                    float oldPrice = 0f;
+                    float prodPrice = line.getProduct().getPrice();
+                    int qty = line.getQty();
+                    if (rev.get(country) != null)
+                        oldPrice = rev.get(country);
+                    rev.put(country, oldPrice + (prodPrice * qty));
+                }
             }
-        }
         return rev;
     }
 
@@ -433,18 +434,19 @@ public class DAO {
             getProductsList();
             getLinesList();
         }
-        for (LineEntity line : this.lLines) {
-            java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
-            if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
-                String cat = line.getProduct().getCategory().getWording();
-                float oldPrice = 0f;
-                float prodPrice = line.getProduct().getPrice();
-                int qty = line.getQty();
-                if (rev.get(cat) != null)
-                    oldPrice = rev.get(cat);
-                rev.put(cat, oldPrice + (prodPrice * qty));
+        for (LineEntity line : this.lLines)
+            if (line.getOrder().getDateSent() != null) {
+                java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
+                if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
+                    String cat = line.getProduct().getCategory().getWording();
+                    float oldPrice = 0f;
+                    float prodPrice = line.getProduct().getPrice();
+                    int qty = line.getQty();
+                    if (rev.get(cat) != null)
+                        oldPrice = rev.get(cat);
+                    rev.put(cat, oldPrice + (prodPrice * qty));
+                }
             }
-        }
         return rev;
     }
 
@@ -458,18 +460,19 @@ public class DAO {
             getProductsList();
             getLinesList();
         }
-        for (LineEntity line : this.lLines) {
-            java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
-            if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
-                String client = line.getOrder().getClient().getContact();
-                float oldPrice = 0f;
-                float prodPrice = line.getProduct().getPrice();
-                int qty = line.getQty();
-                if (rev.get(client) != null)
-                    oldPrice = rev.get(client);
-                rev.put(client, oldPrice + (prodPrice * qty));
+        for (LineEntity line : this.lLines)
+            if (line.getOrder().getDateSent() != null) {
+                java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
+                if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
+                    String client = line.getOrder().getClient().getContact();
+                    float oldPrice = 0f;
+                    float prodPrice = line.getProduct().getPrice();
+                    int qty = line.getQty();
+                    if (rev.get(client) != null)
+                        oldPrice = rev.get(client);
+                    rev.put(client, oldPrice + (prodPrice * qty));
+                }
             }
-        }
         return rev;
     }
 
