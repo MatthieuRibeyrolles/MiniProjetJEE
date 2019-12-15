@@ -167,12 +167,11 @@ public class MainServlet extends HttpServlet {
                     List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
                     ArrayList<ArrayList<String>> clientOrderString = new ArrayList<ArrayList<String>>();
                     
-                    Map<OrderEntity, List<LineEntity>> cientline = new HashMap<OrderEntity, List<LineEntity>>(); 
+                    Map<OrderEntity, List<LineEntity>> clientline = new HashMap<OrderEntity, List<LineEntity>>(); 
                     
                     
-                    for ( OrderEntity ord : clientOrder){
-                        
-                        ord = MyDao.addOrder(ord);
+                    for ( OrderEntity ord : clientOrder){           
+                        System.out.println("order : "+ord);
                         ArrayList<String> tmpord = new ArrayList<String>();
                         tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
                         tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
@@ -185,15 +184,16 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("réduction :"+String.valueOf(ord.getDiscount()));
                         System.out.println("order"+ord);
                                 
-                        List<LineEntity> llc =MyDao.getLineListByOrder(ord);
-                        System.out.println(llc);
+                        ArrayList<LineEntity> llc =(ArrayList<LineEntity>) MyDao.getLineListByOrder(ord);
                         clientOrderString.add(tmpord);
                         
+                        
+                        clientline.put(ord, llc);
                     }
                     
                     
                     session.setAttribute("order",clientOrderString);
-
+                    session.setAttribute("line", clientline);
                 }
 //              si c'est l'admin 
                 else{
@@ -250,7 +250,6 @@ public class MainServlet extends HttpServlet {
             MyDao.updateClient(user,newclient);
             user=newclient;
         }
-        out.printf("Erreur pendant la modif de données perso");
 //      fin de modification des données personnelle
 
 //      début ajout d'une commande
