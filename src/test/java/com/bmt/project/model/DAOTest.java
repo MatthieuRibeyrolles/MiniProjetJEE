@@ -245,26 +245,22 @@ public class DAOTest {
         System.out.println("getOrderByCode");
         int code = 10702;
         DAO instance = this.myDAO;
-        OrderEntity expResult = testOrder;
+        OrderEntity expResult = this.testOrder;
         OrderEntity result = instance.getOrderByCode(code);
         assertEquals(expResult, result);
     }
     
-    // TODO
-
     /**
      * Test of getProductByCode method, of class DAO.
      */
     @Test
     public void testGetProductByCode() {
         System.out.println("getProductByCode");
-        int code = 0;
+        int code = 1;
         DAO instance = this.myDAO;
-        ProductEntity expResult = null;
+        ProductEntity expResult = this.testProduct;
         ProductEntity result = instance.getProductByCode(code);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -273,7 +269,7 @@ public class DAOTest {
     @Test
     public void testUpdateOrder() {
         System.out.println("updateOrder");
-        OrderEntity oldO = null;
+        OrderEntity oldO = this.testOrder;
         OrderEntity newO = null;
         DAO instance = this.myDAO;
         boolean expResult = false;
