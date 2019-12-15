@@ -65,13 +65,14 @@ public class DAO {
 
     public List<OrderEntity> getOrdersList() {
         if (this.lOrders.isEmpty()) {
-            String sql = "SELECT client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise FROM Commande";
+            String sql = "SELECT numero,client,envoyee_le,port,destinataire,adresse_livraison,ville_livraison,region_livraison,code_postal_livrais,pays_livraison,remise FROM Commande";
             try (Connection con = this.myDAO.getConnection();
                     PreparedStatement stmt = con.prepareStatement(sql);
                     ResultSet rs = stmt.executeQuery()) {
                 this.lOrders = new ArrayList<>();
                 while (rs.next())
                     this.lOrders.add(new OrderEntity(
+                            rs.getInt("numero"),
                             getClientByCode(rs.getString("client")),
                             rs.getDate("envoyee_le"),
                             rs.getFloat("port"),
@@ -292,7 +293,7 @@ public class DAO {
                         newO.getDiscount()
                 );
                 this.lOrders.add(o);
-                return(o);
+                return (o);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
