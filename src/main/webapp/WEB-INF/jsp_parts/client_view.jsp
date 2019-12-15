@@ -1,7 +1,7 @@
 <%-- 
     Document   : client_view
     Created on : 15 déc. 2019, 16:06:01
-    Author     : Thibault/Bruno 
+    Author     : Thibault/Bruno/Matthieu
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
