@@ -66,13 +66,15 @@
                 $("#logoutButton").click(function() {
                     sessionStorage.clear();
                 });
+                
+                $("#ordersButton").click(function() {
+                    var getUrl = window.location;
+                    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                    location.href = baseUrl + '/orders';
+                });
             });
             
-            $("#ordersButton").click(function() {
-                var getUrl = window.location;
-                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-                location.href = baseUrl + '/orders';
-            });
+            
 
         </script>
     </body>
