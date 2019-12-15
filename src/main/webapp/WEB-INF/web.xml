@@ -9,10 +9,6 @@
         <jsp-file>/WEB-INF/Account.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Account</servlet-name>
         <url-pattern>/account</url-pattern>
     </servlet-mapping>
@@ -27,28 +23,8 @@
         <servlet-name>UserAccount</servlet-name>
         <jsp-file>/WEB-INF/user_account_jsp.jsp</jsp-file>
     </servlet>
-    <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>com.bmt.project.OrderServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>productServlet</servlet-name>
-        <servlet-class>com.bmt.project.productServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.bmt.project.LoginServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/OrderServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>productServlet</servlet-name>
-        <url-pattern>/productServlet</url-pattern>
     </servlet-mapping>
 </web-app>
