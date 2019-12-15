@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 public class DAO {
 
     private final DataSource myDAO;
-
     private List<ClientEntity> lClients;
     private List<OrderEntity> lOrders;
     private List<CategoryEntity> lCategories;
@@ -372,7 +371,7 @@ public class DAO {
         return res > 0;
     }
 
-    public LineEntity addLineToCommand(LineEntity newL, OrderEntity order) {
+    public LineEntity addLineToCommand(LineEntity newL) {
         String sql = "INSERT INTO Ligne(commande,produit,quantite) VALUES (?,?,?)";
         try (Connection con = this.myDAO.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -464,4 +463,19 @@ public class DAO {
         }
         return rev;
     }
+    
+    public List<LineEntity> getLineListByOrder(OrderEntity order) {
+        List<LineEntity> tmp = new ArrayList();
+        if (this.lLines.isEmpty()) {
+            getClientsList();
+            getOrdersList();
+            getProductsList();
+            getLinesList();
+        }
+        for (LineEntity line : lLines)
+            if(line.getOrder().equals(order))
+                tmp.add(line);
+        return tmp;
+    }
+    
 }
