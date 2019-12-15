@@ -222,9 +222,10 @@ public class DAO {
             stmt.setString(12, oldC.getCode());
             stmt.setString(13, oldC.getContact());
             res = stmt.executeUpdate();
-            for (ClientEntity client : this.lClients)
-                if (client.getCode() == null ? oldC.getCode() == null : client.getCode().equals(oldC.getCode()))
-                    client = newC;
+            if (res > 0)
+                for (ClientEntity client : this.lClients)
+                    if (client.getCode() == null ? oldC.getCode() == null : client.getCode().equals(oldC.getCode()))
+                        client = newC;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -362,9 +363,10 @@ public class DAO {
             stmt.setString(10, oldO.getClient().getCode());
             stmt.setInt(11, oldO.getNum());
             res = stmt.executeUpdate();
-            for (OrderEntity order : this.lOrders)
-                if (order.getNum() == oldO.getNum())
-                    order = newO;
+            if (res > 0)
+                for (OrderEntity order : this.lOrders)
+                    if (order.getNum() == oldO.getNum())
+                        order = newO;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -463,7 +465,7 @@ public class DAO {
         }
         return rev;
     }
-    
+
     public List<LineEntity> getLineListByOrder(OrderEntity order) {
         List<LineEntity> tmp = new ArrayList();
         if (this.lLines.isEmpty()) {
@@ -473,9 +475,29 @@ public class DAO {
             getLinesList();
         }
         for (LineEntity line : lLines)
-            if(line.getOrder().equals(order))
+            if (line.getOrder().equals(order))
                 tmp.add(line);
         return tmp;
     }
-    
+
+    public boolean updateLine(LineEntity oldL, LineEntity newL) {
+        int res = 0;
+        String sql = "UPDATE Ligne SET quantite=? WHERE commande=? AND produit=?";
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, newL.getQty());
+            stmt.setInt(2, oldL.getOrder().getNum());
+            stmt.setInt(3, oldL.getProduct().getReference());
+            res = stmt.executeUpdate();
+            if (res > 0)
+                for (LineEntity line : this.lLines)
+                    if (line.getOrder().equals(oldL.getOrder()) && line.getProduct().equals(oldL.getProduct()))
+                        line = newL;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return res > 0;
+    }
+
+//    deleteLine
 }
