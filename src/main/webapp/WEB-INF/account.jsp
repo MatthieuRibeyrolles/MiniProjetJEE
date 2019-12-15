@@ -31,12 +31,14 @@
                 </c:when>
 
                 <c:otherwise>
+                    
+                    <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
+
                     <div id="topInfos" >
-                        <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                         <if test="${sessionScope.client == 'true'}" >
                             <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
-                            <button id="ordersButton"> Mon panier </button> 
+                            <button id="cartButton"> Mon panier </button> 
                         </if>
 
                     </div>
@@ -46,16 +48,18 @@
                     
                     <div id="changeInfos">
                         <form action="account" method="GET">
-                            Société <input type="text" name="societe" value=""><br/>
-                            Contact: <input type="text" name="contact">
-                            Fonction: <input type="text" name="contact">
-                            Adresse: <input type="text" name="contact">
-                            Ville: <input type="text" name="contact">
-                            Region: <input type="text" name="contact">
-                            Code postal:<input type="text" name="contact">
-                            Pays: <input type="text" name="contact">
-                            Telephone: <input type="text" name="contact">
-                            Fax: <input type="text" name="contact">
+                            <c:set var="infosClient" value="${sessionScope.infoClient}" />
+                            
+                            Société <input type="text" name="societe" value="${infosClient[0]}"><br/>
+                            Contact: <input type="text" name="contact" value="${infosClient[1]}">
+                            Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
+                            Adresse: <input type="text" name="adresse" value="${infosClient[3]}">
+                            Ville: <input type="text" name="ville" value="${infosClient[4]}">
+                            Region: <input type="text" name="region" value="${infosClient[5]}">
+                            Code postal:<input type="text" name="cp" value="${infosClient[6]}">
+                            Pays: <input type="text" name="pays" value="${infosClient[7]}">
+                            Telephone: <input type="text" name="tel" value="${infosClient[8]}">
+                            Fax: <input type="text" name="fax" value="${infosClient[9]}">
                             <input id="Enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
@@ -77,6 +81,12 @@
                     var getUrl = window.location;
                     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/orders';
+                });
+                
+                 $("#cartButton").click(function() {
+                    var getUrl = window.location;
+                    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                    location.href = baseUrl + '/cart';
                 });
             });
         </script>

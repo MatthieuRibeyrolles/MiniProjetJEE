@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="style/shop.css" rel="stylesheet">
         <title>Mon shop</title>
     </head>
     <body>
@@ -41,8 +42,9 @@
                 
                 <button id="payer">Payer</button>
             </c:otherwise>
+                
+            </c:choose>
         </div>
-        
-        </choose>
+
     </body>
 </html>

@@ -31,10 +31,11 @@
                 <!--<h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>-->
                 
                 <div id="orders">
+                    <c:set var="lines" value="${sessionScope.clientline}" />
                     
                     <c:forEach items="${sessionScope.order}" var="order">                   
                         <p>
-                        <c:forEach items="${order}" var="ligne">
+                        <c:forEach items="${lines}" var="ligne">
                              ${ligne} 
                         </c:forEach>
                         </p>
@@ -42,8 +43,7 @@
                     </c:forEach>
                     
                 </div>
-
-
+            
                 <button id="logoutButton">Log out</button>
             
         </c:otherwise>

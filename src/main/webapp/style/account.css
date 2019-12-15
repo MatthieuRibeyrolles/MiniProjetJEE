@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 body {
     background-color: #424242;
-    text-align: center;
+    text-align: left;
     color: #fff;
 }
 
@@ -42,9 +42,12 @@ form {
     padding: 5px;
     border-radius: 15px;
     cursor: pointer;
+    position: absolute;
     
     margin-bottom: 100px;
+    margin-left: 100px;
     bottom: 0;
+    left: 10%;
 }
 
 #errorMessage {
@@ -57,4 +60,8 @@ form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#Enregistrer {
+    margin-top: 15px;
 }
