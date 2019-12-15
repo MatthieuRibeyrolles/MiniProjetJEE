@@ -11,12 +11,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <a href="../style/user_account_style.css"></a>
-        <title>My account</title>
-    </head>
-    <body>
-        <div id="blocPage">
-            
-        </div>
-    </body>
+    <a href="../style/user_account_style.css"></a>
+    <title>My account</title>
+</head>
+<body>
+    <div id="blocPage">
+
+    </div>
+</body>
 </html>
