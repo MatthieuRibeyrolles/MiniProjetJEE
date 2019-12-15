@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Products Presentation</title>  
         <link href="style/main.css" rel="stylesheet">
+        <link href="style/table_css.css" rel="stylesheet">
     </head>
     
     <body>
