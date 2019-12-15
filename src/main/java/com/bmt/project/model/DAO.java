@@ -482,14 +482,9 @@ public class DAO {
             getProductsList();
             getLinesList();
         }
-        for (LineEntity line : lLines) {
-            System.out.println("Line: " + line);
-            System.out.println("LineOrder: " + line.getOrder());
-            System.out.println("order: " + order);
-
+        for (LineEntity line : lLines)
             if (line.getOrder().equals(order))
                 tmp.add(line);
-        }
         return tmp;
     }
 
