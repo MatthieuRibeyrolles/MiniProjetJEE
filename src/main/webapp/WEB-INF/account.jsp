@@ -47,16 +47,18 @@
                     
                     <div id="changeInfos">
                         <form action="account" method="GET">
-                            Société <input type="text" name="societe" value=""><br/>
-                            Contact: <input type="text" name="contact" value="">
-                            Fonction: <input type="text" name="contact" value="">
-                            Adresse: <input type="text" name="contact" value="">
-                            Ville: <input type="text" name="contact" value="">
-                            Region: <input type="text" name="contact" value="">
-                            Code postal:<input type="text" name="contact" value="">
-                            Pays: <input type="text" name="contact" value="">
-                            Telephone: <input type="text" name="contact" value="">
-                            Fax: <input type="text" name="contact" value="">
+                            <c:set var="infosClient" value="${sessionScope.infoClient}" />
+                            
+                            Société <input type="text" name="societe" value="${infosClient[0]}"><br/>
+                            Contact: <input type="text" name="contact" value="infosClient[1]">
+                            Fonction: <input type="text" name="fonction" value="infosClient[2]">
+                            Adresse: <input type="text" name="adresse" value="infosClient[3]">
+                            Ville: <input type="text" name="ville" value="infosClient[4]">
+                            Region: <input type="text" name="region" value="infosClient[5]">
+                            Code postal:<input type="text" name="cp" value="infosClient[6]">
+                            Pays: <input type="text" name="pays" value="infosClient[7]">
+                            Telephone: <input type="text" name="tel" value="infosClient[8]">
+                            Fax: <input type="text" name="fax" value="infosClient[9]">
                             <input id="Enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
