@@ -31,15 +31,15 @@
                 </c:when>
 
                 <c:otherwise>
-                        <div id="topInfos" >
-                            <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
+                    <div id="topInfos" >
+                        <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
-                            <if test="${sessionScope.client == 'true'}" >
-                                <button id="ordersButton"> Mes commandes passées </button> 
-                            </if>
+                        <if test="${sessionScope.client == 'true'}" >
+                            <button id="ordersButton"> Mes commandes passées </button> 
+                        </if>
 
-                            <button id="logoutButton">Me deconnecter</button>
-                        </div>
+                        <button id="logoutButton">Me deconnecter</button>
+                    </div>
                             
                     <div id="changeInfos">
                         <form action="account" method="GET">
@@ -73,9 +73,6 @@
                     location.href = baseUrl + '/orders';
                 });
             });
-            
-            
-
         </script>
     </body>
 </html>

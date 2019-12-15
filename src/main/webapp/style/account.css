@@ -22,9 +22,11 @@ body {
 #connectDiv {
     display: flex;
     justify-content: center;
+    
+    margin-bottom: 30px;
 }
 
-#connectDiv form {
+form {
     display: flex;
     flex-direction: column;
     justify-content: center;
