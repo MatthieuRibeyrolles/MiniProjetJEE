@@ -73,7 +73,6 @@
                                     Quantité: <input type="text" name="quantity">
                                     <input id="acheter" type="submit" value="Ajouter au panier">
                                 </form>
-                                <button id="addToCart">Ajouter au panier</button>
                             </c:if>
                         </p>
                     </c:if>

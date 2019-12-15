@@ -31,12 +31,13 @@
                 </c:when>
 
                 <c:otherwise>
+                    <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
+
                     <div id="topInfos" >
-                        <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                         <if test="${sessionScope.client == 'true'}" >
                             <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
-                            <button id="ordersButton"> Mon panier </button> 
+                            <button id="cartButton"> Mon panier </button> 
                         </if>
 
                     </div>
@@ -47,15 +48,15 @@
                     <div id="changeInfos">
                         <form action="account" method="GET">
                             Société <input type="text" name="societe" value=""><br/>
-                            Contact: <input type="text" name="contact">
-                            Fonction: <input type="text" name="contact">
-                            Adresse: <input type="text" name="contact">
-                            Ville: <input type="text" name="contact">
-                            Region: <input type="text" name="contact">
-                            Code postal:<input type="text" name="contact">
-                            Pays: <input type="text" name="contact">
-                            Telephone: <input type="text" name="contact">
-                            Fax: <input type="text" name="contact">
+                            Contact: <input type="text" name="contact" value="">
+                            Fonction: <input type="text" name="contact" value="">
+                            Adresse: <input type="text" name="contact" value="">
+                            Ville: <input type="text" name="contact" value="">
+                            Region: <input type="text" name="contact" value="">
+                            Code postal:<input type="text" name="contact" value="">
+                            Pays: <input type="text" name="contact" value="">
+                            Telephone: <input type="text" name="contact" value="">
+                            Fax: <input type="text" name="contact" value="">
                             <input id="Enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
@@ -77,6 +78,12 @@
                     var getUrl = window.location;
                     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/orders';
+                });
+                
+                 $("#cartButton").click(function() {
+                    var getUrl = window.location;
+                    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                    location.href = baseUrl + '/cart';
                 });
             });
         </script>

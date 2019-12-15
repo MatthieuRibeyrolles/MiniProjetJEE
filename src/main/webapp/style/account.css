@@ -45,6 +45,7 @@ form {
     
     margin-bottom: 100px;
     bottom: 0;
+    left: 0;
 }
 
 #errorMessage {
