@@ -221,18 +221,51 @@ public class MainServlet extends HttpServlet {
         }
 //      fin de la connexion
 
+//      début de modification des données personnelle
+            
+
+        String code = request.getParameter("code");
+        String societe = request.getParameter("company");
+        String contact = request.getParameter("contact");
+
+        String fonction = request.getParameter("fonction");
+
+        String adresse = request.getParameter("adresse");
+
+        String ville = request.getParameter("ville");
+
+        String region = request.getParameter("region");
+
+        String code_postal = request.getParameter("code_postal");
+
+        String pays = request.getParameter("pays");
+
+        String telephone = request.getParameter("telephone");
+
+        String fax = request.getParameter("fax");
+
+  //      new ClientEntity qsd = new ClientEnitity();
+//        new ClientEntity client = new ClientEntity(code,societe,contact,fonction,adresse,ville,region,code_postal,pays,telephone,fax);
+//        MyDao.updateClient(usr,client);
+
+        out.printf("Erreur pendant la modif de données perso");
+            
 
 
-//        String nomprod = request.getParameter("nomprod");
-//        if (nomprod != null){
-//            
-//            request.setAttribute("rienafoutre",);
-//        }
+//      fin de modification des données personnelle
+
+//      début ajout d'une commande
+
         
-//        Product productBean = new Product(products);
-//        //
-//        request.setAttribute("productBean", productBean);
-        
+
+
+//      fin d'ajout d'une commande
+
+
+//      début de modification d'une commande
+
+
+//      fin de modification d'une commande
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
