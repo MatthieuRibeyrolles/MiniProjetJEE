@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author pedago-
+ * @author Bruno-
  */
 public class MainServlet extends HttpServlet {
 
@@ -134,18 +134,18 @@ public class MainServlet extends HttpServlet {
 
 //      connexion
         if (log != null && pass != null){
-            log("bonjour");
+            
             user = MyDao.login(log,pass);
         
 //          verification si la connection est possible
-            if (user!=null){   
+            if (( user!=null )|( log=="admin" && pass=="admin") ){   
                 
                 //admin LOG = Maria Anders, PASS = ALFKI 
                 
                 boolean admin=false;
                 boolean client=false;
                 
-                if (log=="Maria Anders" && pass=="ALFKI"){
+                if (log=="admin" && pass=="admin"){
                     admin=true;
                 }else{
                     client=true;
@@ -167,15 +167,15 @@ public class MainServlet extends HttpServlet {
                     
                     for ( OrderEntity ord : clientOrder){
                         ArrayList<String> tmpord = new ArrayList<String>();
-                        tmpord.add(String.valueOf(ord.getDateSent()));
-                        tmpord.add(String.valueOf(ord.getPort()));
-                        tmpord.add(String.valueOf(ord.getReceiver()));
-                        tmpord.add(String.valueOf(ord.getAddress()));
-                        tmpord.add(String.valueOf(ord.getCity()));
-                        tmpord.add(String.valueOf(ord.getRegion()));
-                        tmpord.add(String.valueOf(ord.getZipcode()));
-                        tmpord.add(String.valueOf(ord.getCountry()));
-                        tmpord.add(String.valueOf(ord.getDiscount()));
+                        tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
+                        tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
+                        tmpord.add("receiver : "+String.valueOf(ord.getReceiver()));
+                        tmpord.add("adresse : "+String.valueOf(ord.getAddress()));
+                        tmpord.add("ville : "+String.valueOf(ord.getCity()));
+                        tmpord.add("région : "+String.valueOf(ord.getRegion()));
+                        tmpord.add("code zip :"+String.valueOf(ord.getZipcode()));
+                        tmpord.add("pays : "+String.valueOf(ord.getCountry()));
+                        tmpord.add("réduction :"+String.valueOf(ord.getDiscount()));
                         
                         clientOrderString.add(tmpord);
                         
@@ -193,17 +193,17 @@ public class MainServlet extends HttpServlet {
                     
                     for (OrderEntity ord : allOrder){
                         ArrayList<String> tmpord = new ArrayList<String>();
-                        tmpord.add(String.valueOf(ord.getNum()));
-                        tmpord.add(String.valueOf(ord.getClient()));
-                        tmpord.add(String.valueOf(ord.getDateSent()));
-                        tmpord.add(String.valueOf(ord.getPort()));
-                        tmpord.add(String.valueOf(ord.getReceiver()));
-                        tmpord.add(String.valueOf(ord.getAddress()));
-                        tmpord.add(String.valueOf(ord.getCity()));
-                        tmpord.add(String.valueOf(ord.getRegion()));
-                        tmpord.add(String.valueOf(ord.getZipcode()));
-                        tmpord.add(String.valueOf(ord.getCountry()));
-                        tmpord.add(String.valueOf(ord.getDiscount()));
+                        tmpord.add("numéro de la commade : "+String.valueOf(ord.getNum()));
+                        tmpord.add("client : "+String.valueOf(ord.getClient()));
+                        tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
+                        tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
+                        tmpord.add("receiver : "+String.valueOf(ord.getReceiver()));
+                        tmpord.add("adresse : "+String.valueOf(ord.getAddress()));
+                        tmpord.add("ville : "+String.valueOf(ord.getCity()));
+                        tmpord.add("région : "+String.valueOf(ord.getRegion()));
+                        tmpord.add("zip code : "+String.valueOf(ord.getZipcode()));
+                        tmpord.add("pays : "+String.valueOf(ord.getCountry()));
+                        tmpord.add("réduction : "+String.valueOf(ord.getDiscount()));
                         
                         allOrderString.add(tmpord);
                     }

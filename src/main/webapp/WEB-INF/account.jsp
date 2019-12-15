@@ -34,7 +34,14 @@
                 <c:otherwise>
                     <div id="topInfos" >
                         <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
-                    
+                        
+                        
+                        <c:forEach items="${sessionScope.order}" var="order">
+                            <p>${order}<br></p>
+                            
+                        </c:forEach>
+        
+                                    
                         <button id="logoutButton">Log out</button>
                     </div>
                 </c:otherwise>
