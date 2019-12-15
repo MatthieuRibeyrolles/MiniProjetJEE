@@ -14,7 +14,11 @@ import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
 import static java.lang.System.out;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +37,8 @@ import javax.servlet.http.HttpSession;
 public class MainServlet extends HttpServlet {
 
     
-    
+    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
     private DAO MyDao;
     private ClientEntity user;
     public HttpSession session;
@@ -222,41 +227,46 @@ public class MainServlet extends HttpServlet {
 //      fin de la connexion
 
 //      début de modification des données personnelle
-            
-
         String code = request.getParameter("code");
         String societe = request.getParameter("company");
         String contact = request.getParameter("contact");
-
         String fonction = request.getParameter("fonction");
-
         String adresse = request.getParameter("adresse");
-
         String ville = request.getParameter("ville");
-
         String region = request.getParameter("region");
-
         String code_postal = request.getParameter("code_postal");
-
         String pays = request.getParameter("pays");
-
         String telephone = request.getParameter("telephone");
-
         String fax = request.getParameter("fax");
-
-  //      new ClientEntity qsd = new ClientEnitity();
-        new ClientEntity(code, contact, contact, code, adresse, code, region, code, contact, code, fax);
-//        MyDao.updateClient(usr,client);
-
-        out.printf("Erreur pendant la modif de données perso");
+        if (code!= null && societe!=null && contact!=null && fonction!=null && adresse!=null && ville!=null && region !=null && code_postal!=null && pays!=null && telephone!=null && fax!=null ){    
+            ClientEntity newclient = new ClientEntity(code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
             
-
-
+            MyDao.updateClient(user,newclient);
+            user=newclient;
+        }
+        out.printf("Erreur pendant la modif de données perso");
 //      fin de modification des données personnelle
 
 //      début ajout d'une commande
-
         
+        //user
+        //getTime()+43200000;// on rajoute 5 jours a la date d'aujourd'hui
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        java.util.Date d1 = new java.util.Date();
+        java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
+        float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
+        String receiverAddOrder = request.getParameter("receiverAddOrder");
+        String addressAddOrder = request.getParameter("addressAddOrder");
+        String cityAddOrder = request.getParameter("cityAddOrder");
+        String regionAddOrder = request.getParameter("regionAddOrder");
+        String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
+        String countryAddOrder = request.getParameter("countryAddOrder");
+        float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
+
+
+        if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
+            MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
+        }
 
 
 //      fin d'ajout d'une commande
@@ -264,8 +274,17 @@ public class MainServlet extends HttpServlet {
 
 //      début de modification d'une commande
 
+        
+
+
 
 //      fin de modification d'une commande
+
+
+//      debut ajout ligne
+
+
+//      fin ajout ligne 
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
