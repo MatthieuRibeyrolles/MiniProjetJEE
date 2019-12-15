@@ -31,7 +31,7 @@
                 <!--<h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>-->
                 
                 <div id="orders">
-                    <c:set var="lines" value="${sessionScope.clientLine}" />
+                    <c:set var="lines" value="${sessionScope.clientline}" />
                     
                     <c:forEach items="${sessionScope.order}" var="order">                   
                         <p>

@@ -31,6 +31,7 @@
                 </c:when>
 
                 <c:otherwise>
+                    
                     <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                     <div id="topInfos" >
