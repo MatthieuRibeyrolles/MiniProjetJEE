@@ -276,8 +276,8 @@ public class DAO {
             stmtU.setString(9, newO.getCountry());
             stmtU.setFloat(10, newO.getDiscount());
             res = stmtU.executeUpdate();
-            if (res != 0)
-                return new OrderEntity(
+            if (res != 0) {
+                OrderEntity o = new OrderEntity(
                         res,
                         newO.getClient(),
                         newO.getDateSent(),
@@ -290,6 +290,9 @@ public class DAO {
                         newO.getCountry(),
                         newO.getDiscount()
                 );
+                this.lOrders.add(o);
+                return(o);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -315,8 +318,10 @@ public class DAO {
     }
 
     public ProductEntity getProductByCode(int code) {
-        if (this.lProducts.isEmpty())
+        if (this.lProducts.isEmpty()) {
+            getCategoriesList();
             getProductsList();
+        }
         for (ProductEntity product : this.lProducts)
             if (product.getReference() == code)
                 return product;
@@ -471,6 +476,7 @@ public class DAO {
         if (this.lLines.isEmpty()) {
             getClientsList();
             getOrdersList();
+            getCategoriesList();
             getProductsList();
             getLinesList();
         }
