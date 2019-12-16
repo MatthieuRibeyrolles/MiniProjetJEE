@@ -21,6 +21,8 @@ h2 {
 table {
     text-align: center;
     margin-right: auto;
+    font-family: 'Rokkitt', serif;
+
 }
 
 th, td { 
@@ -39,6 +41,8 @@ a, td button {
     color: black;
     padding: 15px;
     cursor: pointer;
+    font-family: 'Lilita One', cursive;
+
 }
 
 td button {
