@@ -5,8 +5,14 @@
 
 
 body {
-    background-color: #424242;
+    /*background-color: #424242;*/
     color: #fff;
+}
+
+#accountButton {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
 }
 
 #account {
@@ -19,6 +25,7 @@ body {
 #loginButton { 
     margin-top: 10px; 
     cursor: pointer;
+    border-radius: 15px;
 }
 
 
