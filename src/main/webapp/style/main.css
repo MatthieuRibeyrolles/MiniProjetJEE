@@ -9,6 +9,12 @@ body {
     color: #fff;
 }
 
+#accountButton {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+}
+
 #account {
     border-radius: 30px;
     cursor: pointer;
@@ -19,6 +25,7 @@ body {
 #loginButton { 
     margin-top: 10px; 
     cursor: pointer;
+    border-radius: 15px;
 }
 
 

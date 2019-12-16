@@ -56,7 +56,10 @@
                 
                  </div>
                 
-                <button id="payer">Payer</button>
+                <form>
+                    <input id="confirmerCommande" type="hidden" value="confirmerCommande" />
+                    <input id="payer" type="submit" value="Payer"/>
+                </form>
             </c:otherwise>
                 
             </c:choose>

@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 body {
     background-color: #424242;
-    text-align: left;
+    text-align: center;
     color: #fff;
 }
 
@@ -24,6 +24,9 @@ body {
     justify-content: center;
     
     margin-bottom: 30px;
+    width: 100%;
+    
+    background-color: #fff;
 }
 
 form {
