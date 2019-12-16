@@ -214,6 +214,15 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
                         tmpord.add("réduction :"+String.valueOf(ord.getDiscount())+"%");
                         
+                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
+                        float prixtoto = ord.getPort();
+                        
+                        for (LineEntity line : listlinetmp){
+                            prixtoto+=line.getProduct().getPrice()*line.getQty();
+                        }
+                        
+                        tmpord.add("prix total : "+prixtoto);
+                        
                         clientOrderString.put(ord,tmpord);
 //                      
 
@@ -257,18 +266,22 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
                         tmpord.add("réduction : "+String.valueOf(ord.getDiscount()));
                         
+                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
+                        float prixtoto = ord.getPort();
+                        
+                        for (LineEntity line : listlinetmp){
+                            prixtoto+=line.getProduct().getPrice()*line.getQty();
+                        }
+                        
+                        tmpord.add("prix total : "+prixtoto);
+                        
                         allOrderString.add(tmpord);
                     }
                     
                     session.setAttribute("order",allOrder);
                     
 //                  ajout de tous les produits
-                    
-                    
-                    
-                    
                 }
-                
             }
         }
 //      fin de la connexion
@@ -335,6 +348,21 @@ public class MainServlet extends HttpServlet {
         }
         
 //      fin ajout ligne 
+
+//      debut suppression line
+
+        if (request.getParameter("refProduit")!=null){
+            
+            int numprod = Integer.parseInt(request.getParameter("refProduit"));
+            
+            for (int i = 0 ; i < lineListCurrent.size() ; i++){
+                if(lineListCurrent.get(i).getProduct()==MyDao.getProductByCode(numprod)){
+                    lineListCurrent.remove(i);
+                    break;
+                }
+            }
+        }
+//      fin suppression line
 
 //      debut modifier line
 
