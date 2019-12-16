@@ -43,7 +43,9 @@
                 </c:forEach>
 
 
-                <button id="logoutButton">Se déconnecter</button>
+                <form action="">
+                    <input type="submit" value="Se deconnecter" >
+                </form>
             
         </c:otherwise>
     </c:choose>
