@@ -23,7 +23,7 @@
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
                     
                     <div id="connectDiv">
-                        <form action="account" method="GET">
+                        <form action="home" method="GET">
                             Login: <input type="text" name="login"><br/>
                             Password: <input type="password" name="password">
                             <input id="loginButton" type="submit" value="Log in">
