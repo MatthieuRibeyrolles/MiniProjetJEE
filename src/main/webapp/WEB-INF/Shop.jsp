@@ -31,7 +31,7 @@
                 
             <c:otherwise>
                 <div id="list">
-                    <c:forEach items="${cart_list}" var="item">
+                    <c:forEach items="${sessionScope.cart_list}" var="item">
                         <span>
                             ${item}
                             <button id="removeFromCart">Enlever du panier</button>

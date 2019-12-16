@@ -36,8 +36,7 @@
                             ${orderstring}&nbsp;&nbsp;
                         </c:forEach>
                         <c:forEach items="${line[order_e]}" var="ligne" >
-                            Produit: ${ligne[0]} <br>
-                            Quantité commandée: ${ligne[1]}
+                            Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
                         </c:forEach>
                     </p>
                     <br>
