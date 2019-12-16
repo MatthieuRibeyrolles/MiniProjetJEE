@@ -153,16 +153,16 @@ public class MainServlet extends HttpServlet {
                     admin=true;
                 }else{
                     client=true;
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
-//                    infoclientString.add();
+                    infoclientString.add(user.getCompany());
+                    infoclientString.add(user.getContact());
+                    infoclientString.add(user.getRole());
+                    infoclientString.add(user.getAddress());
+                    infoclientString.add(user.getCity());
+                    infoclientString.add(user.getRegion());
+                    infoclientString.add(user.getZipCode());
+                    infoclientString.add(user.getCountry());
+                    infoclientString.add(user.getPhone());
+                    infoclientString.add(user.getFax());
                     
                     
                 }
