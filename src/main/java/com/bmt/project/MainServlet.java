@@ -39,6 +39,8 @@ public class MainServlet extends HttpServlet {
     private DAO MyDao;
     private ClientEntity user;
     public HttpSession session;
+    private OrderEntity OrderCurrent;
+    private ArrayList<LineEntity> lineCurrent;
     
     @Override
     public void init() throws ServletException {
@@ -174,7 +176,11 @@ public class MainServlet extends HttpServlet {
                 session.setAttribute("client", client);
                 session.setAttribute("admin",admin);
                 
-
+                ArrayList<String> salepd= new ArrayList<String>();
+                
+                salepd.add("so");
+                salepd.add("caca");
+                session.setAttribute("cart_list",salepd);
                 
                 
                 session.setAttribute("infoClient",infoclientString);
@@ -183,35 +189,46 @@ public class MainServlet extends HttpServlet {
                 if (client){
                     System.out.println("client");
                     List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
-                    ArrayList<ArrayList<String>> clientOrderString = new ArrayList<ArrayList<String>>();
+                    Map<OrderEntity,ArrayList<String>> clientOrderString = new HashMap<OrderEntity,ArrayList<String>> ();
                     
-                    Map<OrderEntity, List<LineEntity>> clientline = new HashMap<OrderEntity, List<LineEntity>>(); 
+                    Map<OrderEntity, ArrayList<ArrayList<String>>> clientline = new HashMap<OrderEntity, ArrayList<ArrayList<String>>>(); 
                     
                     
                     for ( OrderEntity ord : clientOrder){           
                         
                         ArrayList<String> tmpord = new ArrayList<String>();
+                        
                         tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
-                        tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
-                        tmpord.add("receiver : "+String.valueOf(ord.getReceiver()));
+                        tmpord.add("frais de port : "+String.valueOf(ord.getPort())+"€");
+                        tmpord.add("receveur : "+String.valueOf(ord.getReceiver()));
                         tmpord.add("adresse : "+String.valueOf(ord.getAddress()));
                         tmpord.add("ville : "+String.valueOf(ord.getCity()));
                         tmpord.add("région : "+String.valueOf(ord.getRegion()));
-                        tmpord.add("code zip :"+String.valueOf(ord.getZipcode()));
+                        tmpord.add("code postal :"+String.valueOf(ord.getZipcode()));
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
-                        tmpord.add("réduction :"+String.valueOf(ord.getDiscount()));
-                        System.out.println("order"+ord);
-                                
+                        tmpord.add("réduction :"+String.valueOf(ord.getDiscount())+"%");
+                        
+                        clientOrderString.put(ord,tmpord);
+//                      
+
                         ArrayList<LineEntity> llc =(ArrayList<LineEntity>) MyDao.getLineListByOrder(ord);
-                        clientOrderString.add(tmpord);
+                        ArrayList<ArrayList<String>> listlineString = new ArrayList<ArrayList<String>>(); 
+                        
+                        for (LineEntity tmpline : llc){
+                            ArrayList<String> tmp = new ArrayList<String>(); 
+                            tmp.add(tmpline.getProduct().getName());
+                            tmp.add(String.valueOf(tmpline.getQty()));
+
+                            listlineString.add(tmp);
+                        }
                         
                         
-                        clientline.put(ord, llc);
+                        clientline.put(ord,listlineString );
                     }
                     
-                    
-                    request.setAttribute("order",clientOrder);
-                    request.setAttribute("line", clientline);
+                    session.setAttribute("orderString",clientOrderString);
+                    session.setAttribute("order",clientOrder);
+                    session.setAttribute("line", clientline);
                 }
 //              si c'est l'admin 
                 else{
@@ -275,48 +292,62 @@ public class MainServlet extends HttpServlet {
         //user
         //getTime()+43200000;// on rajoute 5 jours a la date d'aujourd'hui
         
-//        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-//        java.util.Date d1 = new java.util.Date();
-//        java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
-//        float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
-//        String receiverAddOrder = request.getParameter("receiverAddOrder");
-//        String addressAddOrder = request.getParameter("addressAddOrder");
-//        String cityAddOrder = request.getParameter("cityAddOrder");
-//        String regionAddOrder = request.getParameter("regionAddOrder");
-//        String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
-//        String countryAddOrder = request.getParameter("countryAddOrder");
-//        float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
-//
-//
-//        if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
-//            MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
-//        }
+        if(request.getParameter("feeAddOrder")!=null && request.getParameter("discountAddOrder")!=null ){
+
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+            java.util.Date d1 = new java.util.Date();
+            java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
+            float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
+            String receiverAddOrder = request.getParameter("receiverAddOrder");
+            String addressAddOrder = request.getParameter("addressAddOrder");
+            String cityAddOrder = request.getParameter("cityAddOrder");
+            String regionAddOrder = request.getParameter("regionAddOrder");
+            String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
+            String countryAddOrder = request.getParameter("countryAddOrder");
+            float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
+
+
+            if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
+                MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
+            }
+    }
+    
 //      fin d'ajout d'une commande
 
 
 //      début de modification d'une commande
 
-        
+            request.getParameter("");
 
+            request.getParameter("receiver");
+            request.getParameter("addres");
+            request.getParameter("city");
+            request.getParameter("region");
+            request.getParameter("zipcode");
+            request.getParameter("country");
+            
+            
+//            updateOrder
 
 
 //      fin de modification d'une commande
 
 
 //      debut ajout ligne
+        if (request.getParameter("orderLine")!=null && request.getParameter("productLine")!=null && request.getParameter("quantityLine")!=null){
+            int orderLine = -1;
+            int productLine = -1;
+            int quantityLine = -1;
+            orderLine= Integer.parseInt(request.getParameter("orderLine"));
+            productLine= Integer.parseInt(request.getParameter("productLine"));
+            quantityLine= Integer.parseInt(request.getParameter("quantityLine"));
 
-//        int orderLine = -1;
-//        int productLine = -1;
-//        int quantityLine = -1;
-//        orderLine= Integer.parseInt(request.getParameter("orderLine"));
-//        productLine= Integer.parseInt(request.getParameter("productLine"));
-//        quantityLine= Integer.parseInt(request.getParameter("quantityLine"));
-//       
-//        if (orderLine>=0 && productLine>=0 && quantityLine>=0){
-//            LineEntity newline = new LineEntity(MyDao.getOrderByCode(orderLine),MyDao.getProductByCode(productLine),quantityLine);
-//            MyDao.addLineToCommand(newline);
-//        }
-
+            if (orderLine>=0 && productLine>=0 && quantityLine>=0){
+                LineEntity newline = new LineEntity(MyDao.getOrderByCode(orderLine),MyDao.getProductByCode(productLine),quantityLine);
+                MyDao.addLineToCommand(newline);
+            }
+        }
+        
 //      fin ajout ligne 
 
 //      debut modifier line
