@@ -60,7 +60,7 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
-                            <input id="Enregistrer" type="submit" value="Enregistrer">
+                            <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
                             
