@@ -13,7 +13,10 @@
 
     document.getElementById('accountButton').onclick = function (e) {
         var getUrl = window.location;
-        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        if (getUrl.host === "mysterious-brook-54628.herokuapp.com")
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[0];
+        else
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
         location.href = baseUrl + '/account';
     };
 
