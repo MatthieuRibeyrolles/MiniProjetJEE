@@ -47,7 +47,9 @@ public class MainServlet extends HttpServlet {
         super.init(); 
         this.MyDao= new DAO(DataSourceFactory.getDataSource());
         HttpSession session;
-        
+        lineListCurrent = new ArrayList<LineEntity>();
+        System.out.println("init");
+       
     }
 
   
@@ -73,7 +75,7 @@ public class MainServlet extends HttpServlet {
 
         session = request.getSession(true);
         
-        session.setAttribute("log", false);
+        
         
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
@@ -140,7 +142,6 @@ public class MainServlet extends HttpServlet {
         if (log != null && pass != null){
             
             user = MyDao.login(log,pass);
-        
 //          verification si la connection est possible
             if (( user!=null )|( log=="admin" && pass=="admin") ){   
                 
@@ -170,30 +171,15 @@ public class MainServlet extends HttpServlet {
                 session.setAttribute("usrname", log);
                 session.setAttribute("pass",pass);
 
-                session.setAttribute("log", true);
+                session.setAttribute("log",true);
                 session.setAttribute("client", client);
                 session.setAttribute("admin",admin);
                 
-//              debut  faut construire la liste des lignes pour matthieu                 
-                ArrayList<String> salepd= new ArrayList<String>();
-                salepd.add("so");
-                salepd.add("caca");
-                salepd.add("so");
-                salepd.add("caca");
-//             fin  faut construire la liste des lignes pour matthieu                   
-                
-//             debut   puis faut l'ajouter a cette liste
-                ArrayList<ArrayList<String>> grospd = new ArrayList<ArrayList<String>>();
-                grospd.add(salepd);
-                
-//              fin  puis faut l'ajouter a cette liste
 
-                session.setAttribute("cart_list",grospd);
                 session.setAttribute("infoClient",infoclientString);
 
 //              si c'est un client
                 if (client){
-                    System.out.println("client");
                     List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
                     Map<OrderEntity,ArrayList<String>> clientOrderString = new HashMap<OrderEntity,ArrayList<String>> ();
                     
@@ -213,6 +199,15 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("code postal :"+String.valueOf(ord.getZipcode()));
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
                         tmpord.add("réduction :"+String.valueOf(ord.getDiscount())+"%");
+                        
+                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
+                        float prixtoto = ord.getPort();
+                        
+                        for (LineEntity line : listlinetmp){
+                            prixtoto+=line.getProduct().getPrice()*line.getQty();
+                        }
+                        
+                        tmpord.add("prix total : "+prixtoto);
                         
                         clientOrderString.put(ord,tmpord);
 //                      
@@ -257,21 +252,33 @@ public class MainServlet extends HttpServlet {
                         tmpord.add("pays : "+String.valueOf(ord.getCountry()));
                         tmpord.add("réduction : "+String.valueOf(ord.getDiscount()));
                         
+                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
+                        float prixtoto = ord.getPort();
+                        
+                        for (LineEntity line : listlinetmp){
+                            prixtoto+=line.getProduct().getPrice()*line.getQty();
+                        }
+                        
+                        tmpord.add("prix total : "+prixtoto);
+                        
                         allOrderString.add(tmpord);
                     }
                     
                     session.setAttribute("order",allOrder);
                     
 //                  ajout de tous les produits
-                    
-                    
-                    
-                    
                 }
-                
             }
         }
 //      fin de la connexion
+
+//      debut deco
+
+        if (request.getParameter("logOut")!=null){
+            session.invalidate();
+        }
+
+//      fin deco
 
 //      début de modification des données personnelle
         String code = request.getParameter("code");
@@ -292,6 +299,32 @@ public class MainServlet extends HttpServlet {
             user=newclient;
         }
 //      fin de modification des données personnelle
+
+
+//      debut renvoie des infos dans le panier
+        if (request.getParameter("cartButton")=="cartButton"){
+//                System.out.println(request.getParameter("cartButton"));
+//              debut  faut construire la liste des lignes pour matthieu                 
+                ArrayList<String> infoline= new ArrayList<String>();
+                infoline.add("1");
+                infoline.add("2");
+                infoline.add("3");
+                infoline.add("4");
+//             fin  faut construire la liste des lignes pour matthieu                   
+                
+//             debut   puis faut l'ajouter a cette liste
+                ArrayList<ArrayList<String>> grospd = new ArrayList<ArrayList<String>>();
+                grospd.add(infoline);
+                
+//              fin  puis faut l'ajouter a cette liste
+
+                session.setAttribute("cart_list",grospd);
+                
+        }else{
+//            System.out.println(request.getParameter("cartButton"));
+        }
+
+//      fin renvoie des infos dans le panier      
 
 //      début ajout d'une commande
         
@@ -321,20 +354,38 @@ public class MainServlet extends HttpServlet {
     
 //      fin d'ajout d'une commande
 
-//      debut ajout ligne
-        if ( request.getParameter("productLine")!=null && request.getParameter("quantityLine")!=null){
+//      debut ajout ligne                        
+        System.out.println(request.getParameter("refProduit"));
+        System.out.println(request.getParameter("quantity"));
+        if ( request.getParameter("refProduit")!=null && request.getParameter("quantity")!=null ){
             int productLine = -1;
             int quantityLine = -1;
-            productLine= Integer.parseInt(request.getParameter("productLine"));
-            quantityLine= Integer.parseInt(request.getParameter("quantityLine"));
+            productLine= Integer.parseInt(request.getParameter("refProduit"));
+            quantityLine= Integer.parseInt(request.getParameter("quantity"));
 
             if (productLine>=0 && quantityLine>=0){
                 LineEntity newline = new LineEntity(OrderCurrent,MyDao.getProductByCode(productLine),quantityLine);
                 lineListCurrent.add(newline);
+                System.out.println(lineListCurrent);
             }
         }
         
 //      fin ajout ligne 
+
+//      debut suppression line
+
+        if (request.getParameter("supProduitRef")!=null){
+            
+            int numprod = Integer.parseInt(request.getParameter("supProduitRef"));
+            
+            for (int i = 0 ; i < lineListCurrent.size() ; i++){
+                if(lineListCurrent.get(i).getProduct()==MyDao.getProductByCode(numprod)){
+                    lineListCurrent.remove(i);
+                    break;
+                }
+            }
+        }
+//      fin suppression line
 
 //      debut modifier line
 
