@@ -33,6 +33,7 @@
                 <div id="list">
                     <c:forEach items="${sessionScope.cart_list}" var="item">
                         <span>
+                            coucou
                             <label> Produit: ${item[0]} (reférence ${item[1]}). Quantité commandée: ${item[2]}, pour un montant total de ${item[3]} 
                                 <form action="shop" method="GET">
                                     Quantité: <input type="text" name="quantity" value="item[1]">
