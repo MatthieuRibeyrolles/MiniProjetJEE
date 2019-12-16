@@ -72,8 +72,8 @@
                                 (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
                             </label>
                             <c:if test="${sessionScope.client == 'true'}" >
-                                <form action="account" method="GET">
-                                    Quantité: <input type="text" name="quantity" value="0">
+                            <form action="home?cat=Boissons" method="GET">
+                                Quantité: <input type="text" name="quantity" value="0">
                                     <input type="hidden" id="refProduit" value="${reference}" />
                                     <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
                                 </form>
