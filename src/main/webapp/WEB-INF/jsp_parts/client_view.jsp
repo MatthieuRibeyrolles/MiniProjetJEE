@@ -28,31 +28,20 @@
 
         <c:otherwise>
             
-                <!--<h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>-->
-                
-                <div id="orders">
-                    <c:forEach items="${order}" var="order_element">                   
-                        <p>
-                        <c:forEach items="${clientline[order_element]}" var="ligne">
-                             ${ligne} 
+                <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
+
+                <c:forEach items="${sessionScope.order}" var="order_e">
+                    <p>
+                        ${order_e}
+                        <c:forEach items="${line[order_e]}" var="ligne" >
+                            Produit: ${ligne[0]} <br>
+                            Quantité commandée: ${ligne[1]}
                         </c:forEach>
-                        </p>
-                        <br>
-                    </c:forEach>
-                        
-<!--                        <c:forEach items="${product_map}" var="category">
-                        <c:if test="${category.key == param.cat}">  
+                    </p>
+                    <br>
+                </c:forEach>
 
-                            <c:forEach items="${category.value}" var="product">
-                                <td><button class="product" type="button" id="${product}" >${product}</button></td>
-                                <tr></tr>
 
-                            </c:forEach>
-                        </c:if>
-                    </c:forEach> -->
-                    
-                </div>
-            
                 <button id="logoutButton">Log out</button>
             
         </c:otherwise>
