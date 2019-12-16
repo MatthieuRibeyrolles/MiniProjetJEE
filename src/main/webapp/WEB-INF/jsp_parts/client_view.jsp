@@ -32,7 +32,9 @@
 
                 <c:forEach items="${sessionScope.order}" var="order_e">
                     <p>
-                        ${orderString[order_e]}
+                        <c:forEach items="${orderString[order_e]}" var="orderstring" >
+                            ${orderstring}&nbsp;&nbsp;
+                        </c:forEach>
                         <c:forEach items="${line[order_e]}" var="ligne" >
                             Produit: ${ligne[0]} <br>
                             Quantité commandée: ${ligne[1]}
@@ -42,7 +44,7 @@
                 </c:forEach>
 
 
-                <button id="logoutButton">Log out</button>
+                <button id="logoutButton">Se déconnecter</button>
             
         </c:otherwise>
     </c:choose>
