@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Products Presentation</title>  
+        <link href="https://fonts.googleapis.com/css?family=Baskervville|Lilita+One|Rokkitt&display=swap" rel="stylesheet">
         <link href="style/main.css" rel="stylesheet">
         <link href="style/table_css.css" rel="stylesheet">
     </head>
