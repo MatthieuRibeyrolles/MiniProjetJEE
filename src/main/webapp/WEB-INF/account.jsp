@@ -19,7 +19,6 @@
         <div id="blocPage">
             <c:choose>
                 <c:when test="${sessionScope.log != 'true'}">
-                    
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
                     
                     <div id="connectDiv">
@@ -32,17 +31,14 @@
                 </c:when>
 
                 <c:otherwise>
-                    
                     <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                     <div id="topInfos" >
 
                         <if test="${sessionScope.client == 'true'}" >
                             <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
-                            <button id="cartButton"> Mon panier </button> 
-                            <form>
-                                <input type="hidden" value="goingToShop" >
-                                <input id="cartButton" type="submit" value="cartButton">
+                            <form action="cart">
+                                <input id="cartButton" type="submit" value="Mon panier">
                             </form>
                         </if>
 
