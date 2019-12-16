@@ -27,7 +27,7 @@ th, td {
 } :last-child {border: none;}
 
 td {
-    background-color: #828282;
+    /*background-color: #828282;*/
 } 
 
 a, td button { 
@@ -42,10 +42,13 @@ td button {
     width: 100%;
     margin: auto;
     background-color: #929292;
+    
+    border-radius: 5px;
 }
     
-td:hover {
-    background-color: #545454;
+td button:hover {
+    background-color: #909090;
+    box-shadow: 0px 0px 5px red;
 }
 
 #infoPage {
@@ -54,17 +57,22 @@ td:hover {
 }
 
 #infos {
-    width: 80%;
     /*margin: auto;*/
     padding: 10px;
+    padding-top: 0;
     margin-left: 50px;
     margin-right: 10px;
     background-color: #626262;
     font-size: 30px;
     
+    width: 100%;
+    
     text-align: left;
-    border-radius: 70px;
-    border-top-left-radius: 0;
+    border-radius: 50px;
+}
+
+#dispo {
+    color: #52251b;
 }
 
 #infos h3 {font-size: 50px; color: #52251b;}

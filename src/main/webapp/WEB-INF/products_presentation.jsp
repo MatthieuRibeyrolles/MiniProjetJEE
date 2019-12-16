@@ -67,7 +67,9 @@
                             <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
                             <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
                             <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
-                            ${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente<br>
+                            <label id="dispo" >
+                                (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
+                            </label>
                             <c:if test="${sessionScope.client == 'true'}" >
                                 <form action="account" method="GET">
                                     Quantité: <input type="text" name="quantity" value="0">
