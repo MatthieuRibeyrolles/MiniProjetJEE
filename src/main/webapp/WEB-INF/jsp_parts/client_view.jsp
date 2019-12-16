@@ -42,8 +42,9 @@
 
 
                 <form action="">
-                    <input type="submit" value="Se deconnecter" >
-                </form>
+                        <input type="hidden" name="deco" value="true">
+                        <input type="submit" id="logOut" value="Se deconnecter" >
+                    </form>
             
         </c:otherwise>
     </c:choose>

@@ -64,6 +64,7 @@
                     </div>
                             
                     <form action="">
+                        <input type="hidden" name="deco" value="true">
                         <input type="submit" id="logOut" value="Se deconnecter" >
                     </form>
 
