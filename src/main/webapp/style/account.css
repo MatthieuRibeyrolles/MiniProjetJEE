@@ -89,14 +89,6 @@ form {
     cursor: pointer;
 }
 
-#topInfos button:hover {
-    padding-left: 150px;
-}
-
-#topInfos input:hover {
-    padding-left: 150px;
-}
-
 #enregistrer {
     margin-top: 15px;
 }

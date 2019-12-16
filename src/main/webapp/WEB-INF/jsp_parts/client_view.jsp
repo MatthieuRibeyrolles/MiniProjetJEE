@@ -17,13 +17,9 @@
         <c:when test="${sessionScope.client != 'true'}">
             <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
 
-            <div id="connectDiv">
-                <form action="home" method="GET">
-                    Login: <input type="text" name="login"><br/>
-                    Password: <input type="password" name="password">
-                    <input id="loginButton" type="submit" value="Log in">
-                </form>
-            </div>
+            <form action="account" >
+                <input type="submit" value="Continuer..">
+            </form>
         </c:when>
 
         <c:otherwise>
@@ -35,6 +31,8 @@
                         <c:forEach items="${orderString[order_e]}" var="orderstring" >
                             ${orderstring}&nbsp;&nbsp;
                         </c:forEach>
+                            
+                            <br>
                         <c:forEach items="${line[order_e]}" var="ligne" >
                             Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
                         </c:forEach>
