@@ -31,16 +31,25 @@
                 <!--<h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>-->
                 
                 <div id="orders">
-                    <c:set var="lines" value="${sessionScope.clientline}" />
-                    
-                    <c:forEach items="${sessionScope.order}" var="order">                   
+                    <c:forEach items="${order}" var="order_element">                   
                         <p>
-                        <c:forEach items="${lines}" var="ligne">
+                        <c:forEach items="${clientline[order_element]}" var="ligne">
                              ${ligne} 
                         </c:forEach>
                         </p>
                         <br>
                     </c:forEach>
+                        
+<!--                        <c:forEach items="${product_map}" var="category">
+                        <c:if test="${category.key == param.cat}">  
+
+                            <c:forEach items="${category.value}" var="product">
+                                <td><button class="product" type="button" id="${product}" >${product}</button></td>
+                                <tr></tr>
+
+                            </c:forEach>
+                        </c:if>
+                    </c:forEach> -->
                     
                 </div>
             
