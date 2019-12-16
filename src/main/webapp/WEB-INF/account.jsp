@@ -65,7 +65,9 @@
                         </form>
                     </div>
                             
-                    <button id="logoutButton">Me deconnecter</button>
+                    <form action="">
+                        <input type="submit" id="logOut" value="Se deconnecter" >
+                    </form>
 
                 </c:otherwise>
             </c:choose>
