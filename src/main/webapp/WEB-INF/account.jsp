@@ -34,14 +34,12 @@
                     <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                     <div id="topInfos" >
-
                         <if test="${sessionScope.client == 'true'}" >
-                            <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
+                            <button id="ordersButton"> Mes commandes passées </button>
                             <form action="cart">
                                 <input id="cartButton" type="submit" value="Mon panier">
                             </form>
                         </if>
-
                     </div>
                             
                             
@@ -71,6 +69,10 @@
 
                 </c:otherwise>
             </c:choose>
+                    
+            <form action="home">
+                <input type="submit" id="backToHome" value="Accueil" >
+            </form>
         </div>
         
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>

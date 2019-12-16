@@ -74,7 +74,7 @@
                             <c:if test="${sessionScope.client == 'true'}" >
                                 <form action="home" method="GET">
                                     Quantité: <input type="text" name="quantity" value="0">
-                                    <input type="hidden" name="refProduit" value="${reference}" >
+                                    <input type="hidden" name="refProduit" value="${reference}" > <br>
                                     <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
                                 </form>
                             </c:if>
