@@ -33,17 +33,19 @@
                 <div id="list">
                     <c:forEach items="${sessionScope.cart_list}" var="item">
                         <span>
-                            <label> Produit: ${item[0]} (reférence ${item[1]}). Quantité commandée: ${item[2]}, pour un montant total de ${item[3]} </label>
+                            <label> Produit: ${item[0]} (reférence ${item[1]}). Quantité commandée: ${item[2]}, pour un montant total de ${item[3]} 
+                                <form action="shop" method="GET">
+                                    Quantité: <input type="text" name="quantity" value="item[1]">
+                                    <input type="hidden" id="refProduit" value="${item[1]}" />
+                                    <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
+                                </form>
+                            </label>
                             <form action="shop" method="GET">
                                 <input type="hidden" id="refProduit" value="${item[1]}" />
                                 <button id="removeFromCart">Enlever du panier</button>
                             </form>
                             
-                            <form action="shop" method="GET">
-                                Quantité: <input type="text" name="quantity" value="item[1]">
-                                <input type="hidden" id="refProduit" value="${reference}" />
-                                <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
-                            </form>
+                            
                         </span>
                     </c:forEach>
                 
