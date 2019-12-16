@@ -45,3 +45,8 @@ span {
     border-radius: 30px;
     padding: 5px;
 }
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+}
