@@ -32,7 +32,7 @@
 
                 <c:forEach items="${sessionScope.order}" var="order_e">
                     <p>
-                        ${order_e}
+                        ${orderString[order_e]}
                         <c:forEach items="${line[order_e]}" var="ligne" >
                             Produit: ${ligne[0]} <br>
                             Quantité commandée: ${ligne[1]}
