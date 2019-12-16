@@ -45,7 +45,7 @@
                                     </form>
 
                                     <form action="shop" method="GET">
-                                        Quantité: <input type="text" name="quantity" value="item[1]">
+                                        <input type="text" name="quantity" value="item[1]">
                                         <input type="hidden" id="refProduit" value="${item[1]}" />
                                         <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
                                     </form>
