@@ -5,7 +5,6 @@
  */
 package com.bmt.project;
 
-
 import com.bmt.project.model.CategoryEntity;
 import com.bmt.project.model.ClientEntity;
 import com.bmt.project.model.DAO;
@@ -14,14 +13,12 @@ import com.bmt.project.model.LineEntity;
 import com.bmt.project.model.OrderEntity;
 import com.bmt.project.model.ProductEntity;
 import java.io.IOException;
-import static java.lang.System.out;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,50 +31,41 @@ import javax.servlet.http.HttpSession;
  */
 public class MainServlet extends HttpServlet {
 
-    
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     private DAO MyDao;
     private ClientEntity user;
     public HttpSession session;
     private OrderEntity OrderCurrent;
     private ArrayList<LineEntity> lineListCurrent;
-    
+
     @Override
     public void init() throws ServletException {
-        super.init(); 
-        this.MyDao= new DAO(DataSourceFactory.getDataSource());
-        HttpSession session;
-        lineListCurrent = new ArrayList<LineEntity>();
-        System.out.println("init");       
-    }    
-    
-    
+        super.init();
+        this.MyDao = new DAO(DataSourceFactory.getDataSource());
+        lineListCurrent = new ArrayList<>();
+        System.out.println("init");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         session = request.getSession(true);
-        
-        session.setAttribute("mydao",MyDao);
-        session.setAttribute("usr",null);
-        session.setAttribute("currentorder",null);
-        session.setAttribute("currentlinelist",new ArrayList<LineEntity>());
-        
-        
+
+        session.setAttribute("mydao", MyDao);
+        session.setAttribute("usr", null);
+        session.setAttribute("currentorder", null);
+        session.setAttribute("currentlinelist", new ArrayList<>());
+
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
         List<ProductEntity> prod = MyDao.getProductsList();
-        
-        
-        
 
-        List<String> nomcat = new ArrayList<String>();
+        List<String> nomcat = new ArrayList<>();
 
         Map<String, ArrayList<String>> mapProduct = new HashMap<>();
 
-        
         Map<String, ArrayList<String>> mapInfoProduct = new HashMap<>();
-
 
         for (CategoryEntity c : cat) {
 
@@ -85,18 +73,17 @@ public class MainServlet extends HttpServlet {
             mapProduct.put(c.getWording(), new ArrayList<String>());
 
         }
-        Map<String , ProductEntity> products = new HashMap<>();
-        
+        Map<String, ProductEntity> products = new HashMap<>();
+
         for (ProductEntity p : prod) {
 
             products.put(p.getName(), p);
-            ArrayList<String> tmp = new ArrayList<String>();
+            ArrayList<String> tmp;
             tmp = mapProduct.get(p.getCategory().getWording());
 
             tmp.add(p.getName());
             mapProduct.put(p.getCategory().getWording(), tmp);
-            
-            
+
             ArrayList<String> prodTemp = new ArrayList<>();
             prodTemp.add(String.valueOf(p.getReference()));
             prodTemp.add(String.valueOf(p.getName()));
@@ -108,9 +95,8 @@ public class MainServlet extends HttpServlet {
             prodTemp.add(String.valueOf(p.getOrdered()));
             prodTemp.add(String.valueOf(p.getRefill()));
             prodTemp.add(String.valueOf(p.isAvailable()));
-            
-            mapInfoProduct.put(p.getName(), prodTemp);
 
+            mapInfoProduct.put(p.getName(), prodTemp);
 
         }
         request.setCharacterEncoding("UTF-8");
@@ -118,109 +104,92 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("categories_list", nomcat);
         //fin de la liste des catégories et de la map des produits
         request.setAttribute("product_information", mapInfoProduct);
-        
-        
+
 //      debut renvoie des infos dans le panier
-        if (request.getParameter("refProduit")!=null && request.getParameter("quantity")!= null){
+        if (request.getParameter("refProduit") != null && request.getParameter("quantity") != null) {
 //              debut  faut construire la liste des lignes pour matthieu                 
-                ArrayList<LineEntity> lineList = (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
+            ArrayList<LineEntity> lineList = (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
 
-                int refprod = Integer.parseInt(request.getParameter("refProduit"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                
-                LineEntity encour = new LineEntity((OrderEntity) session.getAttribute("currentorder"),MyDao.getProductByCode(refprod),quantity);
-                
-                
-                ArrayList<String> infoline= new ArrayList<String>();
-                infoline.add(encour.getProduct().getName()); //nom
-                infoline.add(String.valueOf(encour.getProduct().getReference())); //ref
-                infoline.add(String.valueOf(encour.getQty())); //quantité
-                infoline.add(String.valueOf(encour.getProduct().getPrice()*encour.getQty())); // prix toto
+            int refprod = Integer.parseInt(request.getParameter("refProduit"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+            LineEntity encour = new LineEntity((OrderEntity) session.getAttribute("currentorder"), MyDao.getProductByCode(refprod), quantity);
+
+            ArrayList<String> infoline = new ArrayList<>();
+            infoline.add(encour.getProduct().getName()); //nom
+            infoline.add(String.valueOf(encour.getProduct().getReference())); //ref
+            infoline.add(String.valueOf(encour.getQty())); //quantité
+            infoline.add(String.valueOf(encour.getProduct().getPrice() * encour.getQty())); // prix toto
 //             fin  faut construire la liste des lignes pour matthieu                   
-                
-//             debut   puis faut l'ajouter a cette liste
-                
-                ArrayList<ArrayList<String>> maj = (ArrayList<ArrayList<String>>) session.getAttribute("cart_list");
-                maj.add(infoline);
-                
-//              fin  puis faut l'ajouter a cette liste
 
-                session.setAttribute("cart_list",maj);
-                
-        }else{
+//             debut   puis faut l'ajouter a cette liste
+            ArrayList<ArrayList<String>> maj = (ArrayList<ArrayList<String>>) session.getAttribute("cart_list");
+            maj.add(infoline);
+
+//              fin  puis faut l'ajouter a cette liste
+            session.setAttribute("cart_list", maj);
+
+        } else {
 //            System.out.println(request.getParameter("cartButton"));
         }
 
 //      fin renvoie des infos dans le panier      
-
-
 //      debut ajout ligne                        
         System.out.println(request.getParameter("refProduit"));
         System.out.println(request.getParameter("quantity"));
-        if ( request.getParameter("refProduit")!=null && request.getParameter("quantity")!=null ){
+        if (request.getParameter("refProduit") != null && request.getParameter("quantity") != null) {
             int productLine = -1;
             int quantityLine = -1;
-            productLine= Integer.parseInt(request.getParameter("refProduit"));
-            quantityLine= Integer.parseInt(request.getParameter("quantity"));
+            productLine = Integer.parseInt(request.getParameter("refProduit"));
+            quantityLine = Integer.parseInt(request.getParameter("quantity"));
 
-            if (productLine>=0 && quantityLine>=0){
-                LineEntity newline = new LineEntity(OrderCurrent,MyDao.getProductByCode(productLine),quantityLine);
+            if (productLine >= 0 && quantityLine >= 0) {
+                LineEntity newline = new LineEntity(OrderCurrent, MyDao.getProductByCode(productLine), quantityLine);
                 lineListCurrent.add(newline);
                 System.out.println(lineListCurrent);
             }
         }
-        
+
 //      fin ajout ligne 
-
 //      debut suppression line
+        if (request.getParameter("supProduitRef") != null) {
 
-        if (request.getParameter("supProduitRef")!=null){
-            
             int numprod = Integer.parseInt(request.getParameter("supProduitRef"));
-            
-            for (int i = 0 ; i < lineListCurrent.size() ; i++){
-                if(lineListCurrent.get(i).getProduct()==MyDao.getProductByCode(numprod)){
+
+            for (int i = 0; i < lineListCurrent.size(); i++)
+                if (lineListCurrent.get(i).getProduct() == MyDao.getProductByCode(numprod)) {
                     lineListCurrent.remove(i);
                     break;
                 }
-            }
         }
 //      fin suppression line
 
 //      debut modifier line
-
-        if (request.getParameter("lineQuantityNew")!=null && request.getParameter("numProdNew")!=null && request.getParameter("lineQuantityOld")!=null){
+        if (request.getParameter("lineQuantityNew") != null && request.getParameter("numProdNew") != null && request.getParameter("lineQuantityOld") != null) {
 
             int numProdUpdateLineNew = Integer.parseInt(request.getParameter("numProd"));
             int quantityUpdateLineNew = Integer.parseInt(request.getParameter("lineQuantityNew"));
-            
+
             int quantityUpdateLineOld = Integer.parseInt(request.getParameter("lineQuantityOld"));
-            
-            LineEntity oldLine = new LineEntity(OrderCurrent,MyDao.getProductByCode(numProdUpdateLineNew),quantityUpdateLineOld);
-            LineEntity newLine = new LineEntity (OrderCurrent,MyDao.getProductByCode(numProdUpdateLineNew),quantityUpdateLineNew);
-            
-            
-            for (LineEntity line : lineListCurrent){
-                if (line.getProduct()==newLine.getProduct()){
-                    line=newLine;
-                }
-            }   
+
+            LineEntity oldLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineOld);
+            LineEntity newLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineNew);
+
+            for (LineEntity line : lineListCurrent)
+                if (line.getProduct() == newLine.getProduct())
+                    line = newLine;
         }
 //      fin modifier line 
 
-
 //      debut confirmer commande 
-
-        if (request.getParameter("confirmerCOmmande")=="true"){
+        if (request.getParameter("confirmerCOmmande").equals("true")) {
             MyDao.addOrder(OrderCurrent);
-            for (LineEntity line : lineListCurrent ){
+            for (LineEntity line : lineListCurrent)
                 MyDao.addLineToCommand(line);
-            }
         }
 //      fin confirmer commande 
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
-
 
     }
 }
