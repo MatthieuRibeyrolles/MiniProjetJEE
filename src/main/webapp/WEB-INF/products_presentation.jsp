@@ -18,7 +18,12 @@
 
     <body>
         <div id="blocPage">
-            <%@include file="main_jsp.jsp" %>
+            <%@include file="accountButton.jsp" %>
+            
+            <c:if test="${sessionScope.admin == 'true'}" >
+                <%@include file="adminButton.jsp" %>
+            </c:if>
+
 
             <div id="menuBar">
                 <c:forEach items="${product_map}" var="category">
@@ -28,79 +33,80 @@
 
             <h2><c:if test="${not empty param.cat}" > ${param.cat} </c:if> </h2>
 
-            <div id="infoPage" >    
-                <nav>
-                    <table cellspacing="0">
-                    <c:forEach items="${product_map}" var="category">
-                        <c:if test="${category.key == param.cat}">  
+                <div id="infoPage" >    
+                    <nav>
+                        <table cellspacing="0">
+                        <c:forEach items="${product_map}" var="category">
+                            <c:if test="${category.key == param.cat}">  
 
-                            <c:forEach items="${category.value}" var="product">
-                                <td><button class="product" type="button" id="${product}" >${product}</button></td>
-                                <tr></tr>
+                                <c:forEach items="${category.value}" var="product">
+                                    <td><button class="product" type="button" id="${product}" >${product}</button></td>
+                                    <!--/!\ ICI L'ID CONTIENT DES ESPACES ASKIP, SE DEMERDER POUR NE PLUS AVOIR D'ESPACES-->
+                                    <tr></tr>
 
-                            </c:forEach>
-                        </c:if>
-                    </c:forEach> 
-                </table>
-            </nav>
+                                </c:forEach>
+                            </c:if>
+                        </c:forEach> 
+                    </table>
+                </nav>
 
-            <c:if test="${not empty param.cat}" >
-                <div id="infos" >
-                    <c:if test="${not empty param.product}" >
-                        <c:set var="currentProduct" value="${product_information[param.product]}" />
-                        <c:set var="reference" value="${currentProduct[0]}" />
-                        <c:set var="fournisseur" value="${currentProduct[2]}" />
-                        <c:set var="quantityBySell" value="${currentProduct[4]}" />
-                        <c:set var="prix" value="${currentProduct[5]}" />
-                        <c:set var="stock" value="${currentProduct[6]}" />
-                        <c:set var="ordered" value="${currentProduct[7]}" />
-                        <c:set var="refill" value="${currentProduct[8]}" />
-                        <c:set var="sellable" value="${currentProduct[9]}" />
+                <c:if test="${not empty param.cat}" >
+                    <div id="infos" >
+                        <c:if test="${not empty param.product}" >
+                            <c:set var="currentProduct" value="${product_information[param.product]}" />
+                            <c:set var="reference" value="${currentProduct[0]}" />
+                            <c:set var="fournisseur" value="${currentProduct[2]}" />
+                            <c:set var="quantityBySell" value="${currentProduct[4]}" />
+                            <c:set var="prix" value="${currentProduct[5]}" />
+                            <c:set var="stock" value="${currentProduct[6]}" />
+                            <c:set var="ordered" value="${currentProduct[7]}" />
+                            <c:set var="refill" value="${currentProduct[8]}" />
+                            <c:set var="sellable" value="${currentProduct[9]}" />
 
-                        <h3>${param.product}</h3>
+                            <h3>${param.product}</h3>
 
-                        <p>
-                            Référence du produit: ${reference} <br>
-                            <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if> 
-                            Catégorie: ${param.cat} <br>
-                            Ce produit est vendu par ${quantityBySell} <br>
-                            Prix unitaire: ${prix} euros <br>
-                            <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
-                            <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
-                            <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
-                            <label id="dispo" >
-                                (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
-                            </label>
-                            <c:if test="${sessionScope.client == 'true'}" >
+                            <p>
+                                Référence du produit: ${reference} <br>
+                                <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if> 
+                                Catégorie: ${param.cat} <br>
+                                Ce produit est vendu par ${quantityBySell} <br>
+                                Prix unitaire: ${prix} euros <br>
+                                <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
+                                <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
+                                <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
+                                    <label id="dispo" >
+                                        (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
+                                </label>
+                                <c:if test="${sessionScope.client == 'true'}" >
                                 <form action="home" method="GET">
                                     Quantité: <input type="text" name="quantity" value="0">
                                     <input type="hidden" name="refProduit" value="${reference}" > <br>
                                     <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
                                 </form>
                             </c:if>
-                        </p>
-                    </c:if>
-                </div>
-            </c:if>
+                            </p>
+                        </c:if>
+                    </div>
+                </c:if>
 
-            <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $(".product").click(function () {
-                        let params = "" + window.location.search;
-                        let searchParams = new URLSearchParams(params);
+                <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+                <script>
+        $(document).ready(function () {
+            $(".product").click(function () {
+                let params = "" + window.location.search;
+                let searchParams = new URLSearchParams(params);
 
-                        if (searchParams.toString().includes("product")) {
-                            searchParams.delete('product');
-                        }
+                if (searchParams.toString().includes("product")) {
+                    searchParams.delete('product');
+                }
 
-                        searchParams.append('product', $(this).attr('id'));
-                        window.location.search = searchParams.toString();
-                    });
-                });
+                searchParams.append('product', $(this).attr('id'));
+                window.location.search = searchParams.toString();
+            });
+        });
 
-            </script>
-        </div>
+                </script>
+            </div>
 
         </div>
     </body>

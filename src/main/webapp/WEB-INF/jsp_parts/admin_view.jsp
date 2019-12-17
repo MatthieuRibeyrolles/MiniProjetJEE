@@ -15,17 +15,19 @@
         <script src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
     <body>
-        <form action="" methode="GET">
-            <label for="startDate">Date de début:</label>
-            <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
-            <label for="endDate">Date de fin:</label>
-            <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
-        </form>
+        <c:if test="${sessionScope.admin == 'true'}" >
+            <form action="" method="GET">
+                <label for="startDate">Date de début:</label>
+                <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
+                <label for="endDate">Date de fin:</label>
+                <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+            </form>
 
-        <div id="chartByCategory"></div>
-        <div id="chartByCountry"></div>
-        <div id="chartByClient"></div>
+            <div id="chartByCategory"></div>
+            <div id="chartByCountry"></div>
+            <div id="chartByClient"></div>
 
+            <script src="scripts/drawCharts.js" ></script>
+        </c:if>
     </body>
-    <script src="scripts/drawCharts.js" ></script>
 </html>

@@ -2,10 +2,14 @@
  * @author Thibault
  */
 
+/* global google */
+
 // Tuto AJAX: https://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
 // Ce tuto est génial, vous devriez le distribuer en annexe :)
 
+google.charts.load('current', {'packages': ['corechart']});
 var m_data;
+
 function valide() {
     var params = {
         date1: $('#startDate').val(),
@@ -23,8 +27,6 @@ function parseAndDraw() {
     });
 }
 
-google.charts.load('current', {'packages': ['corechart']});
-
 function drawChart(opt, map) {
     var chart;
     var title;
@@ -36,11 +38,9 @@ function drawChart(opt, map) {
         'width': $(window).width() - 30,
         'height': $(window).height() / 3
     };
-
     for (let [key, value] of Object.entries(map)) {
         mToL.push([key, value]);
     }
-    ;
     if (opt === 'byCategory') {
         title = 'catégorie';
         chart = new google.visualization.ColumnChart(document.getElementById('chartByCategory'));
@@ -53,11 +53,9 @@ function drawChart(opt, map) {
         title = 'client';
         chart = new google.visualization.ColumnChart(document.getElementById('chartByClient'));
     }
-
     data.addColumn('string', title);
     data.addColumn('number', 'Chiffre d\'affaire');
     data.addRows(mToL);
-
     chart.draw(data, options);
 }
 

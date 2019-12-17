@@ -14,14 +14,14 @@
         <title>Mon compte</title>
         <link href="style/account.css" rel="stylesheet">
     </head>
-    
+
     <body>
-        
+
         <div id="blocPage">
             <c:choose>
                 <c:when test="${sessionScope.log != 'true'}">
                     <p id="errorMessage"> Vous devez être connecté pour accéder à cette partie du site. </p>
-                    
+
                     <div id="connectDiv">
                         <form action="home" method="GET">
                             Login: <input type="text" name="login"><br/>
@@ -35,21 +35,20 @@
                     <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                     <div id="topInfos" >
-                        <if test="${sessionScope.client == 'true'}" >
+                        <c:if test="${sessionScope.client == 'true'}" >
                             <button id="ordersButton"> Mes commandes passées </button>
                             <form action="cart">
                                 <input id="cartButton" type="submit" value="Mon panier">
                             </form>
-                        </if>
+                        </c:if>
                     </div>
-                            
-                            
+
                     <h2>Modifer mes informations</h2>
-                    
+
                     <div id="changeInfos">
-                        <form action="account" method="GET" id="infosForm">
+                        <form action="account" method="POST" id="infosForm">
                             <c:set var="infosClient" value="${sessionScope.infoClient}" />
-                            
+
                             Société <input type="text" name="societe" value="${infosClient[0]}">
                             Contact: <input type="text" name="contact" value="${infosClient[1]}">
                             Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
@@ -60,12 +59,11 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
-                            
-                            
+
                             <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
-                            
+
                     <form action="">
                         <input type="hidden" name="deco" value="true">
                         <input type="submit" id="logOut" value="Se deconnecter" >
@@ -73,26 +71,26 @@
 
                 </c:otherwise>
             </c:choose>
-                    
+
             <form action="home">
                 <input type="submit" id="backToHome" value="Accueil" >
             </form>
         </div>
-        
+
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $("#logoutButton").click(function() {
+            $(document).ready(function () {
+                $("#logoutButton").click(function () {
                     sessionStorage.clear();
                 });
-                
-                $("#ordersButton").click(function() {
+
+                $("#ordersButton").click(function () {
                     var getUrl = window.location;
                     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/orders';
                 });
-                
-                 $("#cartButton").click(function() {
+
+                $("#cartButton").click(function () {
                     var getUrl = window.location;
                     var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/cart';
