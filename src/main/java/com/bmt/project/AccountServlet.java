@@ -170,15 +170,10 @@ public class AccountServlet extends HttpServlet {
                     }
 
                     //      fin d'ajout d'une commande
-            
-                    
-                    
-                    
-                    
+
                     session.setAttribute("orderString",clientOrderString);
                     session.setAttribute("order",clientOrder);
                     session.setAttribute("line", clientline);
-                    
                     
                     session.setAttribute("cart_list", new ArrayList<ArrayList<String>>());
                 }
@@ -228,7 +223,7 @@ public class AccountServlet extends HttpServlet {
 
         if (request.getParameter("deco")!=null){
             System.out.println("ezra"+user);
-            
+                user=null;
                 session.setAttribute("usrname",null);
                 session.setAttribute("pass",null);
                 session.setAttribute("usr",null);
@@ -265,7 +260,9 @@ public class AccountServlet extends HttpServlet {
         String fax = request.getParameter("fax");
         if (societe!=null && contact!=null && fonction!=null && adresse!=null && ville!=null && code_postal!=null && pays!=null && telephone!=null && fax!=null ){    
             ClientEntity newclient = new ClientEntity(user.getCode(), societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
-            
+            System.out.println("new client : "+newclient);
+            System.out.println("old client : "+user);
+                    
             MyDao.updateClient(user,newclient);
             user=newclient;
             session.setAttribute("usr",user);
