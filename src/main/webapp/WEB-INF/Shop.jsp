@@ -41,7 +41,6 @@
 
                                     <span id="buttons">
                                         <span> Quantité souhaitée: <input type="text" name="quantity" value="${item[1]}"> </span>
-                                        
                                         <input type="hidden" id="refProduit" value="${item[1]}" />
                                         <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
 

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,26 +49,8 @@ public class MainServlet extends HttpServlet {
         this.MyDao= new DAO(DataSourceFactory.getDataSource());
         HttpSession session;
         lineListCurrent = new ArrayList<LineEntity>();
-        System.out.println("init");
-       
-    }
-
-  
-    
-    
-    
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response); //To change body of generated methods, choose Tools | Template
-        
-        
-        
-        request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response); 
-    }
-
-    
-    
+        System.out.println("init");       
+    }    
     
     
     @Override
@@ -75,6 +58,10 @@ public class MainServlet extends HttpServlet {
 
         session = request.getSession(true);
         
+        session.setAttribute("mydao",MyDao);
+        session.setAttribute("usr",null);
+        session.setAttribute("currentorder",null);
+        session.setAttribute("currentlinelist",new ArrayList<LineEntity>());
         
         
         //liste des catégories et map des produits
@@ -133,192 +120,32 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("product_information", mapInfoProduct);
         
         
-        
-        String log =request.getParameter("login");
-        String pass=request.getParameter("password");
-
-
-//      connexion
-        if (log != null && pass != null){
-            
-            user = MyDao.login(log,pass);
-//          verification si la connection est possible
-            if (( user!=null )|( log=="admin" && pass=="admin") ){   
-                
-                //admin LOG = Maria Anders, PASS = ALFKI 
-                //random LOG = Ana Trujillo  , PASS = ANATR
-                boolean admin=false;
-                boolean client=false;
-                
-                ArrayList<String> infoclientString = new ArrayList<String>();
-                
-                if (log=="admin" && pass=="admin"){
-                    admin=true;
-                }else{
-                    client=true;
-                    infoclientString.add(user.getCompany());
-                    infoclientString.add(user.getContact());
-                    infoclientString.add(user.getRole());
-                    infoclientString.add(user.getAddress());
-                    infoclientString.add(user.getCity());
-                    infoclientString.add(user.getRegion());
-                    infoclientString.add(user.getZipCode());
-                    infoclientString.add(user.getCountry());
-                    infoclientString.add(user.getPhone());
-                    infoclientString.add(user.getFax());                   
-                }
-
-                session.setAttribute("usrname", log);
-                session.setAttribute("pass",pass);
-
-                session.setAttribute("log",true);
-                session.setAttribute("client", client);
-                session.setAttribute("admin",admin);
-                
-
-                session.setAttribute("infoClient",infoclientString);
-
-//              si c'est un client
-                if (client){
-                    List<OrderEntity> clientOrder = MyDao.getOrderListByClient(pass);
-                    Map<OrderEntity,ArrayList<String>> clientOrderString = new HashMap<OrderEntity,ArrayList<String>> ();
-                    
-                    Map<OrderEntity, ArrayList<ArrayList<String>>> clientline = new HashMap<OrderEntity, ArrayList<ArrayList<String>>>(); 
-                    
-                    
-                    for ( OrderEntity ord : clientOrder){           
-                        
-                        ArrayList<String> tmpord = new ArrayList<String>();
-                        
-                        tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
-                        tmpord.add("frais de port : "+String.valueOf(ord.getPort())+"€");
-                        tmpord.add("receveur : "+String.valueOf(ord.getReceiver()));
-                        tmpord.add("adresse : "+String.valueOf(ord.getAddress()));
-                        tmpord.add("ville : "+String.valueOf(ord.getCity()));
-                        tmpord.add("région : "+String.valueOf(ord.getRegion()));
-                        tmpord.add("code postal :"+String.valueOf(ord.getZipcode()));
-                        tmpord.add("pays : "+String.valueOf(ord.getCountry()));
-                        tmpord.add("réduction :"+String.valueOf(ord.getDiscount())+"%");
-                        
-                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
-                        float prixtoto = ord.getPort();
-                        
-                        for (LineEntity line : listlinetmp){
-                            prixtoto+=line.getProduct().getPrice()*line.getQty();
-                        }
-                        
-                        tmpord.add("prix total : "+prixtoto);
-                        
-                        clientOrderString.put(ord,tmpord);
-//                      
-
-                        ArrayList<LineEntity> llc =(ArrayList<LineEntity>) MyDao.getLineListByOrder(ord);
-                        ArrayList<ArrayList<String>> listlineString = new ArrayList<ArrayList<String>>(); 
-                        
-                        for (LineEntity tmpline : llc){
-                            ArrayList<String> tmp = new ArrayList<String>(); 
-                            tmp.add(tmpline.getProduct().getName());
-                            tmp.add(String.valueOf(tmpline.getQty()));
-
-                            listlineString.add(tmp);
-                        }
-                        
-                        
-                        clientline.put(ord,listlineString );
-                    }
-                    
-                    session.setAttribute("orderString",clientOrderString);
-                    session.setAttribute("order",clientOrder);
-                    session.setAttribute("line", clientline);
-                }
-//              si c'est l'admin 
-                else{
-                               
-//                  ajout de toute les commandes 
-                    List<OrderEntity> allOrder = MyDao.getOrdersList();
-                    ArrayList<ArrayList<String>> allOrderString = new ArrayList<ArrayList<String>>();
-                    
-                    for (OrderEntity ord : allOrder){
-                        ArrayList<String> tmpord = new ArrayList<String>();
-                        tmpord.add("numéro de la commade : "+String.valueOf(ord.getNum()));
-                        tmpord.add("client : "+String.valueOf(ord.getClient()));
-                        tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
-                        tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
-                        tmpord.add("receiver : "+String.valueOf(ord.getReceiver()));
-                        tmpord.add("adresse : "+String.valueOf(ord.getAddress()));
-                        tmpord.add("ville : "+String.valueOf(ord.getCity()));
-                        tmpord.add("région : "+String.valueOf(ord.getRegion()));
-                        tmpord.add("zip code : "+String.valueOf(ord.getZipcode()));
-                        tmpord.add("pays : "+String.valueOf(ord.getCountry()));
-                        tmpord.add("réduction : "+String.valueOf(ord.getDiscount()));
-                        
-                        List<LineEntity> listlinetmp = MyDao.getLineListByOrder(ord);
-                        float prixtoto = ord.getPort();
-                        
-                        for (LineEntity line : listlinetmp){
-                            prixtoto+=line.getProduct().getPrice()*line.getQty();
-                        }
-                        
-                        tmpord.add("prix total : "+prixtoto);
-                        
-                        allOrderString.add(tmpord);
-                    }
-                    
-                    session.setAttribute("order",allOrder);
-                    
-//                  ajout de tous les produits
-                }
-            }
-        }
-//      fin de la connexion
-
-//      debut deco
-
-        if (request.getParameter("logOut")!=null){
-            session.invalidate();
-        }
-
-//      fin deco
-
-//      début de modification des données personnelle
-        String code = request.getParameter("code");
-        String societe = request.getParameter("company");
-        String contact = request.getParameter("contact");
-        String fonction = request.getParameter("fonction");
-        String adresse = request.getParameter("adresse");
-        String ville = request.getParameter("ville");
-        String region = request.getParameter("region");
-        String code_postal = request.getParameter("code_postal");
-        String pays = request.getParameter("pays");
-        String telephone = request.getParameter("telephone");
-        String fax = request.getParameter("fax");
-        if (code!= null && societe!=null && contact!=null && fonction!=null && adresse!=null && ville!=null && region !=null && code_postal!=null && pays!=null && telephone!=null && fax!=null ){    
-            ClientEntity newclient = new ClientEntity(code, societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
-            
-            MyDao.updateClient(user,newclient);
-            user=newclient;
-        }
-//      fin de modification des données personnelle
-
-
 //      debut renvoie des infos dans le panier
-        if (request.getParameter("cartButton")=="cartButton"){
-//                System.out.println(request.getParameter("cartButton"));
+        if (request.getParameter("refProduit")!=null && request.getParameter("quantity")!= null){
 //              debut  faut construire la liste des lignes pour matthieu                 
+                ArrayList<LineEntity> lineList = (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
+
+                int refprod = Integer.parseInt(request.getParameter("refProduit"));
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                
+                LineEntity encour = new LineEntity((OrderEntity) session.getAttribute("currentorder"),MyDao.getProductByCode(refprod),quantity);
+                
+                
                 ArrayList<String> infoline= new ArrayList<String>();
-                infoline.add("1");
-                infoline.add("2");
-                infoline.add("3");
-                infoline.add("4");
+                infoline.add(encour.getProduct().getName()); //nom
+                infoline.add(String.valueOf(encour.getProduct().getReference())); //ref
+                infoline.add(String.valueOf(encour.getQty())); //quantité
+                infoline.add(String.valueOf(encour.getProduct().getPrice()*encour.getQty())); // prix toto
 //             fin  faut construire la liste des lignes pour matthieu                   
                 
 //             debut   puis faut l'ajouter a cette liste
-                ArrayList<ArrayList<String>> grospd = new ArrayList<ArrayList<String>>();
-                grospd.add(infoline);
+                
+                ArrayList<ArrayList<String>> maj = (ArrayList<ArrayList<String>>) session.getAttribute("cart_list");
+                maj.add(infoline);
                 
 //              fin  puis faut l'ajouter a cette liste
 
-                session.setAttribute("cart_list",grospd);
+                session.setAttribute("cart_list",maj);
                 
         }else{
 //            System.out.println(request.getParameter("cartButton"));
@@ -326,33 +153,6 @@ public class MainServlet extends HttpServlet {
 
 //      fin renvoie des infos dans le panier      
 
-//      début ajout d'une commande
-        
-        //user
-        //getTime()+43200000;// on rajoute 5 jours a la date d'aujourd'hui
-        
-        if(request.getParameter("feeAddOrder")!=null && request.getParameter("discountAddOrder")!=null ){
-
-            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-            java.util.Date d1 = new java.util.Date();
-            java.sql.Date d2 = new java.sql.Date(d1.getTime()+43200000);       
-            float feeAddOrder = Float.valueOf(request.getParameter("feeAddOrder"));
-            String receiverAddOrder = request.getParameter("receiverAddOrder");
-            String addressAddOrder = request.getParameter("addressAddOrder");
-            String cityAddOrder = request.getParameter("cityAddOrder");
-            String regionAddOrder = request.getParameter("regionAddOrder");
-            String zipcodeAddOrder = request.getParameter("zip_codeAddOrder");
-            String countryAddOrder = request.getParameter("countryAddOrder");
-            float discountAddOrder = Float.valueOf(request.getParameter("discountAddOrder"));
-
-
-            if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
-                OrderCurrent = new OrderEntity(user, d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder);                
-//                MyDao.addOrder(new OrderEntity(user,d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder));
-            }
-    }
-    
-//      fin d'ajout d'une commande
 
 //      debut ajout ligne                        
         System.out.println(request.getParameter("refProduit"));
