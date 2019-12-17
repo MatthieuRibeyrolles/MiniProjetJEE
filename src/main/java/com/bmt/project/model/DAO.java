@@ -412,7 +412,7 @@ public class DAO {
             if (line.getOrder().getDateSent() != null) {
                 java.util.Date orderDate = new java.util.Date(line.getOrder().getDateSent().getTime());
                 if (orderDate.after(dateU1) && orderDate.before(dateU2)) {
-                    String country = line.getOrder().getCity();
+                    String country = line.getOrder().getCountry();
                     float oldPrice = 0f;
                     float prodPrice = line.getProduct().getPrice();
                     int qty = line.getQty();
@@ -528,7 +528,8 @@ public class DAO {
         return res > 0;
     }
 
-    // Methodes utilitaires
+    //Méthodes utilitaires
+    
     public static void setFloatOrNull(PreparedStatement ps, int index, Float value) throws SQLException {
         if (value == null)
             ps.setNull(index, Types.FLOAT);

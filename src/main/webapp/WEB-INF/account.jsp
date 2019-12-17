@@ -16,6 +16,7 @@
     </head>
     
     <body>
+        
         <div id="blocPage">
             <c:choose>
                 <c:when test="${sessionScope.log != 'true'}">
@@ -46,10 +47,10 @@
                     <h2>Modifer mes informations</h2>
                     
                     <div id="changeInfos">
-                        <form action="account" method="GET">
+                        <form action="account" method="GET" id="infosForm">
                             <c:set var="infosClient" value="${sessionScope.infoClient}" />
                             
-                            Société <input type="text" name="societe" value="${infosClient[0]}"><br/>
+                            Société <input type="text" name="societe" value="${infosClient[0]}">
                             Contact: <input type="text" name="contact" value="${infosClient[1]}">
                             Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
                             Adresse: <input type="text" name="adresse" value="${infosClient[3]}">
@@ -59,6 +60,8 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
+                            
+                            
                             <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>

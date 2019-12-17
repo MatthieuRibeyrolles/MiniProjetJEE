@@ -304,7 +304,7 @@ public class DAOTest {
         Date d1 = new java.sql.Date(this.sdf1.parse("1995-01-31").getTime()); // 1995-01-31
         Date d2 = new java.sql.Date(this.sdf1.parse("1996-05-30").getTime()); // 1996-05-30
         DAO instance = this.myDAO;
-        int expResult = 70;
+        int expResult = 21;
         int result = instance.getRevenuesByCountryBetweenDates(d1, d2).size();
         assertEquals(expResult, result);
     }

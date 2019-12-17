@@ -13,6 +13,10 @@
         <jsp-file>/WEB-INF/jsp_parts/client_view.jsp</jsp-file>
     </servlet>
     <servlet>
+        <servlet-name>AdminView</servlet-name>
+        <jsp-file>/WEB-INF/jsp_parts/admin_view.jsp</jsp-file>
+    </servlet>
+    <servlet>
         <servlet-name>Cart</servlet-name>
         <jsp-file>/WEB-INF/Shop.jsp</jsp-file>
     </servlet>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>ClientView</servlet-name>
         <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminView</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Cart</servlet-name>

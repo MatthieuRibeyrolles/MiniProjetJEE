@@ -5,13 +5,27 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin View</title>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="" methode="GET">
+            <label for="startDate">Date de début:</label>
+            <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
+            <label for="endDate">Date de fin:</label>
+            <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+        </form>
+
+        <div id="chartByCategory"></div>
+        <div id="chartByCountry"></div>
+        <div id="chartByClient"></div>
+
     </body>
+    <script src="scripts/drawCharts.js" ></script>
 </html>
