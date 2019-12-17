@@ -24,6 +24,8 @@
                         <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
                         <label for="endDate">Date de fin:</label>
                         <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+
+                        <button id="backToHome" >Accueil</button>
                     </span>
                 </form>
 
@@ -32,6 +34,17 @@
                 <div id="chartByClient"></div>
 
                 <script src="scripts/drawCharts.js" ></script>
+
+                <script type="text/javascript" >
+                    document.getElementById('backToHome').onclick = function (e) {
+                        var getUrl = window.location;
+                        if (getUrl.host === "mysterious-brook-54628.herokuapp.com")
+                            var baseUrl = getUrl.protocol + "//" + getUrl.host;
+                        else
+                            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                        location.href = baseUrl + '/home';
+                    };
+                </script>
             </c:when>
             <c:otherwise>
                 <c:redirect url="/home" />

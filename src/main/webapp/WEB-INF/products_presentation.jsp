@@ -19,7 +19,7 @@
     <body>
         <div id="blocPage">
             <%@include file="accountButton.jsp" %>
-            
+
             <c:if test="${sessionScope.admin == 'true'}" >
                 <%@include file="adminButton.jsp" %>
             </c:if>
@@ -64,46 +64,45 @@
                             <c:set var="sellable" value="${currentProduct[9]}" />
 
                             <h3>${param.product}</h3>
-
-                            <p>
+                            <div>
                                 Référence du produit: ${reference} <br>
-                                <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if> 
+                                <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if>
                                 Catégorie: ${param.cat} <br>
                                 Ce produit est vendu par ${quantityBySell} <br>
                                 Prix unitaire: ${prix} euros <br>
                                 <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
                                 <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
                                 <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
-                                    <label id="dispo" >
+                                    <label id="dispo">
                                         (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
                                 </label>
                                 <c:if test="${sessionScope.client == 'true'}" >
-                                <form action="home" method="GET">
-                                    Quantité: <input type="text" name="quantity" value="0">
-                                    <input type="hidden" name="refProduit" value="${reference}" > <br>
-                                    <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
-                                </form>
-                            </c:if>
-                            </p>
+                                    <form action="home" method="GET">
+                                        Quantité: <input type="text" name="quantity" value="0">
+                                        <input type="hidden" name="refProduit" value="${reference}" > <br>
+                                        <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
+                                    </form>
+                                </c:if>
+                            </div>
                         </c:if>
                     </div>
                 </c:if>
 
                 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
                 <script>
-        $(document).ready(function () {
-            $(".product").click(function () {
-                let params = "" + window.location.search;
-                let searchParams = new URLSearchParams(params);
+                    $(document).ready(function () {
+                        $(".product").click(function () {
+                            let params = "" + window.location.search;
+                            let searchParams = new URLSearchParams(params);
 
-                if (searchParams.toString().includes("product")) {
-                    searchParams.delete('product');
-                }
+                            if (searchParams.toString().includes("product")) {
+                                searchParams.delete('product');
+                            }
 
-                searchParams.append('product', $(this).attr('id'));
-                window.location.search = searchParams.toString();
-            });
-        });
+                            searchParams.append('product', $(this).attr('id'));
+                            window.location.search = searchParams.toString();
+                        });
+                    });
 
                 </script>
             </div>

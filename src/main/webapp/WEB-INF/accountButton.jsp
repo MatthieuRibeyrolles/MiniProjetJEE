@@ -18,5 +18,4 @@
             var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
         location.href = baseUrl + '/account';
     };
-
 </script>
