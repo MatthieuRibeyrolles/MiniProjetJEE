@@ -5,15 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
 <html>
     <head>
         <title>Admin View</title>
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
-        <link href="style/admin.css" rel="stylesheet">hero
+        <link href="style/admin.css" rel="stylesheet">
     </head>
     <body>
         <c:choose>

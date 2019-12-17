@@ -49,7 +49,6 @@ public class CartServlet extends HttpServlet {
 //      debut suppression line
 
         if (request.getParameter("supProduitRef") != null) {
-            System.out.println("petit connard repond");
             int numprod = Integer.parseInt(request.getParameter("supProduitRef"));
 
             for (int i = 0; i < lineListCurrent.size(); i++)
@@ -119,7 +118,7 @@ public class CartServlet extends HttpServlet {
                 for (LineEntity line : lineListCurrent)
                     MyDao.addLineToCommand(line);
                 
-                ArrayList<LineEntity> nono= new ArrayList<LineEntity>();
+                ArrayList<LineEntity> nono= new ArrayList<>();
                 session.setAttribute("currentlinelist",nono);
                 
                 
