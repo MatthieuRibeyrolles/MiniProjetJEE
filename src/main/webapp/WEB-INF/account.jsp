@@ -43,10 +43,11 @@
                         </c:if>
                     </div>
 
+
                     <h2>Modifer mes informations</h2>
 
                     <div id="changeInfos">
-                        <form action="account" method="POST" id="infosForm">
+                        <form action="account" method="GET" id="infosForm">
                             <c:set var="infosClient" value="${sessionScope.infoClient}" />
 
                             Société <input type="text" name="societe" value="${infosClient[0]}">
@@ -59,6 +60,7 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
+
 
                             <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
