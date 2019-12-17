@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<button id="adminButton" type="button" >Mon compte</button>
+<button id="adminButton" type="button" >Statistiques</button>
 
 <script type="text/javascript" >
     document.getElementById('adminButton').onclick = function (e) {
