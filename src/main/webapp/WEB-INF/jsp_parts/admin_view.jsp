@@ -37,6 +37,7 @@
 
                 <script type="text/javascript" >
                     document.getElementById('backToHome').onclick = function (e) {
+                        e.preventDefault();
                         var getUrl = window.location;
                         if (getUrl.host === "mysterious-brook-54628.herokuapp.com")
                             var baseUrl = getUrl.protocol + "//" + getUrl.host;
