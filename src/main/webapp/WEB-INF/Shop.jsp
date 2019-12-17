@@ -40,15 +40,16 @@
                                     
                                 <div id="buttons">
 
-                                    <form action="shop" method="GET">
-                                        <div> Quantité souhaitée: <input type="text" name="quantity" value="${item[1]}"> </div>
+                                    <form action="cart" method="GET">
+                                        <div> Quantité souhaitée: <input type="text" name="quantity" value="${item[2]}"> </div>
                                         <input type="hidden" id="refProduit" value="${item[1]}" />
                                         <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
                                     </form>
                                         
-                                    <form action="shop" method="GET">
-                                        <input type="hidden" id="supProduitRef" value="${item[1]}" />
-                                        <button id="removeFromCart">Enlever du panier</button>
+                                    <form action="cart" method="GET">
+                                        <input type="text" name="supProduitRef" value="${item[1]}" />
+                                        <input id="removeFromCart" type="submit" value="Enlever du panier">
+                                        <!--<button id="removeFromCart">Enlever du panier</button>-->
                                     </form>
                                 </div>
 
