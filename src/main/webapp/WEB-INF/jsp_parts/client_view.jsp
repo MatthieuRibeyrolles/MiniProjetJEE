@@ -19,7 +19,7 @@
         </c:when>
             
             
-        <c:when test ="${sessionScope.admin != 'true'}" >
+        <c:when test ="${sessionScope.admin == 'true'}" >
             
                 <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 

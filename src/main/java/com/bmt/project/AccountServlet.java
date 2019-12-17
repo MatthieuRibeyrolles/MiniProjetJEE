@@ -171,9 +171,9 @@ public class AccountServlet extends HttpServlet {
 
                     //      fin d'ajout d'une commande
 
-                    session.setAttribute("orderString",clientOrderString);
-                    session.setAttribute("order",clientOrder);
-                    session.setAttribute("line", clientline);
+                    session.setAttribute("orderString",clientOrderString);//Map<OrderEntity,ArrayList<String>>
+                    session.setAttribute("order",clientOrder);//  Map<OrderEntity, ArrayList<ArrayList<String>>>
+                    session.setAttribute("line", clientline);//  Map<OrderEntity, ArrayList<ArrayList<String>>>
                     
                     session.setAttribute("cart_list", new ArrayList<ArrayList<String>>());
                 }
@@ -182,12 +182,15 @@ public class AccountServlet extends HttpServlet {
                                
 //                  ajout de toute les commandes 
                     List<OrderEntity> allOrder = MyDao.getOrdersList();
-                    ArrayList<ArrayList<String>> allOrderString = new ArrayList<ArrayList<String>>();
+                    
+                    
+                    Map<OrderEntity,ArrayList<String>> clientOrderString = new  HashMap<OrderEntity,ArrayList<String>> ();
+                    Map<OrderEntity, ArrayList<ArrayList<String>>> clientline = new HashMap<OrderEntity, ArrayList<ArrayList<String>>>();
                     
                     for (OrderEntity ord : allOrder){
                         ArrayList<String> tmpord = new ArrayList<String>();
                         tmpord.add("numéro de la commade : "+String.valueOf(ord.getNum()));
-                        tmpord.add("client : "+String.valueOf(ord.getClient()));
+                        tmpord.add("client : "+ord.getClient().getContact());
                         tmpord.add("date d'envoie : "+String.valueOf(ord.getDateSent()));
                         tmpord.add("frais de port : "+String.valueOf(ord.getPort()));
                         tmpord.add("receiver : "+String.valueOf(ord.getReceiver()));
@@ -207,11 +210,31 @@ public class AccountServlet extends HttpServlet {
                         
                         tmpord.add("prix total : "+prixtoto);
                         
-                        allOrderString.add(tmpord);
+                        clientOrderString.put(ord,tmpord);
+                        
+                        List<LineEntity> tmpLineList = MyDao.getLineListByOrder(ord);
+                        ArrayList<ArrayList<String>> allLine = new ArrayList<ArrayList<String>>();
+                        
+                        for (LineEntity line : tmpLineList){
+                            ArrayList<String> lineString = new ArrayList<String>();
+                            lineString.add(line.getProduct().getName());
+                            lineString.add(String.valueOf(line.getQty()));
+                            allLine.add(lineString);
+                        }
+                        
+                        clientline.put(ord, allLine);
+                        
                     }
-                    
+                   
+                    session.setAttribute("orderString", clientOrderString);
                     session.setAttribute("order",allOrder);
-                    
+                    session.setAttribute("line",clientline);
+
+
+//session.setAttribute("orderString",clientOrderString);//Map<OrderEntity,ArrayList<String>>
+//session.setAttribute("order",clientOrder);//  Map<OrderEntity, ArrayList<ArrayList<String>>>
+//session.setAttribute("line", clientline);//  Map<OrderEntity, ArrayList<ArrayList<String>>>
+
 //                  ajout de tous les produits
                 }
             }
