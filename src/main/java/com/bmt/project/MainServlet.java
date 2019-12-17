@@ -182,7 +182,7 @@ public class MainServlet extends HttpServlet {
 //      fin modifier line 
 
 //      debut confirmer commande 
-        if (request.getParameter("confirmerCOmmande").equals("true")) {
+        if (request.getParameter("confirmerCommande") != null && request.getParameter("confirmerCommande").equals("true")) {
             MyDao.addOrder(OrderCurrent);
             for (LineEntity line : lineListCurrent)
                 MyDao.addLineToCommand(line);
