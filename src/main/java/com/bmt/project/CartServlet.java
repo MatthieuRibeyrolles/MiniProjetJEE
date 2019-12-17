@@ -45,7 +45,7 @@ public class CartServlet extends HttpServlet {
         ArrayList<LineEntity> lineListCurrent =  (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
         
         
-
+        request.setCharacterEncoding("UTF-8");
 //      debut suppression line
 
         if (request.getParameter("supProduitRef")!=null){

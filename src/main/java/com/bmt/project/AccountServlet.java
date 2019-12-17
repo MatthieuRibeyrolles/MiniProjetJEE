@@ -53,14 +53,16 @@ public class AccountServlet extends HttpServlet {
         
                 String log =request.getParameter("login");
         String pass=request.getParameter("password");
-
+        
+        request.setCharacterEncoding("UTF-8");
+        
 //      connexion
         if (log != null && pass != null){
             
             user = MyDao.login(log,pass);
             session.setAttribute("usr", user);
 //          verification si la connection est possible
-            if (( user!=null )|( log=="admin" && pass=="admin") ){   
+            if (( user!=null )|( log.equals("admin") && pass.equals("admin") )){   
                 
                 //admin LOG = Maria Anders, PASS = ALFKI 
                 //random LOG = Ana Trujillo  , PASS = ANATR
@@ -69,7 +71,7 @@ public class AccountServlet extends HttpServlet {
                 
                 ArrayList<String> infoclientString = new ArrayList<String>();
                 
-                if (log=="admin" && pass=="admin"){
+                if (log.equals("admin") && pass.equals("admin")){
                     admin=true;
                 }else{
                     client=true;
