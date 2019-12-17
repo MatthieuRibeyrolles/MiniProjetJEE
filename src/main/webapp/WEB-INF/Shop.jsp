@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <link href="style/shop.css" rel="stylesheet">
         <title>Mon shop</title>
     </head>
@@ -46,7 +47,7 @@
                                     </form>
                                         
                                     <form action="shop" method="GET">
-                                        <input type="hidden" id="refProduit" value="${item[1]}" />
+                                        <input type="hidden" id="supProduitRef" value="${item[1]}" />
                                         <button id="removeFromCart">Enlever du panier</button>
                                     </form>
                                 </div>
@@ -56,7 +57,10 @@
                 
                  </div>
                 
-                <button id="payer">Payer</button>
+                <form>
+                    <input id="confirmerCommande" type="hidden" value="confirmerCommande" />
+                    <input id="payer" type="submit" value="Payer"/>
+                </form>
             </c:otherwise>
                 
             </c:choose>

@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Products Presentation</title>  
+        <link href="https://fonts.googleapis.com/css?family=Baskervville|Lilita+One|Rokkitt&display=swap" rel="stylesheet">
         <link href="style/main.css" rel="stylesheet">
         <link href="style/table_css.css" rel="stylesheet">
     </head>
@@ -67,11 +68,13 @@
                             <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
                             <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
                             <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
-                            ${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente<br>
+                            <label id="dispo" >
+                                (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
+                            </label>
                             <c:if test="${sessionScope.client == 'true'}" >
-                                <form action="account" method="GET">
+                                <form action="home" method="GET">
                                     Quantité: <input type="text" name="quantity" value="0">
-                                    <input type="hidden" id="refProduit" value="${reference}" />
+                                    <input type="hidden" name="refProduit" value="${reference}" > <br>
                                     <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
                                 </form>
                             </c:if>

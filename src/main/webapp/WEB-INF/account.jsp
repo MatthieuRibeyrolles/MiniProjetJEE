@@ -16,6 +16,7 @@
     </head>
     
     <body>
+        
         <div id="blocPage">
             <c:choose>
                 <c:when test="${sessionScope.log != 'true'}">
@@ -31,26 +32,25 @@
                 </c:when>
 
                 <c:otherwise>
-                    
                     <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                     <div id="topInfos" >
-
                         <if test="${sessionScope.client == 'true'}" >
-                            <button id="ordersButton"> Cliquer pour voir mes commandes passées </button> 
-                            <button id="cartButton"> Mon panier </button> 
+                            <button id="ordersButton"> Mes commandes passées </button>
+                            <form action="cart">
+                                <input id="cartButton" type="submit" value="Mon panier">
+                            </form>
                         </if>
-
                     </div>
                             
                             
                     <h2>Modifer mes informations</h2>
                     
                     <div id="changeInfos">
-                        <form action="account" method="GET">
+                        <form action="account" method="GET" id="infosForm">
                             <c:set var="infosClient" value="${sessionScope.infoClient}" />
                             
-                            Société <input type="text" name="societe" value="${infosClient[0]}"><br/>
+                            Société <input type="text" name="societe" value="${infosClient[0]}">
                             Contact: <input type="text" name="contact" value="${infosClient[1]}">
                             Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
                             Adresse: <input type="text" name="adresse" value="${infosClient[3]}">
@@ -60,14 +60,23 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
+                            
+                            
                             <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
                     </div>
                             
-                    <button id="logoutButton">Me deconnecter</button>
+                    <form action="">
+                        <input type="hidden" name="deco" value="true">
+                        <input type="submit" id="logOut" value="Se deconnecter" >
+                    </form>
 
                 </c:otherwise>
             </c:choose>
+                    
+            <form action="home">
+                <input type="submit" id="backToHome" value="Accueil" >
+            </form>
         </div>
         
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>

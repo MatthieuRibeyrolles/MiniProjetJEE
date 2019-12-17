@@ -9,9 +9,9 @@ and open the template in the editor.
 */
 
 body{
-    background-color: #424242;
+    /*background-color: #424242;*/
     text-align: center;
-    color: #fff;
+    font-family: 'Rokkitt', serif;
 }
 
 #blocPage {

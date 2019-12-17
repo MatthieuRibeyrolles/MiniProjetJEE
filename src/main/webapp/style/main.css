@@ -5,8 +5,14 @@
 
 
 body {
-    background-color: #424242;
-    color: #fff;
+    /*background-color: #424242;*/
+    font-family: 'Rokkitt', serif;
+}
+
+#accountButton {
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
 }
 
 #account {
@@ -15,10 +21,13 @@ body {
     padding: 5px;
 }
 
-#pageTitle { margin-bottom: 50px; }
+#pageTitle { 
+    font-family: 'Lilita One', cursive;
+    margin-bottom: 50px; }
 #loginButton { 
     margin-top: 10px; 
     cursor: pointer;
+    border-radius: 15px;
 }
 
 
