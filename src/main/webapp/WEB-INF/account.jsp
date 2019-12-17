@@ -41,6 +41,10 @@
                                 <input id="cartButton" type="submit" value="Mon panier">
                             </form>
                         </c:if>
+                            
+                        <c:if test="${sessionScope.admin == 'true'}" >
+                            <button id="ordersButton"> les commandes des cliens </button>
+                        </c:if>
                     </div>
 
 
