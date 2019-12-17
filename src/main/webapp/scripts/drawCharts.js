@@ -32,15 +32,10 @@ function drawChart(opt, map) {
     var title;
     var mToL = [];
     var data = new google.visualization.DataTable();
-    var options = {
-        'legend': 'left',
-        'title': 'Chiffre d\'affaire par ' + title,
-        'width': $(window).width() - 30,
-        'height': $(window).height() / 4
-    };
     for (let [key, value] of Object.entries(map)) {
         mToL.push([key, value]);
     }
+    mToL.sort((a, b) => b[1] - a[1]);
     if (opt === 'byCategory') {
         title = 'catégorie';
         chart = new google.visualization.ColumnChart(document.getElementById('chartByCategory'));
@@ -53,6 +48,12 @@ function drawChart(opt, map) {
         title = 'client';
         chart = new google.visualization.ColumnChart(document.getElementById('chartByClient'));
     }
+    var options = {
+        'legend': 'left',
+        'title': 'Chiffre d\'affaire par ' + title + ' en €',
+        'width': $(window).width() - 30,
+        'height': $(window).height() / 4
+    };
     data.addColumn('string', title);
     data.addColumn('number', 'Chiffre d\'affaire');
     data.addRows(mToL);

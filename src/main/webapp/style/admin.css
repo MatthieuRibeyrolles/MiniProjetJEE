@@ -22,5 +22,8 @@ input {
 }
 
 button {
-    
+    margin-bottom: 10px;
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
 }
