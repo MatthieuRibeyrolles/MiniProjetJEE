@@ -151,45 +151,6 @@ public class MainServlet extends HttpServlet {
         }
 
 //      fin ajout ligne 
-//      debut suppression line
-        if (request.getParameter("supProduitRef") != null) {
-
-            int numprod = Integer.parseInt(request.getParameter("supProduitRef"));
-
-            for (int i = 0; i < lineListCurrent.size(); i++)
-                if (lineListCurrent.get(i).getProduct() == MyDao.getProductByCode(numprod)) {
-                    lineListCurrent.remove(i);
-                    break;
-                }
-        }
-//      fin suppression line
-
-//      debut modifier line
-        if (request.getParameter("lineQuantityNew") != null && request.getParameter("numProdNew") != null && request.getParameter("lineQuantityOld") != null) {
-
-            int numProdUpdateLineNew = Integer.parseInt(request.getParameter("numProd"));
-            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("lineQuantityNew"));
-
-            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("lineQuantityOld"));
-
-            LineEntity oldLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineOld);
-            LineEntity newLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineNew);
-
-            for (LineEntity line : lineListCurrent)
-                if (line.getProduct() == newLine.getProduct())
-                    line = newLine;
-        }
-//      fin modifier line 
-
-//      debut confirmer commande 
-        if (request.getParameter("confirmerCommande") != null){
-            if (request.getParameter("confirmerCommande").equals("true")) {
-                MyDao.addOrder(OrderCurrent);
-                for (LineEntity line : lineListCurrent)
-                    MyDao.addLineToCommand(line);
-            }
-        }
-//      fin confirmer commande 
 
         request.getRequestDispatcher("/WEB-INF/products_presentation.jsp").forward(request, response);
 
