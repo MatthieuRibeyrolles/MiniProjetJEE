@@ -11,9 +11,9 @@
 <html>
     <head>
         <title>Admin View</title>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
-        <link href="style/admin.css" rel="stylesheet">
+        <link href="style/admin.css" rel="stylesheet">hero
     </head>
     <body>
         <c:choose>
