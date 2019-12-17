@@ -13,15 +13,18 @@
         <title>Admin View</title>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <link href="style/admin.css" rel="stylesheet">
     </head>
     <body>
         <c:choose>
             <c:when test="${sessionScope.admin == 'true'}" >
                 <form action="" method="GET">
-                    <label for="startDate">Date de début:</label>
-                    <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
-                    <label for="endDate">Date de fin:</label>
-                    <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+                    <span>
+                        <label for="startDate">Date de début:</label>
+                        <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
+                        <label for="endDate">Date de fin:</label>
+                        <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+                    </span>
                 </form>
 
                 <div id="chartByCategory"></div>

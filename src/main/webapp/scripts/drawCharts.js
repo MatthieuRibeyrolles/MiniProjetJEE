@@ -36,7 +36,7 @@ function drawChart(opt, map) {
         'legend': 'left',
         'title': 'Chiffre d\'affaire par ' + title,
         'width': $(window).width() - 30,
-        'height': $(window).height() / 3
+        'height': $(window).height() / 4
     };
     for (let [key, value] of Object.entries(map)) {
         mToL.push([key, value]);
@@ -59,7 +59,10 @@ function drawChart(opt, map) {
     chart.draw(data, options);
 }
 
-$(document).ready(valide());
+$(document).ready(function() {
+    google.charts.load('current', {'packages': ['corechart']});
+    valide();
+});
 $(window).resize(function () {
     if (m_data !== undefined)
         parseAndDraw();

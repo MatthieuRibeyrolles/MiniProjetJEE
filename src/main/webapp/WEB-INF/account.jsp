@@ -41,12 +41,11 @@
                                 <input id="cartButton" type="submit" value="Mon panier">
                             </form>
                         </c:if>
-                            
+
                         <c:if test="${sessionScope.admin == 'true'}" >
                             <button id="ordersButton"> les commandes des cliens </button>
                         </c:if>
                     </div>
-
 
                     <h2>Modifer mes informations</h2>
 
@@ -64,7 +63,6 @@
                             Pays: <input type="text" name="pays" value="${infosClient[7]}">
                             Telephone: <input type="text" name="tel" value="${infosClient[8]}">
                             Fax: <input type="text" name="fax" value="${infosClient[9]}">
-
 
                             <input id="enregistrer" type="submit" value="Enregistrer">
                         </form>
@@ -86,19 +84,24 @@
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
         <script>
             $(document).ready(function () {
+                var getUrl = window.location;
                 $("#logoutButton").click(function () {
                     sessionStorage.clear();
                 });
 
                 $("#ordersButton").click(function () {
-                    var getUrl = window.location;
-                    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                    if (getUrl.host === "mysterious-brook-54628.herokuapp.com")
+                        var baseUrl = getUrl.protocol + "//" + getUrl.host;
+                    else
+                        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/orders';
                 });
 
                 $("#cartButton").click(function () {
-                    var getUrl = window.location;
-                    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                    if (getUrl.host === "mysterious-brook-54628.herokuapp.com")
+                        var baseUrl = getUrl.protocol + "//" + getUrl.host;
+                    else
+                        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     location.href = baseUrl + '/cart';
                 });
             });
