@@ -39,13 +39,13 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
+        request.setCharacterEncoding("UTF-8");
         ClientEntity user = (ClientEntity) session.getAttribute("usr");
         OrderEntity OrderCurrent = (OrderEntity) session.getAttribute("currentorder");
         DAO MyDao = (DAO) session.getAttribute("mydao");
         ArrayList<LineEntity> lineListCurrent = (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
 
-        request.setCharacterEncoding("UTF-8");
+
 //      debut suppression line
 
         if (request.getParameter("supProduitRef") != null) {
@@ -92,12 +92,12 @@ public class CartServlet extends HttpServlet {
 //      fin suppression line
 
 //      debut modifier line
-        if (request.getParameter("lineQuantityNew") != null && request.getParameter("numProdNew") != null && request.getParameter("lineQuantityOld") != null) {
+        if (request.getParameter("quantity") != null && request.getParameter("refProduit") != null && request.getParameter("newQuantity") != null) {
 
-            int numProdUpdateLineNew = Integer.parseInt(request.getParameter("numProd"));
-            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("lineQuantityNew"));
+            int numProdUpdateLineNew = Integer.parseInt(request.getParameter("refProduit"));
+            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("newQuantity"));
 
-            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("lineQuantityOld"));
+            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("quanrity"));
 
             LineEntity oldLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineOld);
             LineEntity newLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineNew);
@@ -153,7 +153,7 @@ public class CartServlet extends HttpServlet {
 
 
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Shop.jsp").forward(request, response);
     }
 
 }

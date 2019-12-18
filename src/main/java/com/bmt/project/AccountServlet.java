@@ -45,6 +45,8 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+
+        request.setCharacterEncoding("UTF-8");
         
         DAO MyDao = (DAO) session.getAttribute("mydao");
         ClientEntity user = (ClientEntity) session.getAttribute("usr");            
@@ -54,7 +56,7 @@ public class AccountServlet extends HttpServlet {
                 String log =request.getParameter("login");
         String pass=request.getParameter("password");
         
-        request.setCharacterEncoding("UTF-8");
+
         
 //      connexion
         if (log != null && pass != null){
