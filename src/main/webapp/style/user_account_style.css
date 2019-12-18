@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Matthieu
 */
 
-body {
-    background-color: #424242;
+.order {
+    border: 1px solid black;
+}
+
+form input[type=submit] {
+    border-radius: 10px;
 }
