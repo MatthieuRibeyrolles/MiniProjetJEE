@@ -528,8 +528,42 @@ public class DAO {
         return res > 0;
     }
 
+    public boolean updateProduct(ProductEntity oldP, ProductEntity newP) {
+        int res = 0;
+        String sql = "UPDATE Commande"
+                + "SET nom=?,"
+                + "fournisseur=?,"
+                + "categorie=?,"
+                + "quantite_par_unite=?,"
+                + "prix_unitaire=?,"
+                + "unites_en_stock=?,"
+                + "unite_commandees=?,"
+                + "niveau_de_reappro=?,"
+                + "indisponible=?"
+                + "WHERE reference=?";
+        try (Connection con = this.myDAO.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, newP.getName());
+            setIntOrNull(stmt, 2, newP.getProvider());
+            setIntOrNull(stmt, 3, newP.getCategory().getCode());
+            stmt.setString(4, newP.getQtyPerPackage());
+            setFloatOrNull(stmt, 5, newP.getPrice());
+            setIntOrNull(stmt, 6, newP.getStock());
+            setIntOrNull(stmt, 7, newP.getOrdered());
+            setIntOrNull(stmt, 8, newP.getRefill());
+            setIntOrNull(stmt, 9, (newP.isAvailable()) ? 1 : 0);
+            res = stmt.executeUpdate();
+            if (res > 0)
+                for (ProductEntity product : this.lProducts)
+                    if (product.getReference() == oldP.getReference())
+                        product = newP;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return res > 0;
+    }
+
     //Méthodes utilitaires
-    
     public static void setFloatOrNull(PreparedStatement ps, int index, Float value) throws SQLException {
         if (value == null)
             ps.setNull(index, Types.FLOAT);
