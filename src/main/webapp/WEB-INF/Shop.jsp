@@ -61,7 +61,10 @@
                 </c:otherwise>
 
             </c:choose>
+                    
+            <form action="home">
+                <input type="submit" id="backToHome" value="Accueil" >
+            </form>
         </div>
-
     </body>
 </html>
