@@ -46,7 +46,7 @@
                                         <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
 
                                         <input type="hidden" id="supProduitRef" value="${item[1]}" />
-                                        <button id="removeFromCart">Enlever du panier</button>
+                                        <input type="submit" value="Enlever du panier" >
                                     </span>
 
                                 </span>
