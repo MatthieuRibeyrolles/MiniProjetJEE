@@ -9,9 +9,8 @@
 
 google.charts.load('current', {
     'callback': initDoc,
-    'packages': ['corechart']
+    'packages': ['bar']
 });
-
 var m_data;
 
 function valide() {
@@ -19,9 +18,18 @@ function valide() {
         date1: $('#startDate').val(),
         date2: $('#endDate').val()
     };
-    $.post('AdminServlet', $.param(params), function (responseJson) {
-        m_data = responseJson;
-        parseAndDraw();
+    $.ajax({
+        type: "POST",
+        url: "AdminServlet",
+        data: $.param(params),
+        dataType: 'json',
+        error: function () {
+            console.log("Y'a une erreur Abritu'");
+        },
+        success: function (responseJson) {
+            m_data = responseJson;
+            parseAndDraw();
+        }
     });
 }
 
@@ -42,26 +50,32 @@ function drawChart(opt, map) {
     mToL.sort((a, b) => b[1] - a[1]);
     if (opt === 'byCategory') {
         title = 'catégorie';
-        chart = new google.visualization.ColumnChart(document.getElementById('chartByCategory'));
+        chart = new google.charts.Bar(document.getElementById('chartByCategory'));
     }
     if (opt === 'byCountry') {
         title = 'pays';
-        chart = new google.visualization.ColumnChart(document.getElementById('chartByCountry'));
+        chart = new google.charts.Bar(document.getElementById('chartByCountry'));
     }
     if (opt === 'byClient') {
         title = 'client';
-        chart = new google.visualization.ColumnChart(document.getElementById('chartByClient'));
+        chart = new google.charts.Bar(document.getElementById('chartByClient'));
     }
+
     var options = {
-        'legend': 'left',
-        'title': 'Chiffre d\'affaire par ' + title + ' en patates',
-        'width': $(window).width() - 30,
-        'height': $(window).height() / 4
+        legend: {position: 'none'},
+        chart: {
+            legend: 'left',
+            title: 'Chiffre d\'affaire par ' + title + ' en patates',
+            width: $(window).width() - 30,
+            height: $(window).height() / 3,
+            format: 'currency',
+            is3D: true
+        }
     };
     data.addColumn('string', title);
     data.addColumn('number', 'Chiffre d\'affaire');
     data.addRows(mToL);
-    chart.draw(data, options);
+    chart.draw(data, google.charts.Bar.convertOptions(options));
 }
 
 function initDoc() {
