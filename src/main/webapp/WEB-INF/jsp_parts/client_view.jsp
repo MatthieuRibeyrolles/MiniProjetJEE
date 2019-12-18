@@ -36,7 +36,7 @@
                         <c:forEach items="${sessionScope.order}" var="order_e">
                             <div class="order">
                                 <c:forEach items="${orderString[order_e]}" var="orderstring" >
-                                    ${orderstring}&nbsp;&nbsp;
+                                    ${orderstring}&nbsp;&nbsp;<br>
                                 </c:forEach>
 
                                     <br>
