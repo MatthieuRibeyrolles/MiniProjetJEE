@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : Matthieu
 */
 
+#blocPage {
+    width: 80%;
+    margin: auto;
+}
+
 .order {
     border: 1px solid black;
 }
