@@ -94,14 +94,14 @@
                                 
                                 <c:otherwise>
                                     <form action="home">
-                                        <span> Référence du produit <input name="modifRef" type="text" value="${reference}"</span>
-                                        <span> Référence du fournisseur <input name="modifFournisseur" type="text" value="${fournisseur}"</span>
-                                        <span> Catégorie <input name="modifCat" type="text" value="${param.cat}"</span>
-                                        <span> Vendu par lots de <input name="modifLots" type="text" value="${quantityBySell}"</span>
-                                        <span> Prix unitaire <input name="modifPrix" type="text" value="${prix}"</span>
-                                        <span> Unités restantes en stock <input name="modifStock" type="text" value="${stock}"</span>
-                                        <span> Unités commandées <input name="modifCommandees" type="text" value="${ordered}"</span>
-                                        <span> Niveau de réaprovisionnement <input name="modifReap" type="text" value="${refill}"</span>
+                                        <span> Référence du produit <input name="modifRef" type="text" value="${reference}"</span> <br>
+                                        <span> Référence du fournisseur <input name="modifFournisseur" type="text" value="${fournisseur}"</span> <br>
+                                        <span> Catégorie <input name="modifCat" type="text" value="${param.cat}"</span> <br>
+                                        <span> Vendu par lots de <input name="modifLots" type="text" value="${quantityBySell}"</span> <br>
+                                        <span> Prix unitaire <input name="modifPrix" type="text" value="${prix}"</span> <br>
+                                        <span> Unités restantes en stock <input name="modifStock" type="text" value="${stock}"</span> <br>
+                                        <span> Unités commandées <input name="modifCommandees" type="text" value="${ordered}"</span> <br>
+                                        <span> Niveau de réaprovisionnement <input name="modifReap" type="text" value="${refill}"</span> <br>
                                         <input type="submit" id="adminChangesButton" value="Sauvegarder" >
                                     </form>    
                                 </c:otherwise>
