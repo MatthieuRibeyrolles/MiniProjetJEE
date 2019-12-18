@@ -37,6 +37,7 @@
                     <div id="topInfos" >
                         <c:if test="${sessionScope.client == 'true'}" >
                             <button id="ordersButton"> Mes commandes passées </button>
+                            <br>
                             <form action="cart">
                                 <input id="cartButton" type="submit" value="Mon panier">
                             </form>

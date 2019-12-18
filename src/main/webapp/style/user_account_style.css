@@ -13,8 +13,12 @@ and open the template in the editor.
     margin: auto;
 }
 
+h1 { text-align: center; }
+
 .order {
     border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 form input[type=submit] {
