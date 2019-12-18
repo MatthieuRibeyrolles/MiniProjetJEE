@@ -64,26 +64,50 @@
                             <c:set var="sellable" value="${currentProduct[9]}" />
 
                             <h3>${param.product}</h3>
-                            <div>
-                                Référence du produit: ${reference} <br>
-                                <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if>
-                                Catégorie: ${param.cat} <br>
-                                Ce produit est vendu par ${quantityBySell} <br>
-                                Prix unitaire: ${prix} euros <br>
-                                <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
-                                <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
-                                <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
-                                    <label id="dispo">
-                                        (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
-                                </label>
-                                <c:if test="${sessionScope.client == 'true'}" >
-                                    <form action="home" method="GET">
-                                        Quantité: <input type="text" name="quantity" value="0">
-                                        <input type="hidden" name="refProduit" value="${reference}" > <br>
-                                        <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
+                            <c:if test="${sessionScope.admin != 'true'}" >
+                                
+                            </c:if>
+                            
+                            <c:choose>
+                                <c:when test="${sessionScope.admin != 'true'}">
+                                    <div>
+                                        Référence du produit: ${reference} <br>
+                                        <c:if test="${sessionScope.admin == 'true'}" > Référence fournisseur: ${fournisseur} <br> </c:if>
+                                        Catégorie: ${param.cat} <br>
+                                        Ce produit est vendu par ${quantityBySell} <br>
+                                        Prix unitaire: ${prix} euros <br>
+                                        <%--<c:if test="${sessionScope.admin == 'true'}" > --%> Unités restantes en stock: ${stock} <br> <%-- </c:if> --%>
+                                        <c:if test="${sessionScope.admin == 'true'}" > Unités commandées: ${ordered} <br> </c:if>
+                                        <c:if test="${sessionScope.admin == 'true'}" > Niveau de réaprovisionnement: ${refill} <br> </c:if>
+                                            <label id="dispo">
+                                                (${sellable == 'false' ? 'Disponible' : 'Indisponible'} à la vente)<br>
+                                        </label>
+                                        <c:if test="${sessionScope.client == 'true'}" >
+                                            <form action="home" method="GET">
+                                                Quantité: <input type="text" name="quantity" value="0">
+                                                <input type="hidden" name="refProduit" value="${reference}" > <br>
+                                                <input id="ajouterAuPanier" type="submit" value="Ajouter au panier">
+                                            </form>
+                                        </c:if>
+                                    </div>
+                                </c:when>
+                                    <form>
+                                        <span> Référence du produit <input name="modifRef" type="text" value="${reference}"</span>
+                                        <span> Référence du fournisseur <input name="modifFournisseur" type="text" value="${fournisseur}"</span>
+                                        <span> Catégorie <input name="modifCat" type="text" value="${param.cat}"</span>
+                                        <span> Vendu par lots de <input name="modifLots" type="text" value="${quantityBySell}"</span>
+                                        <span> Prix unitaire <input name="modifPrix" type="text" value="${prix}"</span>
+                                        <span> Unités restantes en stock <input name="modifStock" type="text" value="${stock}"</span>
+                                        <span> Unités commandées <input name="modifCommandees" type="text" value="${ordered}"</span>
+                                        <span> Niveau de réaprovisionnement <input name="modifReap" type="text" value="${refill}"</span>
+                                        <input type="submit" id="adminChangesButton" value="Sauvegarder" >
                                     </form>
-                                </c:if>
-                            </div>
+                                <c:otherwise>
+                                    
+                                </c:otherwise>
+                            </c:choose>
+                            
+                            
                         </c:if>
                     </div>
                 </c:if>
