@@ -47,26 +47,28 @@
                         </c:if>
                     </div>
 
-                    <h2>Modifer mes informations</h2>
+                    <c:if test="${sessionScope.client == 'true'}" >
+                        <h2>Modifer mes informations</h2>
 
-                    <div id="changeInfos">
-                        <form action="account" method="GET" id="infosForm">
-                            <c:set var="infosClient" value="${sessionScope.infoClient}" />
+                        <div id="changeInfos">
+                            <form action="account" method="GET" id="infosForm">
+                                <c:set var="infosClient" value="${sessionScope.infoClient}" />
 
-                            Société <input type="text" name="societe" value="${infosClient[0]}">
-                            Contact: <input type="text" name="contact" value="${infosClient[1]}">
-                            Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
-                            Adresse: <input type="text" name="adresse" value="${infosClient[3]}">
-                            Ville: <input type="text" name="ville" value="${infosClient[4]}">
-                            Region: <input type="text" name="region" value="${infosClient[5]}">
-                            Code postal:<input type="text" name="cp" value="${infosClient[6]}">
-                            Pays: <input type="text" name="pays" value="${infosClient[7]}">
-                            Telephone: <input type="text" name="tel" value="${infosClient[8]}">
-                            Fax: <input type="text" name="fax" value="${infosClient[9]}">
+                                Société <input type="text" name="societe" value="${infosClient[0]}">
+                                Contact: <input type="text" name="contact" value="${infosClient[1]}">
+                                Fonction: <input type="text" name="fonction" value="${infosClient[2]}">
+                                Adresse: <input type="text" name="adresse" value="${infosClient[3]}">
+                                Ville: <input type="text" name="ville" value="${infosClient[4]}">
+                                Region: <input type="text" name="region" value="${infosClient[5]}">
+                                Code postal:<input type="text" name="cp" value="${infosClient[6]}">
+                                Pays: <input type="text" name="pays" value="${infosClient[7]}">
+                                Telephone: <input type="text" name="tel" value="${infosClient[8]}">
+                                Fax: <input type="text" name="fax" value="${infosClient[9]}">
 
-                            <input id="enregistrer" type="submit" value="Enregistrer">
-                        </form>
-                    </div>
+                                <input id="enregistrer" type="submit" value="Enregistrer">
+                            </form>
+                        </div>
+                    </c:if>
 
                     <form action="">
                         <input type="hidden" name="deco" value="true">

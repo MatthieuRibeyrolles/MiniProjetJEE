@@ -33,15 +33,16 @@
                 <c:otherwise>
                     <div id="list">
                         <c:forEach items="${sessionScope.cart_list}" var="item">
-                            <form action="shop" method="GET">
+                            <form action="cart" method="GET">
                                 <span>
                                     <label>
                                         Produit: ${item[0]} (reférence ${item[1]}) <br> Quantité commandée: ${item[2]} <br> Montant total :${item[3]}
                                     </label>
 
                                     <span id="buttons">
-                                        <span> Quantité souhaitée: <input type="text" name="quantity" value="${item[1]}"> </span>
+                                        <span> Quantité souhaitée: <input type="text" name="quantity" value="0"> </span>
                                         <input type="hidden" id="refProduit" value="${item[1]}" />
+                                        <input type="hidden" id="oldQuantity" value="${item[2]}" />
                                         <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
 
                                         <input type="hidden" id="supProduitRef" value="${item[1]}" />
@@ -61,7 +62,10 @@
                 </c:otherwise>
 
             </c:choose>
+                    
+            <form action="home">
+                <input type="submit" id="backToHome" value="Accueil" >
+            </form>
         </div>
-
     </body>
 </html>
