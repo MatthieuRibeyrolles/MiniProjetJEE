@@ -33,30 +33,32 @@
                 <c:otherwise>
                     <div id="list">
                         <c:forEach items="${sessionScope.cart_list}" var="item">
-                            <form action="cart" method="GET">
-                                <span>
-                                    <label>
-                                        Produit: ${item[0]} (reférence ${item[1]}) <br> Quantité commandée: ${item[2]} <br> Montant total :${item[3]}
-                                    </label>
+                            <c:if test="${item[2] != '0'}" >
+                                <form action="cart" method="GET">
+                                    <span>
+                                        <label>
+                                            Produit: ${item[0]} (reférence ${item[1]}) <br> Quantité commandée: ${item[2]} <br> Montant total :${item[3]}
+                                        </label>
 
-                                    <span id="buttons">
-                                        <span> Quantité souhaitée: <input type="text" name="quantity" value="0"> </span>
-                                        <input type="hidden" name="refProduit" value="${item[1]}" />
-                                        <input type="hidden" name="oldQuantity" value="${item[2]}" />
-                                        <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
+                                        <span id="buttons">
+                                            <span> Quantité souhaitée: <input type="text" name="quantity" value="0"> </span>
+                                            <input type="hidden" name="refProduit" value="${item[1]}" />
+                                            <input type="hidden" name="oldQuantity" value="${item[2]}" />
+                                            <input id="modifierPanier" type="submit" value="Modifier la quantité dans le panier">
 
-                                        <input type="hidden" id="supProduitRef" value="${item[1]}" />
-                                        <input type="submit" value="Enlever du panier" >
+                                            <input type="hidden" id="supProduitRef" value="${item[1]}" />
+                                            <input type="submit" value="Enlever du panier" >
+                                        </span>
+
                                     </span>
-
-                                </span>
-                            </form>
+                                </form>
+                            </c:if>
                         </c:forEach>
 
                     </div>
 
                     <form>
-                        <input id="confirmerCommande" type="hidden" value="confirmerCommande" />
+                        <input id="confirmerCommande" type="hidden" value="true" />
                         <input id="payer" type="submit" value="Payer"/>
                     </form>
                 </c:otherwise>
