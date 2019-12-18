@@ -18,9 +18,18 @@ function valide() {
         date1: $('#startDate').val(),
         date2: $('#endDate').val()
     };
-    $.post('AdminServlet', $.param(params), function (responseJson) {
-        m_data = responseJson;
-        parseAndDraw();
+    $.ajax({
+        type: "POST",
+        url: "AdminServlet",
+        data: $.param(params),
+        dataType: 'json',
+        error: function () {
+            console.log("Y'a une erreur Abritu'");
+        },
+        success: function (responseJson) {
+            m_data = responseJson;
+            parseAndDraw();
+        }
     });
 }
 
@@ -53,7 +62,7 @@ function drawChart(opt, map) {
     }
 
     var options = {
-        legend: { position: 'none' },
+        legend: {position: 'none'},
         chart: {
             legend: 'left',
             title: 'Chiffre d\'affaire par ' + title + ' en patates',
