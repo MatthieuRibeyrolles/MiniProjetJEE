@@ -33,7 +33,7 @@
                 <c:otherwise>
                     <div id="list">
                         <c:forEach items="${sessionScope.cart_list}" var="item">
-                            <form action="shop" method="GET">
+                            <form action="cart" method="GET">
                                 <span>
                                     <label>
                                         Produit: ${item[0]} (reférence ${item[1]}) <br> Quantité commandée: ${item[2]} <br> Montant total :${item[3]}
