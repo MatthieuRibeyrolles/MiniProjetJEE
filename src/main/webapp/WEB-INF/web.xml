@@ -39,7 +39,7 @@
     
     <servlet>
         <servlet-name>CartServlet</servlet-name>
-        <jsp-file>/WEB-INF/Shop.jsp</jsp-file>
+        <servlet-class>com.bmt.project.CartServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CartServlet</servlet-name>
