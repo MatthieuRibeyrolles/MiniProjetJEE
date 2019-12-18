@@ -34,7 +34,7 @@
                         <h1 id="name"> Bienvenue ${sessionScope.usrname} ! </h1>
 
                         <c:forEach items="${sessionScope.order}" var="order_e">
-                            <p>
+                            <div class="order">
                                 <c:forEach items="${orderString[order_e]}" var="orderstring" >
                                     ${orderstring}&nbsp;&nbsp;
                                 </c:forEach>
@@ -44,7 +44,7 @@
                                 <c:forEach items="${line[order_e]}" var="ligne" >
                                     Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
                                 </c:forEach>
-                            </p>
+                            </div>
                             <br>
                         </c:forEach>
 
