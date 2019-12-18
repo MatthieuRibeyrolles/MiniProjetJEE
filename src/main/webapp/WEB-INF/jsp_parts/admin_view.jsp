@@ -11,8 +11,8 @@
 <html>
     <head>
         <title>Admin View</title>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link href="style/admin.css" rel="stylesheet">
     </head>
     <body>
