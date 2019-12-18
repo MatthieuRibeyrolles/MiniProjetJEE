@@ -54,8 +54,8 @@ public class AdminServlet extends HttpServlet {
         String d1Str = request.getParameter("date1");
         String d2Str = request.getParameter("date2");
         
-        Date startDate = (d1Str != null && !d1Str.isEmpty()) ? Date.valueOf(d1Str) : Date.valueOf("1995-01-31");
-        Date endDate = (d2Str != null && !d2Str.isEmpty()) ? Date.valueOf(d2Str) : Date.valueOf("1996-05-30");
+        Date startDate = (d1Str != null && !d1Str.isEmpty()) ? Date.valueOf(d1Str) : Date.valueOf("1990-01-01");
+        Date endDate = (d2Str != null && !d2Str.isEmpty()) ? Date.valueOf(d2Str) : Date.valueOf("2019-12-31");
 
         Map<String, Map<String, Float>> m = new HashMap<>();
 

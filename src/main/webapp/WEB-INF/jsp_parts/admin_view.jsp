@@ -11,8 +11,8 @@
 <html>
     <head>
         <title>Admin View</title>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <link href="style/admin.css" rel="stylesheet">
     </head>
     <body>
@@ -21,9 +21,9 @@
                 <form action="" method="GET">
                     <span>
                         <label for="startDate">Date de début:</label>
-                        <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
+                        <input type="date" id="startDate" name="startDateForChart" value="1990-01-01" onchange="valide();" />
                         <label for="endDate">Date de fin:</label>
-                        <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+                        <input type="date" id="endDate" name="startDateForChart" value="2019-12-31" onchange="valide();" />
 
                         <button id="backToHome" >Accueil</button>
                     </span>
