@@ -7,7 +7,11 @@
 // Tuto AJAX: https://stackoverflow.com/questions/4112686/how-to-use-servlets-and-ajax
 // Ce tuto est génial, vous devriez le distribuer en annexe :)
 
-google.charts.load('current', {'packages': ['corechart']});
+google.charts.load('current', {
+    'callback': initDoc,
+    'packages': ['corechart']
+});
+
 var m_data;
 
 function valide() {
@@ -28,7 +32,6 @@ function parseAndDraw() {
 }
 
 function drawChart(opt, map) {
-    google.charts.load('current', {'packages': ['corechart']});
     var chart;
     var title;
     var mToL = [];
@@ -61,11 +64,12 @@ function drawChart(opt, map) {
     chart.draw(data, options);
 }
 
-$(document).ready(function () {
+function initDoc() {
     var n = new Date();
     $('#endDate').val(n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate());
     valide();
-});
+}
+
 $(window).resize(function () {
     if (m_data !== undefined)
         parseAndDraw();
