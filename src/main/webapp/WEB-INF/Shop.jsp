@@ -58,7 +58,7 @@
                     </div>
 
                     <form>
-                        <input id="confirmerCommande" type="hidden" value="true" />
+                        <input name="confirmerCommande" type="hidden" value="true" />
                         <input id="payer" type="submit" value="Payer"/>
                     </form>
                 </c:otherwise>
