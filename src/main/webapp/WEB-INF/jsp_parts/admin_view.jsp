@@ -21,9 +21,9 @@
                 <form action="" method="GET">
                     <span>
                         <label for="startDate">Date de début:</label>
-                        <input type="date" id="startDate" name="startDateForChart" value="1995-01-31" onchange="valide();" />
+                        <input type="date" id="startDate" name="startDateForChart" value="1990-01-01" onchange="valide();" />
                         <label for="endDate">Date de fin:</label>
-                        <input type="date" id="endDate" name="startDateForChart" value="1996-05-30" onchange="valide();" />
+                        <input type="date" id="endDate" name="startDateForChart" value="2019-12-31" onchange="valide();" />
 
                         <button id="backToHome" >Accueil</button>
                     </span>

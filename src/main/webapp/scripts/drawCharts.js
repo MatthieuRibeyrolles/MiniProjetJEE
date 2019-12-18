@@ -28,6 +28,7 @@ function parseAndDraw() {
 }
 
 function drawChart(opt, map) {
+    google.charts.load('current', {'packages': ['corechart']});
     var chart;
     var title;
     var mToL = [];
@@ -50,7 +51,7 @@ function drawChart(opt, map) {
     }
     var options = {
         'legend': 'left',
-        'title': 'Chiffre d\'affaire par ' + title + ' en €',
+        'title': 'Chiffre d\'affaire par ' + title + ' en patates',
         'width': $(window).width() - 30,
         'height': $(window).height() / 4
     };
@@ -60,8 +61,9 @@ function drawChart(opt, map) {
     chart.draw(data, options);
 }
 
-$(document).ready(function() {
-    google.charts.load('current', {'packages': ['corechart']});
+$(document).ready(function () {
+    var n = new Date();
+    $('#endDate').val(n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate());
     valide();
 });
 $(window).resize(function () {
