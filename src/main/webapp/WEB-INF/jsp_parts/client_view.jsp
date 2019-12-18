@@ -62,6 +62,29 @@
                     </p>
                     <br>
                 </c:forEach>
+                    
+                    <table>
+                        <tr id="titleRow">
+                            <td> Date d'envoi </td>
+                            <td> Frais de port </td>
+                            <td> Receveur </td>
+                            <td> Adresse </td>
+                            <td> Ville </td>
+                            <td> Region </td>
+                            <td> Code postal </td>
+                            <td> Pays </td>
+                            <td> Reduction </td>
+                            <td> Prix total </td>
+                        </tr>
+                        
+                        <c:forEach items="sessionScope.order"  var="order_e" >
+                            <tr>
+                                <c:forEach items="${orderString[order_e]}" var="orderstring" >
+                                    ${orderstring}&nbsp;&nbsp;
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
+                    </table>
 
 
                 <form action="">
