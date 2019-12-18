@@ -35,15 +35,18 @@
 
                         <c:forEach items="${sessionScope.order}" var="order_e">
                             <div class="order">
-                                <c:forEach items="${orderString[order_e]}" var="orderstring" >
+                                <c:if test="${line != null}" >
+                                     <c:forEach items="${orderString[order_e]}" var="orderstring" >
                                     ${orderstring}&nbsp;&nbsp;<br>
-                                </c:forEach>
+                                    </c:forEach>
 
-                                    <br>
-                                    <br>
-                                <c:forEach items="${line[order_e]}" var="ligne" >
-                                    Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
-                                </c:forEach>
+                                        <br>
+                                        <br>*
+
+                                    <c:forEach items="${line[order_e]}" var="ligne" >
+                                        Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
+                                    </c:forEach>
+                                </c:if>
                             </div>
                             <br>
                         </c:forEach>
@@ -76,7 +79,7 @@
                         </c:forEach> 
 
 
-                        <form action="">
+                        <form action="account">
                             <input type="hidden" name="deco" value="true">
                             <input type="submit" id="logOut" value="Se deconnecter" >
                         </form>

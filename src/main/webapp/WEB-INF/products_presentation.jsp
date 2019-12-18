@@ -93,7 +93,7 @@
                                 </c:when>
                                 
                                 <c:otherwise>
-                                    <form action="home">
+                                    <form id="modifsAdminForm" action="home">
                                         <span> Référence du produit <input name="modifRef" type="text" value="${reference}"</span> <br>
                                         <span> Référence du fournisseur <input name="modifFournisseur" type="text" value="${fournisseur}"</span> <br>
                                         <span> Catégorie <input name="modifCat" type="text" value="${param.cat}"</span> <br>
