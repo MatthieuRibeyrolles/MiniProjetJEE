@@ -91,7 +91,9 @@
                                         </c:if>
                                     </div>
                                 </c:when>
-                                    <form>
+                                
+                                <c:otherwise>
+                                    <form action="home">
                                         <span> Référence du produit <input name="modifRef" type="text" value="${reference}"</span>
                                         <span> Référence du fournisseur <input name="modifFournisseur" type="text" value="${fournisseur}"</span>
                                         <span> Catégorie <input name="modifCat" type="text" value="${param.cat}"</span>
@@ -101,9 +103,7 @@
                                         <span> Unités commandées <input name="modifCommandees" type="text" value="${ordered}"</span>
                                         <span> Niveau de réaprovisionnement <input name="modifReap" type="text" value="${refill}"</span>
                                         <input type="submit" id="adminChangesButton" value="Sauvegarder" >
-                                    </form>
-                                <c:otherwise>
-                                    
+                                    </form>    
                                 </c:otherwise>
                             </c:choose>
                             
