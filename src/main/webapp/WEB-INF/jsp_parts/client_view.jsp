@@ -35,7 +35,7 @@
 
                         <c:forEach items="${sessionScope.order}" var="order_e">
                             <div class="order">
-                                <c:if test="${line != null}" >
+                                <%--<c:if test="${line != null}" >--%>
                                      <c:forEach items="${orderString[order_e]}" var="orderstring" >
                                     ${orderstring}&nbsp;&nbsp;<br>
                                     </c:forEach>
@@ -46,7 +46,7 @@
                                     <c:forEach items="${line[order_e]}" var="ligne" >
                                         Produit: ${ligne[0]}, Quantité commandée: ${ligne[1]} <br>
                                     </c:forEach>
-                                </c:if>
+                                <%--</c:if>--%>
                             </div>
                             <br>
                         </c:forEach>

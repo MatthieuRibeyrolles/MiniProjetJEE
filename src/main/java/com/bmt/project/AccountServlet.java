@@ -53,15 +53,17 @@ public class AccountServlet extends HttpServlet {
         OrderEntity OrderCurrent = (OrderEntity) session.getAttribute("currentorder");
         
         
-                String log =request.getParameter("login");
+        String log =request.getParameter("login");
         String pass=request.getParameter("password");
         
 
         
 //      connexion
         if (log != null && pass != null){
+            if (log != "admin" && pass!="admin"){
+                user = MyDao.login(log,pass);
+            }
             
-            user = MyDao.login(log,pass);
             session.setAttribute("usr", user);
 //          verification si la connection est possible
             if (( user!=null )|( log.equals("admin") && pass.equals("admin") )){   
@@ -149,7 +151,7 @@ public class AccountServlet extends HttpServlet {
                     //      début ajout d'une commande
         
 
-                    if(request.getParameter("feeAddOrder")!=null && request.getParameter("discountAddOrder")!=null ){
+
 
                         Random rng = new Random();
                         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
@@ -165,11 +167,11 @@ public class AccountServlet extends HttpServlet {
                         float discountAddOrder = rng.nextFloat()*10;
 
 
-                        if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
-                            OrderCurrent = new OrderEntity(user, d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder);                
+                        if (user!=null){
+                            OrderCurrent = new OrderEntity(user, d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder); 
                             session.setAttribute("currentorder", OrderCurrent);
                         }
-                    }
+                    
 
                     //      fin d'ajout d'une commande
 
@@ -247,7 +249,6 @@ public class AccountServlet extends HttpServlet {
 //      debut deco
 
         if (request.getParameter("deco")!=null){
-            System.out.println("ezra"+user);
                 user=null;
                 session.setAttribute("usrname",null);
                 session.setAttribute("pass",null);
@@ -285,8 +286,6 @@ public class AccountServlet extends HttpServlet {
         String fax = request.getParameter("fax");
         if (societe!=null && contact!=null && fonction!=null && adresse!=null && ville!=null && code_postal!=null && pays!=null && telephone!=null && fax!=null ){    
             ClientEntity newclient = new ClientEntity(user.getCode(), societe, contact, fonction, adresse, ville, region, code_postal, pays, telephone, fax);
-            System.out.println("new client : "+newclient);
-            System.out.println("old client : "+user);
                     
             MyDao.updateClient(user,newclient);
             user=newclient;

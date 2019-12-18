@@ -44,19 +44,22 @@ public class MainServlet extends HttpServlet {
         super.init();
         this.MyDao = new DAO(DataSourceFactory.getDataSource());
         lineListCurrent = new ArrayList<>();
-        System.out.println("init");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         session = request.getSession(true);
-
         session.setAttribute("mydao", MyDao);
-        session.setAttribute("usr", null);
-        session.setAttribute("currentorder", null);
-        session.setAttribute("currentlinelist", new ArrayList<>());
 
+        if (session.getAttribute("currentorder")==null){
+            session.setAttribute("usr", null);  
+            session.setAttribute("currentorder", null);
+            session.setAttribute("currentlinelist", new ArrayList<>());
+        }else{
+            OrderCurrent = (OrderEntity) session.getAttribute("currentorder");                    
+        }
+   
         //liste des catégories et map des produits
         List<CategoryEntity> cat = MyDao.getCategoriesList();
         List<ProductEntity> prod = MyDao.getProductsList();
@@ -130,13 +133,10 @@ public class MainServlet extends HttpServlet {
             session.setAttribute("cart_list", maj);
 
         } else {
-//            System.out.println(request.getParameter("cartButton"));
         }
 
 //      fin renvoie des infos dans le panier      
 //      debut ajout ligne                        
-        System.out.println(request.getParameter("refProduit"));
-        System.out.println(request.getParameter("quantity"));
         if (request.getParameter("refProduit") != null && request.getParameter("quantity") != null) {
             int productLine = -1;
             int quantityLine = -1;
@@ -146,7 +146,8 @@ public class MainServlet extends HttpServlet {
             if (productLine >= 0 && quantityLine >= 0) {
                 LineEntity newline = new LineEntity(OrderCurrent, MyDao.getProductByCode(productLine), quantityLine);
                 lineListCurrent.add(newline);
-                System.out.println(lineListCurrent);
+                session.setAttribute("currentlinelist",lineListCurrent);
+                
             }
         }
 

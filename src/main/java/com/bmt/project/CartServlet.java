@@ -7,6 +7,7 @@ package com.bmt.project;
 
 import com.bmt.project.model.ClientEntity;
 import com.bmt.project.model.DAO;
+import com.bmt.project.model.DataSourceFactory;
 import com.bmt.project.model.LineEntity;
 import com.bmt.project.model.OrderEntity;
 import java.io.IOException;
@@ -44,38 +45,11 @@ public class CartServlet extends HttpServlet {
         OrderEntity OrderCurrent = (OrderEntity) session.getAttribute("currentorder");
         DAO MyDao = (DAO) session.getAttribute("mydao");
         ArrayList<LineEntity> lineListCurrent = (ArrayList<LineEntity>) session.getAttribute("currentlinelist");
+        
+        ArrayList<ArrayList<String>> cartlist = (ArrayList<ArrayList<String>>) session.getAttribute("cart_list");
 
 
-//      debut suppression line
 
-        if (request.getParameter("supProduitRef") != null) {
-            int numprod = Integer.parseInt(request.getParameter("supProduitRef"));
-
-            for (int i = 0; i < lineListCurrent.size(); i++)
-                if (lineListCurrent.get(i).getProduct() == MyDao.getProductByCode(numprod)) {
-                    lineListCurrent.remove(i);
-                    session.setAttribute("currentlinelist", lineListCurrent);
-                    break;
-                }
-        }
-//      fin suppression line
-
-//      debut modifier line
-        if (request.getParameter("lineQuantityNew") != null && request.getParameter("numProdNew") != null && request.getParameter("lineQuantityOld") != null) {
-
-            int numProdUpdateLineNew = Integer.parseInt(request.getParameter("numProd"));
-            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("lineQuantityNew"));
-
-            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("lineQuantityOld"));
-
-            LineEntity oldLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineOld);
-            LineEntity newLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineNew);
-
-            for (LineEntity line : lineListCurrent)
-                if (line.getProduct() == newLine.getProduct())
-                    line = newLine;
-        }
-//      fin modifier line 
 
 //      debut suppression line
         if (request.getParameter("supProduitRef") != null) {
@@ -85,26 +59,36 @@ public class CartServlet extends HttpServlet {
             for (int i = 0; i < lineListCurrent.size(); i++)
                 if (lineListCurrent.get(i).getProduct() == MyDao.getProductByCode(numprod)) {
                     lineListCurrent.remove(i);
+                    cartlist.remove(i);
                     session.setAttribute("currentlinelist", lineListCurrent);
+                    session.setAttribute("cart_list", cartlist);
                     break;
                 }
         }
 //      fin suppression line
-
 //      debut modifier line
-        if (request.getParameter("quantity") != null && request.getParameter("refProduit") != null && request.getParameter("newQuantity") != null) {
 
+        if (request.getParameter("quantity") != null && request.getParameter("refProduit") != null && request.getParameter("oldQuantity") != null) {
+            
             int numProdUpdateLineNew = Integer.parseInt(request.getParameter("refProduit"));
-            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("newQuantity"));
+            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("oldQuantity"));
 
-            int quantityUpdateLineOld = Integer.parseInt(request.getParameter("quanrity"));
+            int quantityUpdateLineNew = Integer.parseInt(request.getParameter("quantity"));
 
             LineEntity oldLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineOld);
             LineEntity newLine = new LineEntity(OrderCurrent, MyDao.getProductByCode(numProdUpdateLineNew), quantityUpdateLineNew);
-
-            for (LineEntity line : lineListCurrent){
-                if (line.getProduct() == newLine.getProduct()){
-                    line = newLine;
+            for (int i = 0 ; i < lineListCurrent.size() ; i++ ){
+                if (lineListCurrent.get(i).getProduct().equals(newLine.getProduct())){
+                    lineListCurrent.set(i, newLine); 
+                    ArrayList<String> infoline = new ArrayList<>();
+                    infoline.add(newLine.getProduct().getName()); //nom
+                    infoline.add(String.valueOf(newLine.getProduct().getReference())); //ref
+                    infoline.add(String.valueOf(newLine.getQty())); //quantité
+                    infoline.add(String.valueOf(newLine.getProduct().getPrice() * newLine.getQty())); // prix toto
+                    
+                    cartlist.set(i, infoline);
+                    session.setAttribute("cart_list", cartlist);
+                    break;
                 }
             }
             session.setAttribute("currentlinelist", lineListCurrent);
@@ -113,11 +97,14 @@ public class CartServlet extends HttpServlet {
 
 //      debut confirmer commande 
         if (request.getParameter("confirmerCommande") != null){
-            if (request.getParameter("confirmerCommande").equals("true")) {
-                MyDao.addOrder(OrderCurrent);
-                for (LineEntity line : lineListCurrent)
-                    MyDao.addLineToCommand(line);
+            
                 
+                OrderEntity ord = MyDao.addOrder(OrderCurrent);
+                int num = ord.getNum();
+                for (LineEntity line : lineListCurrent){
+                    line.getOrder().setNum(num);
+                    MyDao.addLineToCommand(line);
+                }
                 ArrayList<LineEntity> nono= new ArrayList<>();
                 session.setAttribute("currentlinelist",nono);
                 
@@ -135,12 +122,13 @@ public class CartServlet extends HttpServlet {
                 String countryAddOrder = user.getCountry();
                 float discountAddOrder = rng.nextFloat()*10;
 
-
-                if (user!=null  && receiverAddOrder!=null && addressAddOrder!=null && cityAddOrder!=null && regionAddOrder!=null && zipcodeAddOrder!=null && countryAddOrder!=null  ){
-                    OrderCurrent = new OrderEntity(user, d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder);                
-                    session.setAttribute("currentorder", OrderCurrent);
-                }
-            }
+                
+                
+                OrderCurrent = new OrderEntity(user, d2, feeAddOrder, receiverAddOrder, addressAddOrder, cityAddOrder, regionAddOrder, zipcodeAddOrder, countryAddOrder, discountAddOrder);                
+                session.setAttribute("currentorder", OrderCurrent);
+                session.setAttribute("cart_list",null);
+                DAO newMyDao = new DAO(DataSourceFactory.getDataSource());
+                session.setAttribute("mydao",newMyDao);
             
             
             
